@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{83140745-9061-4C90-B3AF-2FD314B50369}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OffTheRecord.Model</RootNamespace>
+    <AssemblyName>OffTheRecord.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SccProjectName>SAK</SccProjectName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ConnectionContext.cs" />
+    <Compile Include="ConnectionContextPrivate.cs" />
+    <Compile Include="BasePrivateKey.cs" />
+    <Compile Include="InstanceTag.cs" />
+    <Compile Include="InstanceTags.cs" />
+    <Compile Include="PendingPrivateKey.cs" />
+    <Compile Include="Pidgin\Item.cs" />
+    <Compile Include="Pidgin\ParseUserSettingsFile.cs" />
+    <Compile Include="Pidgin\UserSettingsFile\account.cs" />
+    <Compile Include="Pidgin\UserSettingsFile\dsa.cs" />
+    <Compile Include="Pidgin\UserSettingsFile\private-key.cs" />
+    <Compile Include="Pidgin\UserSettingsFile\privkeys.cs" />
+    <Compile Include="PrivateKey.cs" />
+    <Compile Include="LocalProtocol.cs" />
+    <Compile Include="UserState.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OffTheRecord.DiffieHellman\OffTheRecord.Protocol.DiffieHellman.csproj">
+      <Project>{ebcd3b7c-8a58-4342-8f3d-2a721f20b9a7}</Project>
+      <Name>OffTheRecord.Protocol.DiffieHellman</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OffTheRecord.Protocol.Smp\OffTheRecord.Protocol.SocialistMillionaire.csproj">
+      <Project>{6E7F0055-D55B-49D9-B883-44BE5E58AF79}</Project>
+      <Name>OffTheRecord.Protocol.SocialistMillionaire</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OffTheRecord.Resources\OffTheRecord.Resources.csproj">
+      <Project>{8f1ffca4-ac34-4c17-a6fc-37ac28c6415a}</Project>
+      <Name>OffTheRecord.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OffTheRecord.Tools\OffTheRecord.Tools.csproj">
+      <Project>{84b79d3e-e9f3-4090-8578-20edcc937cd4}</Project>
+      <Name>OffTheRecord.Tools</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

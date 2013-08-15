@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace OffTheRecord.Tests.Toolkit
 {
@@ -10,10 +8,12 @@ namespace OffTheRecord.Tests.Toolkit
         [TestMethod]
         public void TestToolkitParse()
         {
-            Process p = new Process();
-            StreamWriter s = p.StandardInput;
+            ////Process p = new Process();
+            ////StreamWriter s = p.StandardInput;
 
             /* send data to stream, and compare results (from p.StandardOutput) */
+
+            Assert.Inconclusive("not yet implemented.");
         }
     }
 }

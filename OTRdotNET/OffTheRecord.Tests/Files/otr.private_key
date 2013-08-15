@@ -1,6 +1,6 @@
 (privkeys
  (account
-(name "bjorn@kuiper.nu")
+(name "alice@domain.com")
 (protocol prpl-msn)
 (private-key 
  (dsa 
@@ -13,7 +13,7 @@
  )
  )
  (account
-(name "marshal2@irc.freenode.net")
+(name "bob@irc.freenode.net")
 (protocol prpl-irc)
 (private-key 
  (dsa 

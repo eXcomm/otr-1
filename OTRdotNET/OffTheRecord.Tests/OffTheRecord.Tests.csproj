@@ -119,9 +119,6 @@
     <None Include="Files\otr.private_key">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Protocol\Files\otr.fingerprints" />
-    <None Include="Protocol\Files\otr.instance_tags" />
-    <None Include="Protocol\Files\otr.private_key" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -63,7 +63,7 @@ namespace OffTheRecord.Protocol.Messages
             if (index == -1)
             {
                 // otr_prefix not found
-                if (msg.Contains(PlaintextWithTheWhitespaceTag.otrMessageTagBase))
+                if (msg.Contains(PlaintextWithTheWhitespaceTag.OtrMessageTagBase))
                 {
                     return OTRMessageType.PlaintextWithTheWhitespaceTag;
                 }

@@ -1,19 +1,56 @@
-﻿namespace OffTheRecord.Model.Pidgin.UserSettingsFile
+﻿// <copyright>
+// Off The Record Messaging .NET, Copyright (c) 2013
+//  based upon the original Off-the-Record Messaging library by
+//    Ian Goldberg, Rob Smits, Chris Alexander,
+//    Willy Lew, Lisa Du, Nikita Borisov
+//    otr@cypherpunks.ca, http://www.cypherpunks.ca/otr/
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of version 2.1 of the GNU Lesser General
+// Public License as published by the Free Software Foundation.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+// </copyright>
+// <author>Bjorn Kuiper</author>
+// <email>otr@kuiper.nu</email>
+
+namespace OffTheRecord.Model.Pidgin.UserSettingsFile
 {
     #region namespaces
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
+    using System.Diagnostics.CodeAnalysis;
+
     #endregion
 
+    /// <summary>
+    /// dsa class.
+    /// </summary>
+    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:ElementMustBeginWithUpperCaseLetter", Justification = "Reviewed.")]
     public sealed class dsa
     {
         #region constructor
+        /// <summary>
+        /// Initializes a new instance of the <see cref="dsa"/> class.
+        /// </summary>
         public dsa()
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="dsa"/> class.
+        /// </summary>
+        /// <param name="p">p parameter.</param>
+        /// <param name="q">q parameter.</param>
+        /// <param name="g">g parameter.</param>
+        /// <param name="y">y parameter.</param>
+        /// <param name="x">x paramater.</param>
         public dsa(string p, string q, string g, string y, string x)
         {
             this.p = p;
@@ -25,19 +62,38 @@
         #endregion
 
         #region Public properties
+        /// <summary>
+        /// Gets or sets the p parameter.
+        /// </summary>
         public string p { get; set; }
+
+        /// <summary>
+        /// Gets or sets the q parameter.
+        /// </summary>
         public string q { get; set; }
+
+        /// <summary>
+        /// Gets or sets the g parameter.
+        /// </summary>
         public string g { get; set; }
+
+        /// <summary>
+        /// Gets or sets the y parameter.
+        /// </summary>
         public string y { get; set; }
+
+        /// <summary>
+        /// Gets or sets the x parameter.
+        /// </summary>
         public string x { get; set; }
         #endregion
 
         #region Internal methods
-        internal string Serialize()
-        {
-            return string.Format(" (dsa{0}  (p #{1}#){0}  (q #{2}#){0}  (g #{3}#){0}  (y #{4}#){0}  (x #{5}#){0}  ){0}", Environment.NewLine, this.p, this.q, this.g, this.y, this.x);
-        }
-
+        /// <summary>
+        /// Deserialize string to a <see cref="dsa"/> objects.
+        /// </summary>
+        /// <param name="item">Serialized string.</param>
+        /// <returns>A <see cref="dsa"/> objects.</returns>
         internal static dsa Deserialize(Item item)
         {
             if (!item.Value.StartsWith("(dsa"))
@@ -79,6 +135,15 @@
             }
 
             return dsa;
+        }
+
+        /// <summary>
+        /// Serialize object.
+        /// </summary>
+        /// <returns>Serialized string.</returns>
+        internal string Serialize()
+        {
+            return string.Format(" (dsa{0}  (p #{1}#){0}  (q #{2}#){0}  (g #{3}#){0}  (y #{4}#){0}  (x #{5}#){0}  ){0}", Environment.NewLine, this.p, this.q, this.g, this.y, this.x);
         }
         #endregion
     }

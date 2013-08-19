@@ -25,6 +25,7 @@ namespace OffTheRecord.Protocol.Messages
 {
     #region Namespaces
     using System;
+    using System.Diagnostics.CodeAnalysis;
     #endregion
 
     /// <summary>
@@ -33,14 +34,18 @@ namespace OffTheRecord.Protocol.Messages
     public sealed class PlaintextWithTheWhitespaceTag : BaseOTRMessage
     {
         #region Fields
-        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
         /* If we ever see this sequence in a plaintext message, we'll assume the other side speaks OTR, and try to establish a connection. */
 
         /// <summary>
         /// Off-the-Record message tag base.
         /// </summary>
-        internal static string otrMessageTagBase = " \t  \t\t\t\t \t \t \t  ";
+        [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1401:FieldsMustBePrivate", Justification = "Reviewed.")]
+        internal static string OtrMessageTagBase = " \t  \t\t\t\t \t \t \t  ";
+
+        /// <summary>
+        /// Log4Net logger.
+        /// </summary>
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         /* The following must each be of length 8 */
 

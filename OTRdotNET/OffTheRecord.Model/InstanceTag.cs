@@ -23,11 +23,16 @@
 
 namespace OffTheRecord.Model
 {
+    /// <summary>
+    /// InstanceTag class.
+    /// </summary>
     public class InstanceTag
     {
         #region Public properties
         public string AccountName { get; set; }
+
         public string Protocol { get; set; }
+
         //public uint InstanceTag { get; set; }
         #endregion
 

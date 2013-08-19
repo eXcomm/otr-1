@@ -21,9 +21,12 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
-using System.IO;
 namespace OffTheRecord.Model
 {
+    #region Namespaces
+    using System.IO;
+    #endregion
+
     /// <summary>
     /// Userstate class.
     /// </summary>
@@ -50,9 +53,13 @@ namespace OffTheRecord.Model
 
         #region Public properties
         public ConnectionContext ContextRoot { get; private set; }
+
         public object PrivateKey { get; private set; }
+
         public InstanceTag InstanceTag { get; private set; }
+
         public object PendingPrivateKey { get; private set; }
+
         public int TimerRunning { get; private set; }
         #endregion
 
@@ -60,6 +67,7 @@ namespace OffTheRecord.Model
         /// <summary>
         /// Read Private Keys from local storage for UserState.
         /// </summary>
+        /// <param name="filename"></param>
         public void ReadPrivateKeys(string filename)
         {
             if (!File.Exists(filename))
@@ -71,6 +79,7 @@ namespace OffTheRecord.Model
         /// <summary>
         /// Read Instance Tags from local storage for UserState.
         /// </summary>
+        /// <param name="filename"></param>
         public void ReadInstanceTags(string filename)
         {
             if (!File.Exists(filename))
@@ -82,6 +91,7 @@ namespace OffTheRecord.Model
         /// <summary>
         /// Read Fingerprints from local storage for UserState.
         /// </summary>
+        /// <param name="filename"></param>
         public void ReadFingerprints(string filename)
         {
             if (!File.Exists(filename))
@@ -102,6 +112,5 @@ namespace OffTheRecord.Model
         ////    OtrlPendingPrivKey* pending_root;
         ////    int timer_running;
         ////};
-
     }
 }

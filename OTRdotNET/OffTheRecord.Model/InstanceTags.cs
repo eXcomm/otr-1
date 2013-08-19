@@ -23,8 +23,13 @@
 
 namespace OffTheRecord.Model
 {
+    #region Namespaces
     using System.Collections.Generic;
+    #endregion
 
+    /// <summary>
+    /// InstanceTags class.
+    /// </summary>
     public class InstanceTags : Dictionary<string, InstanceTag>
     {
         /* Forget the given instag. */

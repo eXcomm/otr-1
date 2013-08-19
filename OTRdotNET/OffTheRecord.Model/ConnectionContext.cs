@@ -21,9 +21,15 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
-using OffTheRecord.Protocol.SocialistMillionaire;
 namespace OffTheRecord.Model
 {
+    #region Namespaces
+    using OffTheRecord.Protocol.SocialistMillionaire;
+    #endregion
+
+    /// <summary>
+    /// ConnectionContext class.
+    /// </summary>
     public class ConnectionContext
     {
         //    struct context * next;             /* Linked list pointer */

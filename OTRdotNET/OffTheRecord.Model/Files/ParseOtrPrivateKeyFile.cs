@@ -21,17 +21,17 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
-namespace OffTheRecord.Model.Pidgin
+namespace OffTheRecord.Model.Files
 {
     #region Namespaces
     using System.IO;
-    using OffTheRecord.Model.Pidgin.UserSettingsFile;
+    using OffTheRecord.Model.Files.OtrPrivateKey;
     #endregion
 
     /// <summary>
     /// ParseUserSettingsFile class.
     /// </summary>
-    public static class ParseUserSettingsFile
+    public static class ParseOtrPrivateKeyFile
     {
         #region Public methods
         /// <summary>
@@ -49,7 +49,7 @@ namespace OffTheRecord.Model.Pidgin
             string data = File.ReadAllText(filename);
 
             // build parse tree;
-            Item root = ParseUserSettingsFile.BuildTree(data);
+            Item root = ParseOtrPrivateKeyFile.BuildTree(data);
 
             return privkeys.Deserialize(root);
         }

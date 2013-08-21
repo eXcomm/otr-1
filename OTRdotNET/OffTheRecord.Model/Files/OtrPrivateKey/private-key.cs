@@ -21,7 +21,7 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
-namespace OffTheRecord.Model.Pidgin.UserSettingsFile
+namespace OffTheRecord.Model.Files.OtrPrivateKey
 {
     #region Namespaces
     using System;
@@ -149,7 +149,7 @@ namespace OffTheRecord.Model.Pidgin.UserSettingsFile
         /// <returns>Serialized string.</returns>
         internal string Serialize()
         {
-            return string.Format("(private-key{0}{1} ){0}", Environment.NewLine, this.dsa.Serialize());
+            return string.Format("(private-key {0}{1} ){0}", Environment.NewLine, this.dsa.Serialize());
         }
         #endregion
     }

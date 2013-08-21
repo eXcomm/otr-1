@@ -1,4 +1,5 @@
 todo: 
+- implement IDispose on objects to fully clear out objects.
 
 = Toolkit Parse doesn't support 'OTRL_MSGTYPE_V1_KEYEXCH' and 'OTRL_MSGTYPE_UNKNOWN'
 -- Copyright headers (Version400.cs) for all files, investigate what is allowed in respect to original otr copyright. 

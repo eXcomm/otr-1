@@ -21,7 +21,7 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
-namespace OffTheRecord.Model.Pidgin
+namespace OffTheRecord.Model.Files
 {
     #region Namespaces
     using System.Collections.ObjectModel;

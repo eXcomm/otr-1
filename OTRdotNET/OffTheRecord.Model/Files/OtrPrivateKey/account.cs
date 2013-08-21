@@ -21,7 +21,7 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
-namespace OffTheRecord.Model.Pidgin.UserSettingsFile
+namespace OffTheRecord.Model.Files.OtrPrivateKey
 {
     #region namespaces
     using System;

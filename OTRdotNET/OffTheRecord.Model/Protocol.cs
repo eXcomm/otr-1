@@ -24,13 +24,18 @@
 namespace OffTheRecord.Model
 {
     /// <summary>
-    /// LocalProtocol class.
+    /// Protocol class.
     /// </summary>
-    public class LocalProtocol
+    public class Protocol
     {
-        public static PrivateKey otrl_privkey_find(UserState us, string accountname, string protocol)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Protocol"/> class.
+        /// </summary>
+        public Protocol()
         {
-            return null;
+            /* Initialize the OTR library.  Pass the version of the API you are
+             * using. */
+            ////gcry_error_t otrl_init(unsigned int ver_major, unsigned int ver_minor, unsigned int ver_sub)
         }
     }
 }

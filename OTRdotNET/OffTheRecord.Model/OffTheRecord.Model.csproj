@@ -66,17 +66,21 @@
     <Compile Include="ConnectionContext.cs" />
     <Compile Include="ConnectionContextPrivate.cs" />
     <Compile Include="BasePrivateKey.cs" />
+    <Compile Include="Files\OtrFingerprints\fingerprint.cs" />
+    <Compile Include="Files\OtrInstanceTags\instancetag.cs" />
+    <Compile Include="Files\ParseOtrFingerprintsFile.cs" />
+    <Compile Include="Files\ParseOtrInstanceTagsFile.cs" />
     <Compile Include="InstanceTag.cs" />
     <Compile Include="InstanceTags.cs" />
     <Compile Include="PendingPrivateKey.cs" />
-    <Compile Include="Pidgin\Item.cs" />
-    <Compile Include="Pidgin\ParseUserSettingsFile.cs" />
-    <Compile Include="Pidgin\UserSettingsFile\account.cs" />
-    <Compile Include="Pidgin\UserSettingsFile\dsa.cs" />
-    <Compile Include="Pidgin\UserSettingsFile\private-key.cs" />
-    <Compile Include="Pidgin\UserSettingsFile\privkeys.cs" />
+    <Compile Include="Files\Item.cs" />
+    <Compile Include="Files\ParseOtrPrivateKeyFile.cs" />
+    <Compile Include="Files\OtrPrivateKey\account.cs" />
+    <Compile Include="Files\OtrPrivateKey\dsa.cs" />
+    <Compile Include="Files\OtrPrivateKey\private-key.cs" />
+    <Compile Include="Files\OtrPrivateKey\privkeys.cs" />
     <Compile Include="PrivateKey.cs" />
-    <Compile Include="LocalProtocol.cs" />
+    <Compile Include="Protocol.cs" />
     <Compile Include="UserState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -98,6 +102,7 @@
       <Name>OffTheRecord.Tools</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

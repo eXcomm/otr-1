@@ -77,7 +77,7 @@ namespace OffTheRecord.Model
         /// <returns>A human readable fingerprint (45 chars).</returns>
         public static string otrl_privkey_fingerprint(UserState userState, string accountName, string protocol)
         {
-            PrivateKey privateKey = LocalProtocol.otrl_privkey_find(userState, accountName, protocol);
+            PrivateKey privateKey = BasePrivateKey.otrl_privkey_find(userState, accountName, protocol);
 
             if (privateKey != null)
             {
@@ -99,7 +99,7 @@ namespace OffTheRecord.Model
         /// <returns>A 20 byte hash.</returns>
         public static byte[] otrl_privkey_fingerprint_raw(UserState userState, string accountName, string protocol)
         {
-            PrivateKey privateKey = LocalProtocol.otrl_privkey_find(userState, accountName, protocol);
+            PrivateKey privateKey = BasePrivateKey.otrl_privkey_find(userState, accountName, protocol);
 
             if (privateKey != null)
             {
@@ -126,6 +126,18 @@ namespace OffTheRecord.Model
             }
 
             return publicKey;
+        }
+
+        /// <summary>
+        /// Fetch the private key from the given OtrlUserState associated with the given account.
+        /// </summary>
+        /// <param name="us"></param>
+        /// <param name="accountname"></param>
+        /// <param name="protocol"></param>
+        /// <returns></returns>
+        public static PrivateKey otrl_privkey_find(UserState us, string accountname, string protocol)
+        {
+            return null;
         }
         #endregion
     }

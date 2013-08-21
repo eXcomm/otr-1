@@ -21,7 +21,7 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
-namespace OffTheRecord.Model.Pidgin.UserSettingsFile
+namespace OffTheRecord.Model.Files.OtrPrivateKey
 {
     #region Namespaces
     using System;
@@ -91,7 +91,7 @@ namespace OffTheRecord.Model.Pidgin.UserSettingsFile
 
             // parse tree;
             privkeys privkeys = new privkeys();
-            privkeys.account = UserSettingsFile.account.Deserialize(child);
+            privkeys.account = OtrPrivateKey.account.Deserialize(child);
 
             return privkeys;
         }

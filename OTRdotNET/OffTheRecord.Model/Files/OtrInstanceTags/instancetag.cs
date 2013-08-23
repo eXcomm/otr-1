@@ -22,6 +22,7 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
+using System;
 namespace OffTheRecord.Model.Files.OtrInstanceTags
 {
     /// <summary>
@@ -30,7 +31,14 @@ namespace OffTheRecord.Model.Files.OtrInstanceTags
     public sealed class instancetag
     {
         #region constructor
-        public instancetag()
+        public instancetag(string account, string protocol, string instanceTag)
+        {
+            this.Account = account;
+            this.Protocol = protocol;
+            this.InstanceTag = instanceTag;
+        }
+
+        private instancetag()
         {
         }
         #endregion
@@ -52,9 +60,9 @@ namespace OffTheRecord.Model.Files.OtrInstanceTags
             instancetag it = new instancetag();
 
             string[] parts = line.Split('\t');
-            it.Account = parts[1];
-            it.Protocol = parts[2];
-            it.InstanceTag = parts[3];
+            it.Account = parts[0];
+            it.Protocol = parts[1];
+            it.InstanceTag = parts[2];
 
             return it;
         }
@@ -65,7 +73,7 @@ namespace OffTheRecord.Model.Files.OtrInstanceTags
         /// <returns>Serialized string.</returns>
         internal string Serialize()
         {
-            return string.Format("{0}{1}{2}{1}{3}", this.Account, '\t', this.Protocol, this.InstanceTag);
+            return string.Format("{0}{1}{2}{1}{3}{4}", this.Account, '\t', this.Protocol, this.InstanceTag, Environment.NewLine);
         }
         #endregion
     }

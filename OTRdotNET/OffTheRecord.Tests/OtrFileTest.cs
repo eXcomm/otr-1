@@ -30,12 +30,13 @@ namespace OffTheRecord.Tests
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using OffTheRecord.Model.Files;
     using OffTheRecord.Model.Files.OtrFingerprints;
+    using OffTheRecord.Model.Files.OtrInstanceTags;
     using OffTheRecord.Model.Files.OtrPrivateKey;
     using OffTheRecord.Tests.Helper;
     #endregion
 
     /// <summary>
-    /// PidginUserSettingsFileTest class.
+    /// OtrFileTest class.
     /// </summary>
     [TestClass]
     public class OtrFileTest
@@ -135,7 +136,7 @@ namespace OffTheRecord.Tests
         }
 
         /// <summary>
-        /// Tests the Pidgin OTR User Settings File serializer.
+        /// Tests the OTR Fingerprints File serializer.
         /// </summary>
         [TestMethod]
         [OtrTestCategory(OtrTestCategories.General)]
@@ -164,7 +165,7 @@ namespace OffTheRecord.Tests
         }
 
         /// <summary>
-        /// Tests the Otr Private Key File deserializer.
+        /// Tests the Otr Fingerprints File deserializer.
         /// </summary>
         [TestMethod]
         [OtrTestCategory(OtrTestCategories.General)]
@@ -175,7 +176,73 @@ namespace OffTheRecord.Tests
 
             Assert.AreEqual(4, fingerprints.Count);
 
-            Assert.Inconclusive();
+            var first = fingerprints[0];
+            var last = fingerprints[3];
+
+            Assert.AreEqual("marshal3@irc.freenode.net", first.Account);
+            Assert.AreEqual("80724d46d9d906a28af31d15adfd510822ac3fd9", first.Fingerprint);
+            Assert.AreEqual("marshal2", first.Name);
+            Assert.AreEqual("prpl-irc", first.Protocol);
+            Assert.AreEqual(Statuses.verified, first.Status);
+
+            Assert.AreEqual("test123_4@irc.freenode.net", last.Account);
+            Assert.AreEqual("51f2e7db2a0c14facd568107aceaae73f362c869", last.Fingerprint);
+            Assert.AreEqual("testuser2", last.Name);
+            Assert.AreEqual("prpl-irc", last.Protocol);
+            Assert.AreEqual(Statuses.smp, last.Status);
+        }
+
+        /// <summary>
+        /// Tests the OTR InstanceTags File serializer.
+        /// </summary>
+        [TestMethod]
+        [OtrTestCategory(OtrTestCategories.General)]
+        public void SerializeInstanceTagsFile()
+        {
+            instancetag it1 = new instancetag("testuser2@irc.freenode.net", "prpl-irc", "299c2916");
+            instancetag it2 = new instancetag("test123_4@irc.freenode.net", "prpl-irc", "8cf547f1");
+            instancetag it3 = new instancetag("marshal3@irc.freenode.net", "prpl-irc", "4b2bf242");
+            instancetag it4 = new instancetag("marshal2@irc.freenode.net", "prpl-irc", "f2e0ee97");
+
+            Collection<instancetag> instancetags = new Collection<instancetag>();
+            instancetags.Add(it1);
+            instancetags.Add(it2);
+            instancetags.Add(it3);
+            instancetags.Add(it4);
+
+            string actual = ParseOtrInstanceTagsFile.Serialize(instancetags);
+
+            string filename = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, @"Files\otr.instance_tags");
+            string expected = File.ReadAllText(filename);
+
+            // Convert Unix newline to Window newline.
+            expected = expected.Replace("\n", Environment.NewLine);
+
+            Assert.AreEqual<string>(expected, actual);
+        }
+
+        /// <summary>
+        /// Tests the Otr InstanceTags File deserializer.
+        /// </summary>
+        [TestMethod]
+        [OtrTestCategory(OtrTestCategories.General)]
+        public void DeserializeInstanceTagsFile()
+        {
+            string filename = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, @"Files\otr.instance_tags");
+            Collection<instancetag> instancetags = ParseOtrInstanceTagsFile.Deserialize(filename);
+
+            Assert.AreEqual(4, instancetags.Count);
+
+            var first = instancetags[0];
+            var last = instancetags[3];
+
+            Assert.AreEqual("testuser2@irc.freenode.net", first.Account);
+            Assert.AreEqual("prpl-irc", first.Protocol);
+            Assert.AreEqual("299c2916", first.InstanceTag);
+
+            Assert.AreEqual("marshal2@irc.freenode.net", last.Account);
+            Assert.AreEqual("prpl-irc", last.Protocol);
+            Assert.AreEqual("f2e0ee97", last.InstanceTag);
         }
     }
 }

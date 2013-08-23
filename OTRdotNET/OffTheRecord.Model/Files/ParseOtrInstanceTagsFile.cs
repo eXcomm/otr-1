@@ -24,6 +24,7 @@
 namespace OffTheRecord.Model.Files
 {
     #region Namespaces
+    using System;
     using System.Collections.ObjectModel;
     using System.IO;
     using OffTheRecord.Model.Files.OtrInstanceTags;
@@ -75,7 +76,7 @@ namespace OffTheRecord.Model.Files
             string result = string.Empty;
 
             // add comment
-            result += "# WARNING! You shouldn't copy this file to another computer. It is unnecessary and can cause problems.";
+            result += "# WARNING! You shouldn't copy this file to another computer. It is unnecessary and can cause problems." + Environment.NewLine;
 
             foreach (var item in instancetags)
             {

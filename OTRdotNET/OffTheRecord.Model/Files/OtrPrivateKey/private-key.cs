@@ -26,9 +26,7 @@ namespace OffTheRecord.Model.Files.OtrPrivateKey
     #region Namespaces
     using System;
     using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
-    using System.Security.Cryptography;
-    using OffTheRecord.Tools;
+
     #endregion
 
     /// <summary>
@@ -53,66 +51,6 @@ namespace OffTheRecord.Model.Files.OtrPrivateKey
         /// </summary>
         [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:ElementMustBeginWithUpperCaseLetter", Justification = "Reviewed.")]
         public dsa dsa { get; set; }
-        #endregion
-
-        #region Public methods
-        /// <summary>
-        /// Returns the fingerprint.
-        /// </summary>
-        /// <param name="privkey"><see cref="private_key"/> object to retrieve the fingerprint from.</param>
-        /// <returns>The fingerprint or empty string if failed.</returns>
-        public static string Fingerprint(private_key privkey)
-        {
-            if (privkey == null)
-            {
-                return string.Empty;
-            }
-
-            return privkey.Fingerprint();
-        }
-
-        /// <summary>
-        /// Returns the fingerprint.
-        /// </summary>
-        /// <returns>The fingerprint or empty string if failed.</returns>
-        public string Fingerprint()
-        {
-            if (this.dsa == null)
-            {
-                return string.Empty;
-            }
-
-            if (string.IsNullOrEmpty(this.dsa.p) || string.IsNullOrEmpty(this.dsa.q) || string.IsNullOrEmpty(this.dsa.g) || string.IsNullOrEmpty(this.dsa.y))
-            {
-                return string.Empty;
-            }
-
-            byte[] publicKey = MPI.To(Tools.General.StringToByteArray(this.dsa.p))
-                             .Concat(MPI.To(Tools.General.StringToByteArray(this.dsa.q)))
-                             .Concat(MPI.To(Tools.General.StringToByteArray(this.dsa.g)))
-                             .Concat(MPI.To(Tools.General.StringToByteArray(this.dsa.y)))
-                             .ToArray();
-
-            byte[] hash = SHA1.Create().ComputeHash(publicKey);
-            return BasePrivateKey.otrl_privkey_hash_to_human(hash);
-        }
-
-        /// <summary>
-        /// Generate public key.
-        /// </summary>
-        /// <returns>Generates a public key based on the private key (x parameter).</returns>
-        [Obsolete("Currently not implemented.")]
-        public byte[] GeneratePublicKey()
-        {
-            if (this.dsa == null)
-            {
-                return null;
-            }
-
-            byte[] privkey = Tools.General.StringToByteArray(this.dsa.x);
-
-            throw new NotImplementedException();
-        }
         #endregion
 
         #region Internal methods

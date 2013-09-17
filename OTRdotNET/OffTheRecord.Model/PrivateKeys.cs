@@ -23,10 +23,14 @@
 
 namespace OffTheRecord.Model
 {
+    #region Namespaces
+    using System.Collections.ObjectModel;
+    #endregion
+
     /// <summary>
-    /// PendingPrivateKey class.
+    /// PrivateKeys class.
     /// </summary>
-    public class PendingPrivateKey : BasePrivateKey
+    public class PrivateKeys : Collection<PrivateKey>
     {
     }
 }

@@ -103,8 +103,6 @@ namespace OffTheRecord.Tests
             Assert.AreEqual(privkeys.account[0].private_key.dsa.y, "009931144F3059D92FCB2AAC03B130DAE43ED1EF30AA2F0E670C3974C3E80C7110D1A60210F92479D7F640C20E1F16E01B4A72FF8D45443B01EBE2D67DF49791CAC6191B159AC39446EB6A2EA597B6B678CC3157AECEAB12A804CF0772068A942EC819138EDD6005620FE746522FF408BBC8211ABD9D6016AA46EEC87F3F04CFA4");
             Assert.AreEqual(privkeys.account[0].private_key.dsa.x, "48BFDA215C31A9F0B226B3DB11F862450A0F30DA");
 
-            Assert.AreEqual(privkeys.account[0].private_key.Fingerprint(), "03E216F6 E65C5043 F819FFBC E1FA4FCF 7114F7D4");
-
             Assert.AreEqual(privkeys.account[1].name, "bob@irc.freenode.net");
             Assert.AreEqual(privkeys.account[1].protocol, "prpl-irc");
 
@@ -114,25 +112,12 @@ namespace OffTheRecord.Tests
             Assert.AreEqual(privkeys.account[1].private_key.dsa.y, "3D82B953839E7C9295D67B403655DB54247268004C830004DBF86F692A21407249249AFC5D40F999ED3E9D4F54895B8404FD59B12297D564D9E16CB24803B48760D236C2F41F9263CC76BF065878B50EC5789443DEE2EDF771765F6B105E2A32ACB8E3DA8E44D187C4B99AED1B348FE81A34CC00EF89D790EE8FC832E7C018A1");
             Assert.AreEqual(privkeys.account[1].private_key.dsa.x, "00C09DFA159A9B887A8E34BED3F9382463B4C4FB93");
 
-            Assert.AreEqual(privkeys.account[1].private_key.Fingerprint(), "80724D46 D9D906A2 8AF31D15 ADFD5108 22AC3FD9");
-        }
+            /* validating the PrivateKey objects by validating the fingerprint. */
+            var result = ParseOtrPrivateKeyFile.GetPrivateKeys(filename);
 
-        /// <summary>
-        /// Tests the creation of a OTR fingerprint.
-        /// </summary>
-        [TestMethod]
-        [OtrTestCategory(OtrTestCategories.General)]
-        public void FingerPrintTest()
-        {
-            string filename = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, @"Files\otr.private_key");
-
-            var privkeys = ParseOtrPrivateKeyFile.Deserialize(filename);
-
-            string expectedFingerprint = "03E216F6 E65C5043 F819FFBC E1FA4FCF 7114F7D4";
-
-            string actualFingerprint = privkeys.account[0].private_key.Fingerprint();
-
-            Assert.AreEqual<string>(expectedFingerprint, actualFingerprint, "Fingerprints don't match");
+            Assert.AreEqual(2, result.Count);
+            Assert.AreEqual("03E216F6 E65C5043 F819FFBC E1FA4FCF 7114F7D4", result[0].Fingerprint);
+            Assert.AreEqual("80724D46 D9D906A2 8AF31D15 ADFD5108 22AC3FD9", result[1].Fingerprint);
         }
 
         /// <summary>

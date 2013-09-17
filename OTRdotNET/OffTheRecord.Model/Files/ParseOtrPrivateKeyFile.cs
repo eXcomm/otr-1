@@ -35,6 +35,29 @@ namespace OffTheRecord.Model.Files
     {
         #region Public methods
         /// <summary>
+        /// Gets <see cref="PrivateKeys"/> collection from file.
+        /// </summary>
+        /// <param name="filename">Filename to retrieve <see cref="PrivateKeys"/> collection from.</param>
+        /// <returns>A <see cref="PrivateKeys"/> collection.</returns>
+        public static PrivateKeys GetPrivateKeys(string filename)
+        {
+            privkeys keys = Deserialize(filename);
+
+            PrivateKeys privateKeys = new PrivateKeys();
+
+            foreach (var account in keys.account)
+            {
+                PrivateKey privateKey = new PrivateKey(account.private_key.dsa.GetDSAParameters(true));
+                privateKey.AccountName = account.name;
+                privateKey.Protocol = account.protocol;
+
+                privateKeys.Add(privateKey);
+            }
+
+            return privateKeys;
+        }
+
+        /// <summary>
         /// Deserializes the content of the file into a <see cref="privkeys"/> object structure.
         /// </summary>
         /// <param name="filename">Filename to parse.</param>

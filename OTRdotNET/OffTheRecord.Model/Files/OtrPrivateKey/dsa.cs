@@ -26,6 +26,7 @@ namespace OffTheRecord.Model.Files.OtrPrivateKey
     #region namespaces
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using System.Security.Cryptography;
 
     #endregion
 
@@ -86,6 +87,29 @@ namespace OffTheRecord.Model.Files.OtrPrivateKey
         /// Gets or sets the x parameter.
         /// </summary>
         public string x { get; set; }
+        #endregion
+
+        #region Public methods
+        /// <summary>
+        /// Gets the <see cref="DSAParameters"/> representation of the DSA key.
+        /// </summary>
+        /// <param name="includePrivateParameters">Whether the private part of the key should be included.</param>
+        /// <returns>A <see cref="DSAParameters"/> object.</returns>
+        public DSAParameters GetDSAParameters(bool includePrivateParameters)
+        {
+            DSAParameters param = new DSAParameters();
+            param.X = Tools.General.StringToByteArray(this.x);
+            param.P = Tools.General.StringToByteArray(this.p);
+            param.Q = Tools.General.StringToByteArray(this.q);
+            param.G = Tools.General.StringToByteArray(this.g);
+            param.Y = Tools.General.StringToByteArray(this.y);
+
+            DSACryptoServiceProvider dsa = new DSACryptoServiceProvider(1024);
+            dsa.ImportParameters(param);
+            DSAParameters output = dsa.ExportParameters(includePrivateParameters);
+
+            return output;
+        }
         #endregion
 
         #region Internal methods

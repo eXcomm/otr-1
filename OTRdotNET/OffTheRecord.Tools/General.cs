@@ -42,6 +42,12 @@ namespace OffTheRecord.Tools
         /// <returns>byte array.</returns>
         public static byte[] StringToByteArray(string hex)
         {
+            // XXX: remove heading '00'.
+            if (hex.StartsWith("00"))
+            {
+                hex = hex.Substring(2);
+            }
+
             return Enumerable.Range(0, hex.Length)
                              .Where(x => x % 2 == 0)
                              .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))

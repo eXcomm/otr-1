@@ -33,14 +33,13 @@ namespace OffTheRecord.Model
     /// </summary>
     public abstract class BasePrivateKey
     {
+        #region Fields
+        #endregion
+
         #region Public Properties
-        public abstract BasePrivateKey Next { get; }
+        public string AccountName { get; set; }
 
-        public abstract BasePrivateKey ToUs { get; }
-
-        public abstract string AccountName { get; }
-
-        public abstract string Protocol { get; }
+        public string Protocol { get; set; }
         #endregion
 
         #region Public methods
@@ -81,7 +80,7 @@ namespace OffTheRecord.Model
 
             if (privateKey != null)
             {
-                byte[] hash = SHA1.Create().ComputeHash(privateKey.PublicKey);
+                byte[] hash = SHA1.Create().ComputeHash(privateKey.PublicKeyAsMPI);
                 return otrl_privkey_hash_to_human(hash);
             }
 
@@ -103,7 +102,7 @@ namespace OffTheRecord.Model
 
             if (privateKey != null)
             {
-                return SHA1.Create().ComputeHash(privateKey.PublicKey);
+                return SHA1.Create().ComputeHash(privateKey.PublicKeyAsMPI);
             }
 
             return null;

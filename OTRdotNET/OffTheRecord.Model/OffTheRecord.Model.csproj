@@ -80,6 +80,7 @@
     <Compile Include="Files\OtrPrivateKey\private-key.cs" />
     <Compile Include="Files\OtrPrivateKey\privkeys.cs" />
     <Compile Include="PrivateKey.cs" />
+    <Compile Include="PrivateKeys.cs" />
     <Compile Include="Protocol.cs" />
     <Compile Include="UserState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -23,53 +23,78 @@
 
 namespace OffTheRecord.Model
 {
+    #region Namespaces
+    using System.Linq;
+    using System.Security.Cryptography;
+    using OffTheRecord.Resources;
+    using OffTheRecord.Tools;
+    #endregion
+
     /// <summary>
     /// PrivateKey class.
     /// </summary>
     public class PrivateKey : BasePrivateKey
     {
+        #region Fields
+        private DSAParameters privateKey;
+        private string accountName = string.Empty;
+        private string protocol = string.Empty;
+        #endregion
+
+        #region Constructor
+        public PrivateKey(DSAParameters dsaParameters)
+        {
+            this.privateKey = dsaParameters;
+
+            DSACryptoServiceProvider dsa = new DSACryptoServiceProvider(1024);
+            dsa.ImportParameters(this.privateKey);
+            this.PublicKey = dsa.ExportParameters(false);
+
+            this.PublicKeyAsMPI = MPI.To(this.PublicKey.P)
+                 .Concat(MPI.To(this.PublicKey.Q))
+                 .Concat(MPI.To(this.PublicKey.G))
+                 .Concat(MPI.To(this.PublicKey.Y))
+                 .ToArray();
+        }
+        #endregion
+
         #region Public Properties
-        public override BasePrivateKey Next
+        /// <summary>
+        /// Gets the PublicKeyType.
+        /// </summary>
+        public uint PublicKeyType
         {
-            get { return null; }
+            get { return OtrValues.OffTheRecordPublicKeyTypeDSA; }
         }
 
-        public override BasePrivateKey ToUs
-        {
-            get { return this; }
-        }
-
-        public override string AccountName
-        {
-            get { return string.Empty; }
-        }
-
-        public override string Protocol
-        {
-            get { return string.Empty; }
-        }
-
-        public uint pubkey_type
+        /// <summary>
+        /// Gets the PublicKey as <see cref="DSAParameters"/> object.
+        /// </summary>
+        public DSAParameters PublicKey
         {
             get;
             private set;
         }
 
-        public object MyPrivateKey
+        /// <summary>
+        /// Gets the Fingerprint representation of the Public Key.
+        /// </summary>
+        public string Fingerprint
+        {
+            get
+            {
+                byte[] hash = SHA1.Create().ComputeHash(this.PublicKeyAsMPI);
+                return BasePrivateKey.otrl_privkey_hash_to_human(hash);
+            }
+        }
+
+        /// <summary>
+        /// Gets the PublicKey as MPI.
+        /// </summary>
+        public byte[] PublicKeyAsMPI
         {
             get;
             private set;
-        }
-
-        public byte[] PublicKey
-        {
-            get;
-            private set;
-        }
-
-        public int PublicKeyLength
-        {
-            get { return this.PublicKey.Length; }
         }
         #endregion
     }

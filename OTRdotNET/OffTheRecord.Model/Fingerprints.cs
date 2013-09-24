@@ -28,9 +28,9 @@ namespace OffTheRecord.Model
     #endregion
 
     /// <summary>
-    /// InstanceTags class.
+    /// Fingerprints class.
     /// </summary>
-    public class InstanceTags : Collection<InstanceTag>
+    public class Fingerprints : Collection<Fingerprint>
     {
     }
 }

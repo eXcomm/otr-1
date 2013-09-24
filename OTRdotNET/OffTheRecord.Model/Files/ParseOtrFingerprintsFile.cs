@@ -37,6 +37,26 @@ namespace OffTheRecord.Model.Files
     {
         #region Public methods
         /// <summary>
+        /// Gets <see cref="Fingerprints"/> object from file.
+        /// </summary>
+        /// <param name="filename">Filename to retrieve <see cref="Fingerprints"/> collection from.</param>
+        /// <returns>A <see cref="Fingerprints"/> object.</returns>
+        public static Fingerprints GetFingerprints(string filename)
+        {
+            Collection<fingerprint> fingerprints = Deserialize(filename);
+
+            Fingerprints results = new Fingerprints();
+
+            foreach (var fingerprint in fingerprints)
+            {
+                Fingerprint fp = new Fingerprint(fingerprint.Username, fingerprint.Account, fingerprint.Protocol, fingerprint.Fingerprint, fingerprint.Status.ToString());
+                results.Add(fp);
+            }
+
+            return results;
+        }
+
+        /// <summary>
         /// Deserializes the content of the file into a collection of <see cref="fingerprint"/> objects.
         /// </summary>
         /// <param name="filename">Filename to parse.</param>

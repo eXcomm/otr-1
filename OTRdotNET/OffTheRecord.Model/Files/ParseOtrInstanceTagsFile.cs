@@ -35,7 +35,33 @@ namespace OffTheRecord.Model.Files
     /// </summary>
     public static class ParseOtrInstanceTagsFile
     {
+        #region Fields
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        #endregion
+
         #region Public methods
+        /// <summary>
+        /// Gets <see cref="InstanceTags"/> object from file.
+        /// </summary>
+        /// <param name="filename">Filename to retrieve <see cref="InstanceTags"/> collection from.</param>
+        /// <returns>A <see cref="InstanceTags"/> object.</returns>
+        public static InstanceTags GetInstanceTags(string filename)
+        {
+            Collection<instancetag> instancetags = Deserialize(filename);
+
+            InstanceTags results = new InstanceTags();
+
+            foreach (var instancetag in instancetags)
+            {
+                InstanceTag tag = new InstanceTag(instancetag.Account, instancetag.Protocol);
+                tag.SetInstanceTag(instancetag.InstanceTag);
+
+                results.Add(tag);
+            }
+
+            return results;
+        }
+
         /// <summary>
         /// Deserializes the content of the file into a collection of <see cref="fingerprint"/> objects.
         /// </summary>

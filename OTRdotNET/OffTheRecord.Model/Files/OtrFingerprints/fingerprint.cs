@@ -38,10 +38,14 @@ namespace OffTheRecord.Model.Files.OtrFingerprints
     /// </summary>
     public sealed class fingerprint
     {
+        #region Fields
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        #endregion
+
         #region constructor
-        public fingerprint(string name, string account, string protocol, string fingerprint, Statuses status)
+        public fingerprint(string username, string account, string protocol, string fingerprint, Statuses status)
         {
-            this.Name = name;
+            this.Username = username;
             this.Account = account;
             this.Protocol = protocol;
             this.Fingerprint = fingerprint;
@@ -54,7 +58,7 @@ namespace OffTheRecord.Model.Files.OtrFingerprints
         #endregion
 
         #region Public properties
-        public string Name { get; set; }
+        public string Username { get; set; }
         public string Account { get; set; }
         public string Protocol { get; set; }
         public string Fingerprint { get; set; }
@@ -72,10 +76,15 @@ namespace OffTheRecord.Model.Files.OtrFingerprints
             fingerprint fp = new fingerprint();
 
             string[] parts = line.Split('\t');
-            fp.Name = parts[0];
+            fp.Username = parts[0];
             fp.Account = parts[1];
             fp.Protocol = parts[2];
             fp.Fingerprint = parts[3];
+
+            if (fp.Fingerprint.Length != 40)
+            {
+                Log.Error("Fingerprint is of incorrect size (!=40 characters)");
+            }
 
             Statuses status = Statuses.smp;
 
@@ -92,7 +101,7 @@ namespace OffTheRecord.Model.Files.OtrFingerprints
         /// <returns>Serialized string.</returns>
         internal string Serialize()
         {
-            return string.Format("{0}{1}{2}{1}{3}{1}{4}{1}{5}", this.Name, '\t', this.Account, this.Protocol, this.Fingerprint, this.Status);
+            return string.Format("{0}{1}{2}{1}{3}{1}{4}{1}{5}", this.Username, '\t', this.Account, this.Protocol, this.Fingerprint, this.Status);
         }
         #endregion
     }

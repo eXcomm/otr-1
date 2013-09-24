@@ -35,10 +35,10 @@ namespace OffTheRecord.Model.Files
     {
         #region Public methods
         /// <summary>
-        /// Gets <see cref="PrivateKeys"/> collection from file.
+        /// Gets <see cref="PrivateKeys"/> object from file.
         /// </summary>
         /// <param name="filename">Filename to retrieve <see cref="PrivateKeys"/> collection from.</param>
-        /// <returns>A <see cref="PrivateKeys"/> collection.</returns>
+        /// <returns>A <see cref="PrivateKeys"/> object.</returns>
         public static PrivateKeys GetPrivateKeys(string filename)
         {
             privkeys keys = Deserialize(filename);

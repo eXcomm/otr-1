@@ -28,6 +28,7 @@ namespace OffTheRecord.Tests
     using System.Collections.ObjectModel;
     using System.IO;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using OffTheRecord.Model;
     using OffTheRecord.Model.Files;
     using OffTheRecord.Model.Files.OtrFingerprints;
     using OffTheRecord.Model.Files.OtrInstanceTags;
@@ -166,15 +167,24 @@ namespace OffTheRecord.Tests
 
             Assert.AreEqual("marshal3@irc.freenode.net", first.Account);
             Assert.AreEqual("80724d46d9d906a28af31d15adfd510822ac3fd9", first.Fingerprint);
-            Assert.AreEqual("marshal2", first.Name);
+            Assert.AreEqual("marshal2", first.Username);
             Assert.AreEqual("prpl-irc", first.Protocol);
             Assert.AreEqual(Statuses.verified, first.Status);
 
             Assert.AreEqual("test123_4@irc.freenode.net", last.Account);
             Assert.AreEqual("51f2e7db2a0c14facd568107aceaae73f362c869", last.Fingerprint);
-            Assert.AreEqual("testuser2", last.Name);
+            Assert.AreEqual("testuser2", last.Username);
             Assert.AreEqual("prpl-irc", last.Protocol);
             Assert.AreEqual(Statuses.smp, last.Status);
+
+            Fingerprints results = ParseOtrFingerprintsFile.GetFingerprints(filename);
+
+            Assert.AreEqual<int>(4, results.Count);
+            Assert.AreEqual("marshal3@irc.freenode.net", results[0].AccountName);
+            Assert.AreEqual("80724d46 d9d906a2 8af31d15 adfd5108 22ac3fd9", results[0].Print);
+            Assert.AreEqual("marshal2", results[0].Username);
+            Assert.AreEqual("prpl-irc", results[0].Protocol);
+            Assert.AreEqual(OffTheRecord.Model.Fingerprint.FingerprintStatus.verified, results[0].Status);
         }
 
         /// <summary>
@@ -228,6 +238,13 @@ namespace OffTheRecord.Tests
             Assert.AreEqual("marshal2@irc.freenode.net", last.Account);
             Assert.AreEqual("prpl-irc", last.Protocol);
             Assert.AreEqual("f2e0ee97", last.InstanceTag);
+
+            var results = ParseOtrInstanceTagsFile.GetInstanceTags(filename);
+
+            Assert.AreEqual<int>(4, results.Count);
+            Assert.AreEqual<string>("testuser2@irc.freenode.net", results[0].AccountName);
+            Assert.AreEqual<string>("prpl-irc", results[0].Protocol);
+            Assert.AreEqual<uint>(698099990, results[0].Tag);
         }
     }
 }

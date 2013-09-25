@@ -21,22 +21,18 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
-namespace OffTheRecord.Tests.Protocol
+namespace OffTheRecord.Tests.Toolkit
 {
     #region Namespaces
-    using System.IO;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using OffTheRecord.Model;
-    using OffTheRecord.Model.Files;
-    using OffTheRecord.Model.Files.OtrPrivateKey;
     using OffTheRecord.Tests.Helper;
     #endregion
 
     /// <summary>
-    /// ProtocolTest class.
+    /// ParseProtocolTest class.
     /// </summary>
     [TestClass]
-    public class ProtocolTest
+    public class ParseProtocolTest
     {
         /// <summary>
         /// Tests the parsing of a DataMessage.
@@ -131,32 +127,6 @@ namespace OffTheRecord.Tests.Protocol
             Assert.AreEqual<uint>(698099990, sm.ReceiverInstance);
             Assert.AreEqual<string>("1ca9457cafff4e89cfe43f6a38988787242410e6d36a21c56bf00619e51f498cd80f53e9a9c846d32ac710dcde3a99009e5b09c3124c94f26dfd6b1336af8fcfeedb66636dd352d5a3333f848cd4f0e207552365c045753c063d3349a2d109cd2019875724370c6f5ed10662bd5c03e8c8ddf90a7db060ff792cb6058c025a55f59bc002ea4fa2f7b6a397f2dd8370a5db91690dbc695f2e6e494865dad5d2292463c0108afb030a31eaab862211145821c12b715d337756eae5b6c7ce1f4fc57b1a6c54943cfafc4158ebd2a8328461cb37004607830373ea78a12a7b9ebacb76f9f963e7657728d218e46d2ac08a6838425a210e775ff29270de9990d983e6a20af99d4e80da179ad4bf069bfcefdbffb8d845b796ac3dc98dc382d9da2dceaf3ab020abb64ac9b17a75f067a7b8933f174b313468bdcad3ba84184cc9fa49fcda7615dcda700e2ad63202eae00e45737b8860902f042383fbb9aa222f5781f2688ef93cabbb2a14ea20165909c0dffdf2c68da0604891431f1b316531c94b8ee386bc1cf3b5e90d5bb1cd91611deedcd70e2c9d08ca5451cda540a13ea67092cffd8ee439da9161820360858fbcbd5e83af7edf75dc43529beab63710d8e3ebe3aec6e67906458f50abdeb217322b8c04".ToUpperInvariant(), sm.EncryptedSignature);
             Assert.AreEqual<string>("1ef70519da98d61d018667683af6d4cf79274624".ToUpperInvariant(), sm.MAC);
-        }
-
-        /// <summary>
-        /// Create a UserState object, and do more...
-        /// </summary>
-        [TestMethod]
-        [OtrTestCategory(OtrTestCategories.Core)]
-        public void CreateUserState()
-        {
-            // Create userstate..
-            UserState userstate = new UserState();
-
-            Assert.IsNotNull(userstate, "Unable to initialize a userstate object.");
-
-            string filename = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, @"Files\otr.private_key");
-            privkeys privkeys = ParseOtrPrivateKeyFile.Deserialize(filename);
-
-            // Read keys..
-            ////otrl_privkey_read(userstate, privkeyfilename);
-
-            // To read stored instance tags:
-            ////otrl_instag_read(userstate, instagfilename);
-
-            // To read stored fingerprints:
-            ////otrl_privkey_read_fingerprints(userstate, fingerprintfilename,
-            ////    add_app_info, add_app_info_data);
         }
     }
 }

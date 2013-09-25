@@ -37,10 +37,10 @@ namespace OffTheRecord.Tests
     #endregion
 
     /// <summary>
-    /// OtrFileTest class.
+    /// FileHandlingTest class.
     /// </summary>
     [TestClass]
-    public class OtrFileTest
+    public class FileHandlingTest
     {
         /// <summary>
         /// Tests the Otr Private Key File serializer.

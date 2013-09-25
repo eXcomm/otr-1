@@ -41,9 +41,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StyleCop", "StyleCop", "{5D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OffTheRecord.Resources", "OffTheRecord.Resources\OffTheRecord.Resources.csproj", "{8F1FFCA4-AC34-4C17-A6FC-37AC28C6415A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OffTheRecord.Toolkit.Sesskeys", "OffTheRecord.Toolkit.Sesskeys\OffTheRecord.Toolkit.Sesskeys.csproj", "{AB19236C-DDDF-4D72-9C49-57EE6FA27790}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 10
+		SccNumberOfProjects = 11
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs36
 		SccLocalPath0 = .
@@ -74,6 +76,9 @@ Global
 		SccProjectUniqueName9 = OffTheRecord.Tools\\OffTheRecord.Tools.csproj
 		SccProjectName9 = OffTheRecord.Tools
 		SccLocalPath9 = OffTheRecord.Tools
+		SccProjectUniqueName10 = OffTheRecord.Toolkit.Sesskeys\\OffTheRecord.Toolkit.Sesskeys.csproj
+		SccProjectName10 = OffTheRecord.Toolkit.Sesskeys
+		SccLocalPath10 = OffTheRecord.Toolkit.Sesskeys
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -176,6 +181,16 @@ Global
 		{8F1FFCA4-AC34-4C17-A6FC-37AC28C6415A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{8F1FFCA4-AC34-4C17-A6FC-37AC28C6415A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{8F1FFCA4-AC34-4C17-A6FC-37AC28C6415A}.Release|Win32.ActiveCfg = Release|Any CPU
+		{AB19236C-DDDF-4D72-9C49-57EE6FA27790}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB19236C-DDDF-4D72-9C49-57EE6FA27790}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB19236C-DDDF-4D72-9C49-57EE6FA27790}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{AB19236C-DDDF-4D72-9C49-57EE6FA27790}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{AB19236C-DDDF-4D72-9C49-57EE6FA27790}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{AB19236C-DDDF-4D72-9C49-57EE6FA27790}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB19236C-DDDF-4D72-9C49-57EE6FA27790}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB19236C-DDDF-4D72-9C49-57EE6FA27790}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{AB19236C-DDDF-4D72-9C49-57EE6FA27790}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{AB19236C-DDDF-4D72-9C49-57EE6FA27790}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

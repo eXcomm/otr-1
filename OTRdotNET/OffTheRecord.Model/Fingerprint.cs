@@ -33,6 +33,14 @@ namespace OffTheRecord.Model
     public class Fingerprint
     {
         #region Constructor
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Fingerprint"/> class.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <param name="accountName">The account name.</param>
+        /// <param name="protocol">The protocol.</param>
+        /// <param name="fingerprint">The fingerprint as read from the file (40chars).</param>
+        /// <param name="status">The status.</param>
         public Fingerprint(string username, string accountName, string protocol, string fingerprint, string status)
         {
             this.Username = username;
@@ -51,18 +59,47 @@ namespace OffTheRecord.Model
         #endregion
 
         #region Enums
+        /// <summary>
+        /// Fingerprint status enum.
+        /// </summary>
         public enum FingerprintStatus
         {
+            /// <summary>
+            /// Verified fingerprint / user.
+            /// </summary>
             verified,
+
+            /// <summary>
+            /// Socialist Millionare Protocol (not executed?!).
+            /// </summary>
             smp,
         }
         #endregion
 
         #region Public properties
+        /// <summary>
+        /// Gets the username.
+        /// </summary>
         public string Username { get; private set; }
+
+        /// <summary>
+        /// Gets the accountname.
+        /// </summary>
         public string AccountName { get; private set; }
+
+        /// <summary>
+        /// Gets the protocol.
+        /// </summary>
         public string Protocol { get; private set; }
+
+        /// <summary>
+        /// Gets the fingerprint.
+        /// </summary>
         public string Print { get; private set; }
+
+        /// <summary>
+        /// Gets the status.
+        /// </summary>
         public FingerprintStatus Status { get; private set; }
         #endregion
 

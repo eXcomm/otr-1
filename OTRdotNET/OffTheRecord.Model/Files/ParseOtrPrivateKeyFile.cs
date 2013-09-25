@@ -56,13 +56,15 @@ namespace OffTheRecord.Model.Files
 
             return privateKeys;
         }
+        #endregion
 
+        #region Internal methods
         /// <summary>
         /// Deserializes the content of the file into a <see cref="privkeys"/> object structure.
         /// </summary>
         /// <param name="filename">Filename to parse.</param>
         /// <returns>A <see cref="privkeys"/> object or null if failed.</returns>
-        public static privkeys Deserialize(string filename)
+        internal static privkeys Deserialize(string filename)
         {
             if (!File.Exists(filename))
             {
@@ -82,7 +84,7 @@ namespace OffTheRecord.Model.Files
         /// </summary>
         /// <param name="privkeys">The <see cref="privkeys"/> object to serialize.</param>
         /// <returns>Serialized string.</returns>
-        public static string Serialize(privkeys privkeys)
+        internal static string Serialize(privkeys privkeys)
         {
             return privkeys.Serialize();
         }

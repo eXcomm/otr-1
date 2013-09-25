@@ -61,13 +61,15 @@ namespace OffTheRecord.Model.Files
 
             return results;
         }
+        #endregion
 
+        #region Internal methods
         /// <summary>
         /// Deserializes the content of the file into a collection of <see cref="fingerprint"/> objects.
         /// </summary>
         /// <param name="filename">Filename to parse.</param>
         /// <returns>A collection of <see cref="fingerprint"/> objects.</returns>
-        public static Collection<instancetag> Deserialize(string filename)
+        internal static Collection<instancetag> Deserialize(string filename)
         {
             if (!File.Exists(filename))
             {
@@ -95,9 +97,9 @@ namespace OffTheRecord.Model.Files
         /// <summary>
         /// Serializes a collection of <see cref="fingerprint"/> objects into a string.
         /// </summary>
-        /// <param name="privkeys">The collection of <see cref="fingerprint"/> objects to serialize.</param>
+        /// <param name="instancetags">The collection of <see cref="fingerprint"/> objects to serialize.</param>
         /// <returns>Serialized string.</returns>
-        public static string Serialize(Collection<instancetag> instancetags)
+        internal static string Serialize(Collection<instancetag> instancetags)
         {
             string result = string.Empty;
 

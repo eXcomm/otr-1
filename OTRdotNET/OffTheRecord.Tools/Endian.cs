@@ -125,10 +125,22 @@ namespace OffTheRecord.Tools
         /// </summary>
         /// <param name="data">input byte array.</param>
         /// <returns>a <see cref="BigInteger"/>.</returns>
-        public static BigInteger ToBigInteger(byte[] data)
-        {
-            return new BigInteger(SwapArray(data));
-        }
+        ////[Obsolete("Use BigInteger.Parse(x, NumberStyles.HexNumber)")]
+        ////public static BigInteger ToBigInteger(byte[] data)
+        ////{
+        ////    return new BigInteger(SwapArray(data));
+        ////}
+
+        /// <summary>
+        /// Converts a BigInteger to a byte[], created by libgcrypt, making sure the endian is matched.
+        /// </summary>
+        /// <param name="bigInteger">a <see cref="BigInteger"/>.</param>
+        /// <returns>a byte array.</returns>
+        ////[Obsolete("Use bigInteger.ToString('X')")]
+        ////public static byte[] FromBigInteger(BigInteger bigInteger)
+        ////{
+        ////    return SwapArray(bigInteger.ToByteArray());
+        ////}
         #endregion
     }
 }

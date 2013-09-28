@@ -50,10 +50,10 @@ namespace OffTheRecord.Model
             dsa.ImportParameters(this.privateKey);
             this.PublicKey = dsa.ExportParameters(false);
 
-            this.PublicKeyAsMPI = MPI.To(this.PublicKey.P)
-                 .Concat(MPI.To(this.PublicKey.Q))
-                 .Concat(MPI.To(this.PublicKey.G))
-                 .Concat(MPI.To(this.PublicKey.Y))
+            this.PublicKeyAsMPI = MPI.ByteArrayToMPI(this.PublicKey.P)
+                 .Concat(MPI.ByteArrayToMPI(this.PublicKey.Q))
+                 .Concat(MPI.ByteArrayToMPI(this.PublicKey.G))
+                 .Concat(MPI.ByteArrayToMPI(this.PublicKey.Y))
                  .ToArray();
         }
         #endregion

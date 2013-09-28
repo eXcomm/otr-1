@@ -24,9 +24,11 @@
 namespace OffTheRecord.Tests
 {
     #region Namespaces
+    using System.Numerics;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using OffTheRecord.Protocol.DiffieHellman;
     using OffTheRecord.Tests.Helper;
+
     #endregion
 
     /// <summary>
@@ -82,6 +84,29 @@ namespace OffTheRecord.Tests
             bob.GenerateSharedSecret(alice.PublicKey);
 
             Assert.AreEqual(alice.SharedSecret, bob.SharedSecret);
+        }
+
+        /// <summary>
+        /// A test for replicating DH1536 behavior of OTR.
+        /// </summary>
+        [TestMethod]
+        [OtrTestCategory(OtrTestCategories.Core, OtrTestCategories.Encryption)]
+        public void TestDH1536WithRealTestData()
+        {
+            string privatekey = "48BFDA215C31A9F0B226B3DB11F862450A0F30DA";
+            string expectedPublicKey = "b1be99fd638d2b634f9825f753ff7f2213ae7207a390b5df3b685a8516d63d49c3bceeb826c1cd09eb030430772193b82f1f4ab01c77e38b7eff100c0fb296bd1d6148bd205fdce3a2ec33ef9c3413eb06d1f413d52ad0747b9273783f7ee88435498b5774967da987ce10e7a2cec72ceecc8f95ceaf92edf82b3e0f69faa87de5eb4748325f82f0bc43f24984b5af2c9d3043d9871c3c952b22a5b292cdead6a67caa62c0196745ed608a6aaf8797fe5801f0506b8f8aa5f431dc583ea584a8".ToUpper();
+
+            BigInteger privateKeyAsInt = BigInteger.Parse(privatekey, System.Globalization.NumberStyles.HexNumber);
+
+            Assert.AreEqual<string>(privateKeyAsInt.ToString("X").ToLower(), privatekey.ToLower());
+
+            DH1536 dh = new DH1536();
+            dh.GeneratePublicKey(privateKeyAsInt);
+
+            BigInteger publicKey = dh.PublicKey;
+
+            string publicKeyAsHexString = publicKey.ToString("X").TrimStart(new char[] { '0' });
+            Assert.AreEqual<string>(expectedPublicKey, publicKeyAsHexString);
         }
     }
 }

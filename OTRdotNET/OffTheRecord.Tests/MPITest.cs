@@ -45,9 +45,9 @@ namespace OffTheRecord.Tests
             string expected = "0080E83BBEA78425E04F546D7168C5A55FF4A89DBD82E92344E774157F84EF604E4F65CB73B5F459EE7F5690B1FD75597B073347F4F33C06C531BE63ED145CB4079AABB6D9F7162ABFEC25C01D6098B032C2835F2EA7F0F025E88BCEFA6F2B95BF78617B00385A3149248C0005F84DBB3AE0B97CC5867C2480164EF3C5C472954B";
 
             byte[] p = Tools.General.StringToByteArray(expected);
-            byte[] mpiP = Tools.MPI.To(p);
+            byte[] mpiP = Tools.MPI.ByteArrayToMPI(p);
 
-            byte[] resultp = Tools.MPI.From(mpiP);
+            byte[] resultp = Tools.MPI.MPIToByteArray(mpiP);
             string result = Tools.General.ByteArrayToString(resultp);
 
             /* http://comments.gmane.org/gmane.comp.encryption.gpg.libgcrypt.devel/1669 */

@@ -1,3 +1,11 @@
+add credits to:
+CodeInChaos
+http://stackoverflow.com/users/445517/codesinchaos
+
+Kjell Braden kb at pentabarf.de 
+http://www.cypherpunks.ca/pipermail/otr-dev/2013-February/001648.html
+
+
 todo: 
 - implement IDispose on objects to fully clear out objects.
 

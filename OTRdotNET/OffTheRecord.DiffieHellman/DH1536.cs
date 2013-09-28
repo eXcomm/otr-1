@@ -26,6 +26,8 @@ namespace OffTheRecord.Protocol.DiffieHellman
     #region Namespaces
     using System.Diagnostics.CodeAnalysis;
     using System.Numerics;
+
+
     #endregion
 
     /// <summary>
@@ -36,8 +38,19 @@ namespace OffTheRecord.Protocol.DiffieHellman
         #region Constant fields
         private const int BitSizePrivateKey = 320;
 
-        // private key; should be big-endian
-        // http://www.rfc-editor.org/rfc/rfc3526.txt
+        public static string dh1536ModulesAsString =
+            "FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD1" +
+            "29024E088A67CC74020BBEA63B139B22514A08798E3404DD" +
+            "EF9519B3CD3A431B302B0A6DF25F14374FE1356D6D51C245" +
+            "E485B576625E7EC6F44C42E9A637ED6B0BFF5CB6F406B7ED" +
+            "EE386BFB5A899FA5AE9F24117C4B1FE649286651ECE45B3D" +
+            "C2007CB8A163BF0598DA48361C55D39A69163FA8FD24CF5F" +
+            "83655D23DCA3AD961C62F356208552BB9ED529077096966D" +
+            "670C354E4ABC9804F1746C08CA237327FFFFFFFFFFFFFFFF";
+
+        /// <summary>
+        /// http://www.rfc-editor.org/rfc/rfc3526.txt.
+        /// </summary>
         [SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1500:CurlyBracketsForMultiLineStatementsMustNotShareLine", Justification = "Reviewed.")]
         private static byte[] dh1536ModulusS = new byte[] {
                                                      0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xC9, 0x0F, 0xDA, 0xA2,
@@ -57,14 +70,18 @@ namespace OffTheRecord.Protocol.DiffieHellman
                                                      0x67, 0x0C, 0x35, 0x4E, 0x4A, 0xBC, 0x98, 0x04, 0xF1, 0x74, 0x6C, 0x08,
                                                      0xCA, 0x23, 0x73, 0x27, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
                                                  };
+
         #endregion
 
         #region Constructor
         /// <summary>
         /// Initializes a new instance of the <see cref="DH1536"/> class.
         /// </summary>
+        /// <remarks>
+        /// add leading 00 to dh1536 to make it a unsigned int.
+        /// </remarks>
         public DH1536()
-            : base(new BigInteger(dh1536ModulusS), 2)
+            : base(BigInteger.Parse("00" + dh1536ModulesAsString, System.Globalization.NumberStyles.HexNumber), 2)
         {
         }
         #endregion

@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>OffTheRecord.Toolkit.Sesskeys</RootNamespace>
-    <AssemblyName>OffTheRecord.Toolkit.Sesskeys</AssemblyName>
+    <AssemblyName>otr_sesskeys</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
@@ -35,12 +35,16 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>OffTheRecord.Toolkit.Sesskeys.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net">
       <HintPath>..\Libraries\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -55,6 +59,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OffTheRecord.DiffieHellman\OffTheRecord.Protocol.DiffieHellman.csproj">
+      <Project>{ebcd3b7c-8a58-4342-8f3d-2a721f20b9a7}</Project>
+      <Name>OffTheRecord.Protocol.DiffieHellman</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OffTheRecord.Protocol\OffTheRecord.Protocol.csproj">
       <Project>{141be5a1-9e5a-4431-8ef8-85afcdc32038}</Project>
       <Name>OffTheRecord.Protocol</Name>

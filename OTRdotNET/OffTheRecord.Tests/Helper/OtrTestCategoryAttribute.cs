@@ -45,6 +45,11 @@ namespace OffTheRecord.Tests.Helper
         ToolkitParse,
 
         /// <summary>
+        /// Off-the-Record Toolkit.Sesskey related test.
+        /// </summary>
+        ToolkitSesskey,
+
+        /// <summary>
         /// Off-the-Record encryption-components related test.
         /// </summary>
         Encryption,

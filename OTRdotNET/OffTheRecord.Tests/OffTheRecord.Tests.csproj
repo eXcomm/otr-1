@@ -92,6 +92,7 @@
     <Compile Include="DSATest.cs" />
     <Compile Include="Toolkit\ParseProtocolTest.cs" />
     <Compile Include="Toolkit\Parse.cs" />
+    <Compile Include="Toolkit\Sesskeys.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OffTheRecord.DiffieHellman\OffTheRecord.Protocol.DiffieHellman.csproj">
@@ -102,10 +103,6 @@
       <Project>{83140745-9061-4c90-b3af-2fd314b50369}</Project>
       <Name>OffTheRecord.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\OffTheRecord.Protocol.Smp\OffTheRecord.Protocol.SocialistMillionaire.csproj">
-      <Project>{6e7f0055-d55b-49d9-b883-44be5e58af79}</Project>
-      <Name>OffTheRecord.Protocol.SocialistMillionaire</Name>
-    </ProjectReference>
     <ProjectReference Include="..\OffTheRecord.Protocol\OffTheRecord.Protocol.csproj">
       <Project>{141be5a1-9e5a-4431-8ef8-85afcdc32038}</Project>
       <Name>OffTheRecord.Protocol</Name>
@@ -113,6 +110,10 @@
     <ProjectReference Include="..\OffTheRecord.Toolkit.Parse\OffTheRecord.Toolkit.Parse.csproj">
       <Project>{1388c4d3-9b62-49bd-ba81-6fd36cae659c}</Project>
       <Name>OffTheRecord.Toolkit.Parse</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OffTheRecord.Toolkit.Sesskeys\OffTheRecord.Toolkit.Sesskeys.csproj">
+      <Project>{ab19236c-dddf-4d72-9c49-57ee6fa27790}</Project>
+      <Name>OffTheRecord.Toolkit.Sesskeys</Name>
     </ProjectReference>
     <ProjectReference Include="..\OffTheRecord.Tools\OffTheRecord.Tools.csproj">
       <Project>{84B79D3E-E9F3-4090-8578-20EDCC937CD4}</Project>

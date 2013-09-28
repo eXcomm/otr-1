@@ -42,7 +42,7 @@ namespace OffTheRecord.Tools
         /// <returns>byte array.</returns>
         public static byte[] StringToByteArray(string hex)
         {
-            // XXX: remove heading '00'.
+            // XXX: remove leading '00'.
             if (hex.StartsWith("00"))
             {
                 hex = hex.Substring(2);

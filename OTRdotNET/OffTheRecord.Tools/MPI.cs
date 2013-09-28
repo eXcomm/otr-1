@@ -38,7 +38,7 @@ namespace OffTheRecord.Tools
         /// </summary>
         /// <param name="data">Integer as byte array.</param>
         /// <returns>MPI as byte array.</returns>
-        public static byte[] To(byte[] data)
+        public static byte[] ByteArrayToMPI(byte[] data)
         {
             // Truncate leading 0 bytes from input
             data = data.SkipWhile(b => b == 0).ToArray();
@@ -60,7 +60,7 @@ namespace OffTheRecord.Tools
         /// </summary>
         /// <param name="data">MPI as byte array.</param>
         /// <returns>Integer as byte array.</returns>
-        public static byte[] From(byte[] data)
+        public static byte[] MPIToByteArray(byte[] data)
         {
             return data.Skip(4).ToArray();
         }

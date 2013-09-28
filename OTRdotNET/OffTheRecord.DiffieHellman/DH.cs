@@ -39,7 +39,7 @@ namespace OffTheRecord.Protocol.DiffieHellman
     {
         #region Fields
         private readonly BigInteger modulus;
-        private readonly BigInteger generator;
+        private readonly BigInteger value;
         #endregion
 
         #region Constructor
@@ -47,11 +47,11 @@ namespace OffTheRecord.Protocol.DiffieHellman
         /// Initializes a new instance of the <see cref="DH"/> class.
         /// </summary>
         /// <param name="modulus">The modulus.</param>
-        /// <param name="generator">The generator.</param>
-        public DH(BigInteger modulus, BigInteger generator)
+        /// <param name="value">The value.</param>
+        public DH(BigInteger modulus, BigInteger value)
         {
-            this.generator = generator;
             this.modulus = modulus;
+            this.value = value;
         }
         #endregion
 
@@ -89,7 +89,7 @@ namespace OffTheRecord.Protocol.DiffieHellman
         public void GeneratePublicKey(BigInteger privateKey)
         {
             this.PrivateKey = privateKey;
-            this.PublicKey = BigInteger.ModPow(this.generator, this.PrivateKey, this.modulus);
+            this.PublicKey = BigInteger.ModPow(this.value, this.PrivateKey, this.modulus);
         }
 
         /// <summary>

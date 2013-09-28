@@ -57,12 +57,6 @@ namespace OffTheRecord.Toolkit.Parse
 
             string otr = General.ReadOtr(s);
 
-            ////while ((otrmsg = readotr(stdin)) != NULL)
-            ////{
-            ////    parse(otrmsg);
-            ////    free(otrmsg);
-            ////}
-
             if (otr == null)
             {
                 Usage(args);

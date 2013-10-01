@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="DH.cs" />
     <Compile Include="DH1536.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

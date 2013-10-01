@@ -70,6 +70,11 @@ namespace OffTheRecord.Protocol.DiffieHellman
         /// Gets the shared secret.
         /// </summary>
         public BigInteger SharedSecret { get; private set; }
+
+        /// <summary>
+        /// Their Public Key, used to calculate the shared secret.
+        /// </summary>
+        public BigInteger TheirPublicKey { get; private set; }
         #endregion
 
         #region Public methods
@@ -98,6 +103,7 @@ namespace OffTheRecord.Protocol.DiffieHellman
         /// <param name="publicKey">Public key to create shared secret with.</param>
         public void GenerateSharedSecret(BigInteger publicKey)
         {
+            this.TheirPublicKey = publicKey;
             this.SharedSecret = BigInteger.ModPow(publicKey, this.PrivateKey, this.modulus);
         }
         #endregion

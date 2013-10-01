@@ -63,6 +63,10 @@
       <Project>{ebcd3b7c-8a58-4342-8f3d-2a721f20b9a7}</Project>
       <Name>OffTheRecord.Protocol.DiffieHellman</Name>
     </ProjectReference>
+    <ProjectReference Include="..\OffTheRecord.Model\OffTheRecord.Model.csproj">
+      <Project>{83140745-9061-4c90-b3af-2fd314b50369}</Project>
+      <Name>OffTheRecord.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OffTheRecord.Protocol\OffTheRecord.Protocol.csproj">
       <Project>{141be5a1-9e5a-4431-8ef8-85afcdc32038}</Project>
       <Name>OffTheRecord.Protocol</Name>

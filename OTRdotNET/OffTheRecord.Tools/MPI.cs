@@ -38,7 +38,7 @@ namespace OffTheRecord.Tools
         /// </summary>
         /// <param name="data">Integer as byte array.</param>
         /// <returns>MPI as byte array.</returns>
-        public static byte[] ByteArrayToMPI(byte[] data)
+        public static byte[] ByteArrayToMPI(byte[] data, bool dataMatchEndian = false)
         {
             // Truncate leading 0 bytes from input
             data = data.SkipWhile(b => b == 0).ToArray();
@@ -49,6 +49,10 @@ namespace OffTheRecord.Tools
             if (Tools.Endian.IsLittleEndian)
             {
                 lenBytes = Tools.Endian.SwapArray(lenBytes);
+                if (dataMatchEndian)
+                {
+                    data = Tools.Endian.SwapArray(data);
+                }
             }
 
             // return MPI with Length prefix and concatted data.

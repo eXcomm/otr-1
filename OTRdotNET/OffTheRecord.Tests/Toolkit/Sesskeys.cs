@@ -14,7 +14,7 @@ namespace OffTheRecord.Tests.Toolkit
     {
         [TestMethod]
         [OtrTestCategory(OtrTestCategories.ToolkitSesskey)]
-        public void TestMethod1()
+        public void TestToolkitSesskeys()
         {
             /*
             $ ./otr_sesskeys.exe 48BFDA215C31A9F0B226B3DB11F862450A0F30DA 64bfb577c9591b3dbb6b697599f572ce7d1ffc9d

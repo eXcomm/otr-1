@@ -12,6 +12,8 @@ todo:
 = Toolkit Parse doesn't support 'OTRL_MSGTYPE_V1_KEYEXCH' and 'OTRL_MSGTYPE_UNKNOWN'
 -- Copyright headers (Version400.cs) for all files, investigate what is allowed in respect to original otr copyright. 
 
+- consider replacing SHA1 with SHA256 or SHA512 (discuss with otr-dev)
+
 You need to have cygwin installed for the test project and otr toolkit programs
 (with the proper libraries)
 

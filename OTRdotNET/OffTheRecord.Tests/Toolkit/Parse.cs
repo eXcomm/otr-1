@@ -31,8 +31,6 @@
 
             try
             {
-                ////Toolkit.Parse program = new Parse();
-
                 string location = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
                 Process p = new Process();

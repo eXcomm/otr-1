@@ -95,6 +95,8 @@ namespace OffTheRecord.Tests
         {
             string privatekey = "48BFDA215C31A9F0B226B3DB11F862450A0F30DA";
             string expectedPublicKey = "b1be99fd638d2b634f9825f753ff7f2213ae7207a390b5df3b685a8516d63d49c3bceeb826c1cd09eb030430772193b82f1f4ab01c77e38b7eff100c0fb296bd1d6148bd205fdce3a2ec33ef9c3413eb06d1f413d52ad0747b9273783f7ee88435498b5774967da987ce10e7a2cec72ceecc8f95ceaf92edf82b3e0f69faa87de5eb4748325f82f0bc43f24984b5af2c9d3043d9871c3c952b22a5b292cdead6a67caa62c0196745ed608a6aaf8797fe5801f0506b8f8aa5f431dc583ea584a8".ToUpper();
+            string theirPublicKey = "64bfb577c9591b3dbb6b697599f572ce7d1ffc9d";
+            string expectedSessionId = "8fdef45085a911525e8c408c5f9a3db1c1104cb1";
 
             BigInteger privateKeyAsInt = BigInteger.Parse(privatekey, System.Globalization.NumberStyles.HexNumber);
 
@@ -107,6 +109,22 @@ namespace OffTheRecord.Tests
 
             string publicKeyAsHexString = publicKey.ToString("X").TrimStart(new char[] { '0' });
             Assert.AreEqual<string>(expectedPublicKey, publicKeyAsHexString);
+
+            dh.GenerateSharedSecret(BigInteger.Parse(theirPublicKey, System.Globalization.NumberStyles.HexNumber));
+
+            Assert.AreEqual<string>(theirPublicKey.ToUpper(), dh.TheirPublicKey.ToString("X"));
+
+            string sessionId = dh.SessionId();
+
+            Assert.AreEqual<string>(expectedSessionId.ToUpper(), sessionId);
+
+            Keys keys = dh.Keys();
+
+            Assert.AreEqual<string>("3ecefa2e6ea280c9ebca91e6e37f2b60".ToUpper(), keys.SendAes);
+            Assert.AreEqual<string>("2829522e80354bac5be5de648116e48b665c7d6c".ToUpper(), keys.SendMac);
+            Assert.AreEqual<string>("8863a4479ae2857fb9be657e3b7e37c4".ToUpper(), keys.ReceiveAes);
+            Assert.AreEqual<string>("a43167d308ba9de0127f3124a55bea9a608c10c4".ToUpper(), keys.ReceiveMac);
+            Assert.AreEqual<bool>(true, keys.IsHigh);
         }
     }
 }

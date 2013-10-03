@@ -50,6 +50,11 @@ namespace OffTheRecord.Tests.Helper
         ToolkitSesskey,
 
         /// <summary>
+        /// Off-the-Record Toolkit.Mackey related test.
+        /// </summary>
+        ToolkitMackey,
+
+        /// <summary>
         /// Off-the-Record encryption-components related test.
         /// </summary>
         Encryption,

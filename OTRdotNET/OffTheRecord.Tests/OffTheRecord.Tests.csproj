@@ -93,6 +93,7 @@
     <Compile Include="Toolkit\ParseProtocolTest.cs" />
     <Compile Include="Toolkit\Parse.cs" />
     <Compile Include="Toolkit\Sesskeys.cs" />
+    <Compile Include="Toolkit\Mackey.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OffTheRecord.DiffieHellman\OffTheRecord.Protocol.DiffieHellman.csproj">
@@ -106,6 +107,10 @@
     <ProjectReference Include="..\OffTheRecord.Protocol\OffTheRecord.Protocol.csproj">
       <Project>{141be5a1-9e5a-4431-8ef8-85afcdc32038}</Project>
       <Name>OffTheRecord.Protocol</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OffTheRecord.Toolkit.Mackey\OffTheRecord.Toolkit.Mackey.csproj">
+      <Project>{ee4ead73-3b2a-48fa-b8f6-c4f80bc808b0}</Project>
+      <Name>OffTheRecord.Toolkit.Mackey</Name>
     </ProjectReference>
     <ProjectReference Include="..\OffTheRecord.Toolkit.Parse\OffTheRecord.Toolkit.Parse.csproj">
       <Project>{1388c4d3-9b62-49bd-ba81-6fd36cae659c}</Project>

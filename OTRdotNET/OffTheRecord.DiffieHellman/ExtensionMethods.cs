@@ -65,14 +65,31 @@ namespace OffTheRecord.Protocol.DiffieHellman
             keys.IsHigh = isHigh;
 
             keys.SendAes = Tools.General.ByteArrayToString(hash).Substring(0, 32);
-            keys.SendMac = Tools.General.ByteArrayToString(SHA1.Create().ComputeHash(Tools.General.StringToByteArray(keys.SendAes)));
+            keys.SendMac = keys.SendAes.MacKey();
 
             hash = SHA1.Create().ComputeHash((!isHigh ? oneByte : twoByte).Concat(sharedSecretAsMPI).ToArray());
 
             keys.ReceiveAes = Tools.General.ByteArrayToString(hash).Substring(0, 32);
-            keys.ReceiveMac = Tools.General.ByteArrayToString(SHA1.Create().ComputeHash(Tools.General.StringToByteArray(keys.ReceiveAes)));
+            keys.ReceiveMac = keys.ReceiveAes.MacKey();
 
             return keys;
+        }
+
+        /// <summary>
+        /// Generates MAC key from AES key.
+        /// </summary>
+        /// <param name="aeskey">The AES key.</param>
+        /// <returns>The MAC key.</returns>
+        public static string MacKey(this string aeskey)
+        {
+            if (!string.IsNullOrEmpty(aeskey) && aeskey.Length == 32)
+            {
+                return Tools.General.ByteArrayToString(SHA1.Create().ComputeHash(Tools.General.StringToByteArray(aeskey)));
+            }
+            else
+            {
+                return string.Empty;
+            }
         }
         #endregion
     }

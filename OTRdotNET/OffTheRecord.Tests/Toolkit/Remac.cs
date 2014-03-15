@@ -1,4 +1,27 @@
-﻿using OffTheRecord.Toolkit.Parse;
+﻿// <copyright>
+// Off The Record Messaging .NET, Copyright (c) 2013
+//  based upon the original Off-the-Record Messaging library by
+//    Ian Goldberg, Rob Smits, Chris Alexander,
+//    Willy Lew, Lisa Du, Nikita Borisov
+//    otr@cypherpunks.ca, http://www.cypherpunks.ca/otr/
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of version 2.1 of the GNU Lesser General
+// Public License as published by the Free Software Foundation.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+// </copyright>
+// <author>Bjorn Kuiper</author>
+// <email>otr@kuiper.nu</email>
+
+using OffTheRecord.Toolkit.Remac;
 
 namespace OffTheRecord.Tests.Toolkit
 {
@@ -12,27 +35,29 @@ namespace OffTheRecord.Tests.Toolkit
     #endregion
 
     /// <summary>
-    /// Test the Toolkit.Parse program.
+    /// Test the Toolkit.Remac program.
     /// </summary>
     [TestClass]
-    public class Parse
+    public class Remac
     {
         #region Fields
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         #endregion
 
+        #region Unit tests
         /// <summary>
-        /// Test the parsing of a DataMessage.
+        /// Test the otr_sesskeys.exe application.
         /// </summary>
         [TestMethod]
-        [OtrTestCategory(OtrTestCategories.ToolkitParse)]
-        public void TestToolkitParseUsingDataMessage()
+        [OtrTestCategory(OtrTestCategories.ToolkitRemac)]
+        public void TestToolkitRemac()
         {
             // Reference app to get it build and copied to output folder.
-            OffTheRecord.Toolkit.Parse.Program app = new Program();
+            OffTheRecord.Toolkit.Remac.Program app = new Program();
 
-            string filename = "otr_parse.exe";
-            string input = "?OTR:AAMDSyvyQvLg7pcAAAAAAQAAAAEAAADAVoV88L+aKOU6X25AixfPKDvijKUVHhGdSFZlQpA5XepzoyEqA8ATbjYPwjE7FZApV87oUx+QQog39bJ2GA/zYqrag/xrRzLZfE9K3E7PmUaeUZijLCQA5hTYemzV/crv8SQiLbasDmNDKNi8X/XQuGSPhFD2/jtl13MElkbDWWYiQzX2Ck4lhsHGp0gsNLBhOwkwPGRzmWB+1ltRvb9XqhTuF6S83qGy9iM7pm3yT048awWY4FOG24dukbja1jbNAAAAAAAAAAEAAAANXtnheROJlgrrv2dCFmJ6bYB4YqCkGD2qjQM8s6q391HnAAAAAA==.";
+            string filename = "otr_remac.exe";
+
+            string expectedResult = "inconclusive";
 
             try
             {
@@ -41,19 +66,14 @@ namespace OffTheRecord.Tests.Toolkit
                 Process p = new Process();
                 p.StartInfo.UseShellExecute = false;
                 p.StartInfo.FileName = Path.Combine(location, filename);
+                p.StartInfo.Arguments = "-";
                 p.StartInfo.CreateNoWindow = false;
-                p.StartInfo.RedirectStandardInput = true;
                 p.StartInfo.RedirectStandardOutput = true;
                 bool started = p.Start();
 
                 if (!started)
                 {
                     Assert.Fail("Fail to start application.");
-                }
-
-                using (StreamWriter s = p.StandardInput)
-                {
-                    s.WriteLine(input);
                 }
 
                 string result = p.StandardOutput.ReadToEnd();
@@ -69,7 +89,7 @@ namespace OffTheRecord.Tests.Toolkit
                 p.Close();
 
                 Assert.AreEqual<int>(0, exitcode);
-                Assert.AreEqual<string>("DataMessage:Version:3Flags:0Senderinstance:1261171266Receiverinstance:4074827415Sndrkeyid:1Rcptkeyid:1DHy:56857CF0BF9A28E53A5F6E408B17CF283BE28CA5151E119D4856654290395DEA73A3212A03C0136E360FC2313B15902957CEE8531F90428837F5B276180FF362AADA83FC6B4732D97C4F4ADC4ECF99469E5198A32C2400E614D87A6CD5FDCAEFF124222DB6AC0E634328D8BC5FF5D0B8648F8450F6FE3B65D773049646C35966224335F60A4E2586C1C6A7482C34B0613B09303C647399607ED65B51BDBF57AA14EE17A4BCDEA1B2F6233BA66DF24F4E3C6B0598E05386DB876E91B8DAD636CDCounter:1EncryptedMessage:5ED9E1791389960AEBBF674216MAC:627A6D807862A0A4183DAA8D033CB3AAB7F751E7", result);
+                Assert.AreEqual<string>(expectedResult, result);
             }
             catch (Exception ex)
             {
@@ -77,5 +97,6 @@ namespace OffTheRecord.Tests.Toolkit
                 Assert.Fail("Error occurred starting process: {0}", ex);
             }
         }
+        #endregion
     }
 }

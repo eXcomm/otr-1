@@ -94,6 +94,9 @@ namespace OffTheRecord.Model
             {
                 throw new FileNotFoundException(filename);
             }
+
+            this.InstanceTags.Clear();
+            this.InstanceTags = ParseOtrInstanceTagsFile.GetInstanceTags(filename);
         }
 
         /// <summary>

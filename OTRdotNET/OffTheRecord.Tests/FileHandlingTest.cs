@@ -40,8 +40,31 @@ namespace OffTheRecord.Tests
     /// FileHandlingTest class.
     /// </summary>
     [TestClass]
+    [DeploymentItem(@"Files\", @"Files\")]
     public class FileHandlingTest
     {
+        #region Fields
+        private TestContext testContextInstance;
+        #endregion
+
+        #region Properties
+        /// <summary>
+        ///Gets or sets the test context which provides
+        ///information about and functionality for the current test run.
+        ///</summary>
+        public TestContext TestContext
+        {
+            get
+            {
+                return testContextInstance;
+            }
+            set
+            {
+                testContextInstance = value;
+            }
+        }
+        #endregion
+
         /// <summary>
         /// Tests the Otr Private Key File serializer.
         /// </summary>
@@ -76,7 +99,7 @@ namespace OffTheRecord.Tests
 
             string actual = ParseOtrPrivateKeyFile.Serialize(privkeys);
 
-            string filename = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, @"Files\otr.private_key");
+            string filename = Path.Combine(this.TestContext.DeploymentDirectory, @"Files\otr.private_key");
             string expected = File.ReadAllText(filename);
 
             // Convert Unix newline to Window newline.
@@ -92,7 +115,7 @@ namespace OffTheRecord.Tests
         [OtrTestCategory(OtrTestCategories.General)]
         public void DeserializePrivateKeyFile()
         {
-            string filename = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, @"Files\otr.private_key");
+            string filename = Path.Combine(this.TestContext.DeploymentDirectory, @"Files\otr.private_key");
             privkeys privkeys = ParseOtrPrivateKeyFile.Deserialize(filename);
 
             Assert.AreEqual(privkeys.account.Count, 2);
@@ -141,7 +164,7 @@ namespace OffTheRecord.Tests
 
             string actual = ParseOtrFingerprintsFile.Serialize(fingerprints);
 
-            string filename = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, @"Files\otr.fingerprints");
+            string filename = Path.Combine(this.TestContext.DeploymentDirectory, @"Files\otr.fingerprints");
             string expected = File.ReadAllText(filename);
 
             // Convert Unix newline to Window newline.
@@ -157,7 +180,7 @@ namespace OffTheRecord.Tests
         [OtrTestCategory(OtrTestCategories.General)]
         public void DeserializeFingerprintFile()
         {
-            string filename = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, @"Files\otr.fingerprints");
+            string filename = Path.Combine(this.TestContext.DeploymentDirectory, @"Files\otr.fingerprints");
             Collection<fingerprint> fingerprints = ParseOtrFingerprintsFile.Deserialize(filename);
 
             Assert.AreEqual(4, fingerprints.Count);
@@ -207,7 +230,7 @@ namespace OffTheRecord.Tests
 
             string actual = ParseOtrInstanceTagsFile.Serialize(instancetags);
 
-            string filename = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, @"Files\otr.instance_tags");
+            string filename = Path.Combine(this.TestContext.DeploymentDirectory, @"Files\otr.instance_tags");
             string expected = File.ReadAllText(filename);
 
             // Convert Unix newline to Window newline.
@@ -223,7 +246,7 @@ namespace OffTheRecord.Tests
         [OtrTestCategory(OtrTestCategories.General)]
         public void DeserializeInstanceTagsFile()
         {
-            string filename = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, @"Files\otr.instance_tags");
+            string filename = Path.Combine(this.TestContext.DeploymentDirectory, @"Files\otr.instance_tags");
             Collection<instancetag> instancetags = ParseOtrInstanceTagsFile.Deserialize(filename);
 
             Assert.AreEqual(4, instancetags.Count);

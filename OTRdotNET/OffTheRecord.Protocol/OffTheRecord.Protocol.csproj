@@ -56,6 +56,9 @@
     <Reference Include="log4net">
       <HintPath>..\Libraries\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Stateless">
+      <HintPath>..\packages\Stateless.2.4.0\lib\Stateless.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -79,7 +82,9 @@
     <Compile Include="Messages\SignatureMessage.cs" />
     <Compile Include="Utils\Parse.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OffTheRecord.Tools\OffTheRecord.Tools.csproj">
       <Project>{84b79d3e-e9f3-4090-8578-20edcc937cd4}</Project>

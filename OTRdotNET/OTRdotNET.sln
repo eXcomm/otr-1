@@ -3,6 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Items", "Items", "{11737C02-1BC2-42F6-8836-3532C03B090A}"
 	ProjectSection(SolutionItems) = preProject
 		Items\Off-the-Record Messaging Protocol version 3 - DRAFT.htm = Items\Off-the-Record Messaging Protocol version 3 - DRAFT.htm
+		Otr-Storyboard.pptx = Otr-Storyboard.pptx
 		Items\readme.txt = Items\readme.txt
 	EndProjectSection
 EndProject

@@ -21,6 +21,8 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
+using OffTheRecord.Toolkit.Mackey;
+
 namespace OffTheRecord.Tests.Toolkit
 {
     #region Namespaces
@@ -40,6 +42,26 @@ namespace OffTheRecord.Tests.Toolkit
     {
         #region Fields
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        private TestContext testContextInstance;
+        #endregion
+
+        #region Properties
+        /// <summary>
+        ///Gets or sets the test context which provides
+        ///information about and functionality for the current test run.
+        ///</summary>
+        public TestContext TestContext
+        {
+            get
+            {
+                return testContextInstance;
+            }
+            set
+            {
+                testContextInstance = value;
+            }
+        }
         #endregion
 
         /// <summary>
@@ -49,6 +71,9 @@ namespace OffTheRecord.Tests.Toolkit
         [OtrTestCategory(OtrTestCategories.ToolkitMackey)]
         public void TestToolkitMackey()
         {
+            // Reference app to get it build and copied to output folder.
+            OffTheRecord.Toolkit.Mackey.Program app = new Program();
+
             string filename = "otr_mackey.exe";
 
             string expectedResult = @"AESkey:8863A4479AE2857FB9BE657E3B7E37C4MACkey:A43167D308BA9DE0127F3124A55BEA9A608C10C4";
@@ -63,6 +88,9 @@ namespace OffTheRecord.Tests.Toolkit
                 p.StartInfo.Arguments = "8863A4479AE2857FB9BE657E3B7E37C4";
                 p.StartInfo.CreateNoWindow = false;
                 p.StartInfo.RedirectStandardOutput = true;
+
+                Assert.IsTrue(File.Exists((p.StartInfo.FileName)), "Filename not found {0}.", p.StartInfo.FileName);
+
                 bool started = p.Start();
 
                 if (!started)

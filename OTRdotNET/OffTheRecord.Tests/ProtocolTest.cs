@@ -21,29 +21,41 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
-namespace OffTheRecord.Model
+namespace OffTheRecord.Tests
 {
     #region Namespaces
-    using System.Linq;
-    using System.Collections.ObjectModel;
+    using System;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using OffTheRecord.Tests.Helper;
+    using OffTheRecord.Model;
     #endregion
 
-    /// <summary>
-    /// PrivateKeys class.
-    /// </summary>
-    public class PrivateKeys : Collection<PrivateKey>
+    [TestClass]
+    [DeploymentItem(@"Files\ProtocolTest\", @"Files\ProtocolTest\")]
+    public class ProtocolTest
     {
         /// <summary>
-        /// Gets the privatekey based on the name.
+        /// Authenticated Key Exchange using SIGMA protocol test.
         /// </summary>
-        /// <param name="name">The name of the user to retrieve the privatekey for.</param>
-        /// <returns>The privatekey or null if not found.</returns>
-        public PrivateKey this[string name]
+        [TestMethod]
+        [OtrTestCategory(OtrTestCategories.Core)]
+        public void SignAndMacProtocolTest()
         {
-            get
-            {
-                return this.SingleOrDefault(x => x.AccountName == name);
-            }
+            // get userstate information.
+            UserState userstate = new UserState();
+            userstate.ReadPrivateKeys(@"Files\ProtocolTest\otr.private_key");
+
+            var alice = userstate.PrivateKeys["__alice@irc.freenode.net"];
+            var bob = userstate.PrivateKeys["__bob@irc.freenode.net"];
+
+            Assert.IsNotNull(alice);
+            Assert.IsNotNull(bob);
+
+            // otrl_message_receiving function
+
+            // start negotiating.
+
+            Assert.Inconclusive();
         }
     }
 }

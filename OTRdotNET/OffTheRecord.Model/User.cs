@@ -24,26 +24,23 @@
 namespace OffTheRecord.Model
 {
     #region Namespaces
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
-    using System.Collections.ObjectModel;
+    using System.Text;
     #endregion
 
-    /// <summary>
-    /// PrivateKeys class.
-    /// </summary>
-    public class PrivateKeys : Collection<PrivateKey>
+    public class User
     {
-        /// <summary>
-        /// Gets the privatekey based on the name.
-        /// </summary>
-        /// <param name="name">The name of the user to retrieve the privatekey for.</param>
-        /// <returns>The privatekey or null if not found.</returns>
-        public PrivateKey this[string name]
+        #region Fields
+        private PrivateKey privateKey;
+        #endregion
+
+        #region Constructor
+        public User(PrivateKey privateKey)
         {
-            get
-            {
-                return this.SingleOrDefault(x => x.AccountName == name);
-            }
+            this.privateKey = privateKey;
         }
+        #endregion
     }
 }

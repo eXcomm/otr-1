@@ -55,6 +55,11 @@ namespace OffTheRecord.Tests.Helper
         ToolkitMackey,
 
         /// <summary>
+        /// Off-the-Record Toolkit.Remac related test.
+        /// </summary>
+        ToolkitRemac,
+
+        /// <summary>
         /// Off-the-Record encryption-components related test.
         /// </summary>
         Encryption,

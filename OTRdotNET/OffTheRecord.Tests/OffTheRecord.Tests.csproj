@@ -90,10 +90,12 @@
     <Compile Include="GeneralTest.cs" />
     <Compile Include="MPITest.cs" />
     <Compile Include="DSATest.cs" />
+    <Compile Include="ProtocolTest.cs" />
     <Compile Include="Toolkit\ParseProtocolTest.cs" />
     <Compile Include="Toolkit\Parse.cs" />
     <Compile Include="Toolkit\Sesskeys.cs" />
     <Compile Include="Toolkit\Mackey.cs" />
+    <Compile Include="Toolkit\Remac.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OffTheRecord.DiffieHellman\OffTheRecord.Protocol.DiffieHellman.csproj">
@@ -116,6 +118,14 @@
       <Project>{1388c4d3-9b62-49bd-ba81-6fd36cae659c}</Project>
       <Name>OffTheRecord.Toolkit.Parse</Name>
     </ProjectReference>
+    <ProjectReference Include="..\OffTheRecord.Toolkit.Readforge\OffTheRecord.Toolkit.Readforge.csproj">
+      <Project>{5cf049cc-0d3a-4388-896d-01166a72a75c}</Project>
+      <Name>OffTheRecord.Toolkit.Readforge</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OffTheRecord.Toolkit.Remac\OffTheRecord.Toolkit.Remac.csproj">
+      <Project>{d7bb7840-9643-4a67-a608-d873d31192ce}</Project>
+      <Name>OffTheRecord.Toolkit.Remac</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OffTheRecord.Toolkit.Sesskeys\OffTheRecord.Toolkit.Sesskeys.csproj">
       <Project>{ab19236c-dddf-4d72-9c49-57ee6fa27790}</Project>
       <Name>OffTheRecord.Toolkit.Sesskeys</Name>
@@ -126,9 +136,22 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Files\otr.fingerprints" />
-    <None Include="Files\otr.instance_tags" />
+    <None Include="Files\otr.fingerprints">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Files\otr.instance_tags">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Files\otr.private_key">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Files\ProtocolTest\otr.fingerprints">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Files\ProtocolTest\otr.instance_tags">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Files\ProtocolTest\otr.private_key">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -24,26 +24,36 @@
 namespace OffTheRecord.Model
 {
     #region Namespaces
+    using Stateless;
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
-    using System.Collections.ObjectModel;
+    using System.Text;
     #endregion
 
-    /// <summary>
-    /// PrivateKeys class.
-    /// </summary>
-    public class PrivateKeys : Collection<PrivateKey>
+    internal static class UserStateMachine
     {
-        /// <summary>
-        /// Gets the privatekey based on the name.
-        /// </summary>
-        /// <param name="name">The name of the user to retrieve the privatekey for.</param>
-        /// <returns>The privatekey or null if not found.</returns>
-        public PrivateKey this[string name]
+        #region Enums
+        public enum State
         {
-            get
-            {
-                return this.SingleOrDefault(x => x.AccountName == name);
-            }
+            Offline,
+            Online,
         }
+
+        public enum Trigger
+        {
+            WentOnline,
+        }
+        #endregion
+
+        #region Public methods
+        public static StateMachine<State, Trigger> GetStateMachine()
+        {
+            var otrMachine = new StateMachine<State, Trigger>(State.Offline);
+            otrMachine.Configure(State.Offline).Permit(Trigger.WentOnline, State.Online);
+
+            return otrMachine;
+        }
+        #endregion
     }
 }

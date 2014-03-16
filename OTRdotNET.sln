@@ -2,8 +2,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Items", "Items", "{11737C02-1BC2-42F6-8836-3532C03B090A}"
 	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		LICENSE = LICENSE
 		Items\Off-the-Record Messaging Protocol version 3 - DRAFT.htm = Items\Off-the-Record Messaging Protocol version 3 - DRAFT.htm
 		Otr-Storyboard.pptx = Otr-Storyboard.pptx
+		README.md = README.md
 		Items\readme.txt = Items\readme.txt
 	EndProjectSection
 EndProject
@@ -51,51 +54,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OffTheRecord.Toolkit.Readforge", "OffTheRecord.Toolkit.Readforge\OffTheRecord.Toolkit.Readforge.csproj", "{5CF049CC-0D3A-4388-896D-01166A72A75C}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 14
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs36
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = OffTheRecord.DependencyInjection\\OffTheRecord.DependencyInjection.csproj
-		SccProjectName1 = OffTheRecord.DependencyInjection
-		SccLocalPath1 = OffTheRecord.DependencyInjection
-		SccProjectUniqueName2 = OffTheRecord.DiffieHellman\\OffTheRecord.Protocol.DiffieHellman.csproj
-		SccProjectName2 = OffTheRecord.DiffieHellman
-		SccLocalPath2 = OffTheRecord.DiffieHellman
-		SccProjectUniqueName3 = OffTheRecord.Model\\OffTheRecord.Model.csproj
-		SccProjectName3 = OffTheRecord.Model
-		SccLocalPath3 = OffTheRecord.Model
-		SccProjectUniqueName4 = OffTheRecord.Protocol.Smp\\OffTheRecord.Protocol.SocialistMillionaire.csproj
-		SccProjectName4 = OffTheRecord.Protocol.Smp
-		SccLocalPath4 = OffTheRecord.Protocol.Smp
-		SccProjectUniqueName5 = OffTheRecord.Protocol\\OffTheRecord.Protocol.csproj
-		SccProjectName5 = OffTheRecord.Protocol
-		SccLocalPath5 = OffTheRecord.Protocol
-		SccProjectUniqueName6 = OffTheRecord.Resources\\OffTheRecord.Resources.csproj
-		SccProjectName6 = OffTheRecord.Resources
-		SccLocalPath6 = OffTheRecord.Resources
-		SccProjectUniqueName7 = OffTheRecord.Tests\\OffTheRecord.Tests.csproj
-		SccProjectName7 = OffTheRecord.Tests
-		SccLocalPath7 = OffTheRecord.Tests
-		SccProjectUniqueName8 = OffTheRecord.Toolkit.Parse\\OffTheRecord.Toolkit.Parse.csproj
-		SccProjectName8 = OffTheRecord.Toolkit.Parse
-		SccLocalPath8 = OffTheRecord.Toolkit.Parse
-		SccProjectUniqueName9 = OffTheRecord.Tools\\OffTheRecord.Tools.csproj
-		SccProjectName9 = OffTheRecord.Tools
-		SccLocalPath9 = OffTheRecord.Tools
-		SccProjectUniqueName10 = OffTheRecord.Toolkit.Sesskeys\\OffTheRecord.Toolkit.Sesskeys.csproj
-		SccProjectName10 = OffTheRecord.Toolkit.Sesskeys
-		SccLocalPath10 = OffTheRecord.Toolkit.Sesskeys
-		SccProjectUniqueName11 = OffTheRecord.Toolkit.Mackey\\OffTheRecord.Toolkit.Mackey.csproj
-		SccProjectName11 = OffTheRecord.Toolkit.Mackey
-		SccLocalPath11 = OffTheRecord.Toolkit.Mackey
-		SccProjectUniqueName12 = OffTheRecord.Toolkit.Remac\\OffTheRecord.Toolkit.Remac.csproj
-		SccProjectName12 = OffTheRecord.Toolkit.Remac
-		SccLocalPath12 = OffTheRecord.Toolkit.Remac
-		SccProjectUniqueName13 = OffTheRecord.Toolkit.Readforge\\OffTheRecord.Toolkit.Readforge.csproj
-		SccProjectName13 = OffTheRecord.Toolkit.Readforge
-		SccLocalPath13 = OffTheRecord.Toolkit.Readforge
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms

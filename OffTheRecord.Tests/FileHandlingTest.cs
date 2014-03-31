@@ -103,7 +103,7 @@ namespace OffTheRecord.Tests
             string expected = File.ReadAllText(filename);
 
             // Convert Unix newline to Window newline.
-            expected = expected.Replace("\n", Environment.NewLine);
+            ////expected = expected.Replace("\n", Environment.NewLine);
 
             Assert.AreEqual<string>(expected, actual);
         }
@@ -168,7 +168,7 @@ namespace OffTheRecord.Tests
             string expected = File.ReadAllText(filename);
 
             // Convert Unix newline to Window newline.
-            expected = expected.Replace("\n", Environment.NewLine);
+            ////expected = expected.Replace("\n", Environment.NewLine);
 
             Assert.AreEqual<string>(expected, actual);
         }
@@ -234,7 +234,7 @@ namespace OffTheRecord.Tests
             string expected = File.ReadAllText(filename);
 
             // Convert Unix newline to Window newline.
-            expected = expected.Replace("\n", Environment.NewLine);
+            ////expected = expected.Replace("\n", Environment.NewLine);
 
             Assert.AreEqual<string>(expected, actual);
         }

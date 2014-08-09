@@ -24,13 +24,36 @@
 namespace OffTheRecord.Model
 {
     #region Namespaces
+    using System;
     using System.Collections.ObjectModel;
     #endregion
 
     /// <summary>
     /// Fingerprints class.
     /// </summary>
-    public class Fingerprints : Collection<Fingerprint>
+    public class Fingerprints : Collection<Fingerprint>, IDisposable
     {
+        #region Fields
+        private bool disposed = false;
+        #endregion
+
+        ~Fingerprints()
+        {
+            if (!this.disposed)
+            {
+                this.Dispose();
+            }
+        }
+
+        #region Public methods
+        public void Dispose()
+        {
+            this.disposed = true;
+
+            // release resources;
+            // XXX: call dispose on each object within collection, then clear.
+            this.Clear();
+        }
+        #endregion
     }
 }

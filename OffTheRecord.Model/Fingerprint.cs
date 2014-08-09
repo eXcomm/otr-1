@@ -49,7 +49,7 @@ namespace OffTheRecord.Model
 
             this.SetFingerprint(fingerprint);
 
-            FingerprintStatus fingerprintStatus = FingerprintStatus.smp;
+            FingerprintStatus fingerprintStatus = FingerprintStatus.Empty;
 
             if (Enum.TryParse(status, out fingerprintStatus))
             {
@@ -64,15 +64,18 @@ namespace OffTheRecord.Model
         /// </summary>
         public enum FingerprintStatus
         {
+            // Empty (no state set)
+            Empty,
+
             /// <summary>
             /// Verified fingerprint / user.
             /// </summary>
-            verified,
+            Verified,
 
             /// <summary>
             /// Socialist Millionare Protocol (not executed?!).
             /// </summary>
-            smp,
+            SMP,
         }
         #endregion
 

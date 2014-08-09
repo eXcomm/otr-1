@@ -23,19 +23,35 @@
 
 namespace OffTheRecord.Model
 {
+    #region Namespaces
+    using System;
+    using System.Collections.ObjectModel;
+    #endregion
+
     /// <summary>
     /// Protocol class.
     /// </summary>
     public class Protocol
     {
+        #region Fields
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        #endregion
+
+        #region Constructor
         /// <summary>
         /// Initializes a new instance of the <see cref="Protocol"/> class.
         /// </summary>
         public Protocol()
         {
-            /* Initialize the OTR library.  Pass the version of the API you are
-             * using. */
-            ////gcry_error_t otrl_init(unsigned int ver_major, unsigned int ver_minor, unsigned int ver_sub)
+            Log.Debug("Initializing OTR library version.");
         }
+        #endregion
+
+        #region Public methods
+        public UserState CreateUserState()
+        {
+            return new UserState();
+        }
+        #endregion
     }
 }

@@ -207,7 +207,7 @@ namespace OffTheRecord.Tests
             Assert.AreEqual("80724d46 d9d906a2 8af31d15 adfd5108 22ac3fd9", results[0].Print);
             Assert.AreEqual("marshal2", results[0].Username);
             Assert.AreEqual("prpl-irc", results[0].Protocol);
-            Assert.AreEqual(OffTheRecord.Model.Fingerprint.FingerprintStatus.verified, results[0].Status);
+            Assert.AreEqual(OffTheRecord.Model.Fingerprint.FingerprintStatus.Verified, results[0].Status);
         }
 
         /// <summary>

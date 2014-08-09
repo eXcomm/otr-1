@@ -28,6 +28,7 @@ namespace OffTheRecord.Tests
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using OffTheRecord.Tests.Helper;
     using OffTheRecord.Model;
+    using System.IO;
     #endregion
 
     [TestClass]
@@ -35,27 +36,66 @@ namespace OffTheRecord.Tests
     public class ProtocolTest
     {
         /// <summary>
-        /// Authenticated Key Exchange using SIGMA protocol test.
+        /// Initializes a instance of the OTR Library by reading the user files
         /// </summary>
         [TestMethod]
         [OtrTestCategory(OtrTestCategories.Core)]
-        public void SignAndMacProtocolTest()
+        public void InitializeInstanceOfOtrLibraryTest()
         {
-            // get userstate information.
-            UserState userstate = new UserState();
-            userstate.ReadPrivateKeys(@"Files\ProtocolTest\otr.private_key");
+            Model.Protocol protocol = new Protocol();
+            Assert.IsNotNull(protocol);
+        }
 
-            var alice = userstate.PrivateKeys["__alice@irc.freenode.net"];
-            var bob = userstate.PrivateKeys["__bob@irc.freenode.net"];
+        /// <summary>
+        /// Create UserState object and populate with data.
+        /// </summary>
+        [TestMethod]
+        [OtrTestCategory(OtrTestCategories.Core)]
+        public void CreateAndPopulateUserStateWithPrivateKeysAndInstanceTagsTest()
+        {
+            Model.Protocol protocol = new Protocol();
+            UserState userstate = protocol.CreateUserState();
 
-            Assert.IsNotNull(alice);
-            Assert.IsNotNull(bob);
+            string basepath = @"Files\ProtocolTest\";
 
-            // otrl_message_receiving function
+            string privateKeysFilename = Path.Combine(basepath, "otr.private_key");
+            string instanceTagsFilename = Path.Combine(basepath, "otr.instance_tags");
+            ////string fingerprintFilename = Path.Combine(basepath, "otr.fingerprints");
 
-            // start negotiating.
+            userstate.ReadPrivateKeys(privateKeysFilename);
+            userstate.ReadInstanceTags(instanceTagsFilename);
+            ////userstate.ReadFingerprints(fingerprintFilename);
 
-            Assert.Inconclusive();
+            Assert.AreEqual<int>(2, userstate.PrivateKeys.Count);
+            Assert.AreEqual<int>(2, userstate.InstanceTags.Count);
+        }
+
+        /// <summary>
+        /// Free UserState object.
+        /// </summary>
+        [TestMethod]
+        [OtrTestCategory(OtrTestCategories.Core)]
+        public void FreeUserStateTest()
+        {
+            Model.Protocol protocol = new Protocol();
+            UserState userstate = protocol.CreateUserState();
+
+            string basepath = @"Files\ProtocolTest\";
+
+            string privateKeysFilename = Path.Combine(basepath, "otr.private_key");
+            string instanceTagsFilename = Path.Combine(basepath, "otr.instance_tags");
+            ////string fingerprintFilename = Path.Combine(basepath, "otr.fingerprints");
+
+            userstate.ReadPrivateKeys(privateKeysFilename);
+            userstate.ReadInstanceTags(instanceTagsFilename);
+            ////userstate.ReadFingerprints(fingerprintFilename);
+
+            userstate.Dispose();
+
+            Assert.IsNull(userstate.PrivateKeys);
+            Assert.IsNull(userstate.InstanceTags);
+
+            userstate = null;
         }
     }
 }

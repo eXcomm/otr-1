@@ -25,13 +25,52 @@ namespace OffTheRecord.Model
 {
     #region Namespaces
     using OffTheRecord.Protocol.SocialistMillionaire;
+    using System;
+    using System.Collections.Generic;
     #endregion
 
     /// <summary>
     /// ConnectionContext class.
     /// </summary>
-    public class ConnectionContext
+    /// <remarks>The connection state between two users.</remarks>
+    public class ConnectionContext : IDisposable, IEquatable<ConnectionContext>
     {
+        #region Fields
+        private bool disposed = false;
+        #endregion
+
+        #region Constructor
+        internal ConnectionContext(string username, string accountname, string protocol)
+        {
+            if (string.IsNullOrEmpty(username))
+            {
+                throw new ArgumentNullException("username");
+            }
+
+            if (string.IsNullOrEmpty(accountname))
+            {
+                throw new ArgumentNullException("accountname");
+            }
+
+            if (string.IsNullOrEmpty(protocol))
+            {
+                throw new ArgumentNullException("protocol");
+            }
+            
+            this.username = username;
+            this.accountname = accountname;
+            this.protocol = protocol;
+        }
+
+        ~ConnectionContext()
+        {
+            if (!this.disposed)
+            {
+                this.Dispose();
+            }
+        }
+        #endregion
+
         //    struct context * next;             /* Linked list pointer */
         //    struct context ** tous;            /* A pointer to the pointer to us */
 
@@ -100,5 +139,31 @@ namespace OffTheRecord.Model
 
         /* The state of the current socialist millionaires exchange */
         public SMState SMState { get; set; }
+
+        #region Public methods
+        public void Dispose()
+        {
+            this.disposed = true;
+
+            // release resources;
+        }
+
+        public bool Equals(ConnectionContext other)
+        {
+            if (string.Compare(this.username, other.username, true) == 0)
+            {
+                if (string.Compare(this.accountname, other.accountname, true) == 0)
+                {
+                    if (string.Compare(this.protocol, other.protocol, true) == 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+        #endregion
+
     }
 }

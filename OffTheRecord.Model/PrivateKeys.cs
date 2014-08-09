@@ -26,24 +26,35 @@ namespace OffTheRecord.Model
     #region Namespaces
     using System.Linq;
     using System.Collections.ObjectModel;
+    using System;
     #endregion
 
     /// <summary>
     /// PrivateKeys class.
     /// </summary>
-    public class PrivateKeys : Collection<PrivateKey>
+    public class PrivateKeys : Collection<PrivateKey>, IDisposable
     {
-        /// <summary>
-        /// Gets the privatekey based on the name.
-        /// </summary>
-        /// <param name="name">The name of the user to retrieve the privatekey for.</param>
-        /// <returns>The privatekey or null if not found.</returns>
-        public PrivateKey this[string name]
+        #region Fields
+        private bool disposed = false;
+        #endregion
+
+        ~PrivateKeys()
         {
-            get
+            if (!this.disposed)
             {
-                return this.SingleOrDefault(x => x.AccountName == name);
+                this.Dispose();
             }
         }
+
+        #region Public methods
+        public void Dispose()
+        {
+            this.disposed = true;
+
+            // release resources;
+            // XXX: call dispose on each object within collection, then clear.
+            this.Clear();
+        }
+        #endregion
     }
 }

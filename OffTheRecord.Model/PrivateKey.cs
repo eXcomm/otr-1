@@ -28,11 +28,13 @@ namespace OffTheRecord.Model
     using System.Security.Cryptography;
     using OffTheRecord.Resources;
     using OffTheRecord.Tools;
+    using System.Diagnostics;
     #endregion
 
     /// <summary>
     /// PrivateKey class.
     /// </summary>
+    [DebuggerDisplay("PrivateKey Fingerprint: {Fingerprint}")]
     public class PrivateKey : BasePrivateKey
     {
         #region Fields

@@ -70,7 +70,7 @@ namespace OffTheRecord.Toolkit.Sesskeys
             string sessionId = dh1536_us.SessionId();
             Keys keys = dh1536_us.Keys();
 
-            Console.WriteLine("We are the {0} end of this key exchange.\n", keys.IsHigh ? "high" : "low");
+            Console.WriteLine("We are the {0} end of this key exchange.", keys.IsHigh ? "high" : "low");
             Console.WriteLine();
             Console.WriteLine("Our public key: {0}", dh1536_us.PublicKey.ToString("X"));
             Console.WriteLine();

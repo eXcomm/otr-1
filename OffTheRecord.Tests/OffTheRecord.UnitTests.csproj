@@ -88,19 +88,18 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DHTest.cs" />
-    <Compile Include="EndianTest.cs" />
+    <Compile Include="DiffieHellmanTests.cs" />
+    <Compile Include="EndianTests.cs" />
     <Compile Include="Helper\OtrTestCategoryAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FileHandlingTest.cs" />
-    <Compile Include="GeneralTest.cs" />
-    <Compile Include="MPITest.cs" />
-    <Compile Include="DSATest.cs" />
-    <Compile Include="ProtocolTest.cs" />
-    <Compile Include="Toolkit\ParseProtocolTest.cs" />
+    <Compile Include="ToolsGeneralTests.cs" />
+    <Compile Include="MultiPrecisionIntegerTests.cs" />
+    <Compile Include="DigitalSignatureAlgorithmTests.cs" />
+    <Compile Include="Toolkit\ProtocolTests.cs" />
     <Compile Include="Toolkit\Parse.cs" />
     <Compile Include="Toolkit\Sesskeys.cs" />
-    <Compile Include="Toolkit\Mackey.cs" />
+    <Compile Include="Toolkit\MackeyTests.cs" />
     <Compile Include="Toolkit\Remac.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -162,7 +161,6 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

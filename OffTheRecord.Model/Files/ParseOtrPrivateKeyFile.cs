@@ -42,19 +42,13 @@ namespace OffTheRecord.Model.Files
         public static PrivateKeys GetPrivateKeys(string filename)
         {
             privkeys keys = Deserialize(filename);
+            return GetPrivateKeys(keys);
+        }
 
-            PrivateKeys privateKeys = new PrivateKeys();
-
-            foreach (var account in keys.account)
-            {
-                PrivateKey privateKey = new PrivateKey(account.private_key.dsa.GetDSAParameters(true));
-                privateKey.AccountName = account.name;
-                privateKey.Protocol = account.protocol;
-
-                privateKeys.Add(privateKey);
-            }
-
-            return privateKeys;
+        public static PrivateKeys GetPrivateKeysFromString(string data)
+        {
+            privkeys keys = DeserializeFromString(data);
+            return GetPrivateKeys(keys);
         }
         #endregion
 
@@ -73,10 +67,12 @@ namespace OffTheRecord.Model.Files
 
             string data = File.ReadAllText(filename);
 
-            // build parse tree;
-            Item root = ParseOtrPrivateKeyFile.BuildTree(data);
+            return DeserializeFromString(data);
+        }
 
-            return privkeys.Deserialize(root);
+        internal static privkeys DeserializeFromString(string data)
+        {
+            return privkeys.Deserialize(ParseOtrPrivateKeyFile.BuildTree(data));
         }
 
         /// <summary>
@@ -91,6 +87,22 @@ namespace OffTheRecord.Model.Files
         #endregion
 
         #region Private methods
+        private static PrivateKeys GetPrivateKeys(privkeys keys)
+        {
+            var privateKeys = new PrivateKeys();
+
+            foreach (var account in keys.account)
+            {
+                var privateKey = new PrivateKey(account.private_key.dsa.GetDSAParameters(true));
+                privateKey.AccountName = account.name;
+                privateKey.Protocol = account.protocol;
+
+                privateKeys.Add(privateKey);
+            }
+
+            return privateKeys;
+        }
+
         private static Item BuildTree(string input)
         {
             Item parent = new Item();

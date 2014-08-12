@@ -22,7 +22,7 @@
 // <email>otr@kuiper.nu</email>
 
 using System.Collections.ObjectModel;
-using System.IO;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OffTheRecord.Model;
 using OffTheRecord.Model.Files;
@@ -34,26 +34,13 @@ using OffTheRecord.Tests.Helper;
 namespace OffTheRecord.Tests
 {
     [TestClass]
-    [DeploymentItem(@"Files\", @"Files\")]
     public class FileHandlingTest
     {
-        #region Properties
-
-        /// <summary>
-        ///     Gets or sets the test context which provides
-        ///     information about and functionality for the current test run.
-        /// </summary>
-        public TestContext TestContext { get; set; }
-
-        #endregion
-
-        /// <summary>
-        ///     Tests the Otr Private Key File serializer.
-        /// </summary>
         [TestMethod]
         [OtrTestCategory(OtrTestCategories.General)]
-        public void SerializePrivateKeyFile()
+        public void FileHandling_compare_serialized_results_against_Pidgin_otr_private_key()
         {
+            // Arrange
             var privkeys = new privkeys();
             var act1 = new account("alice@domain.com", "prpl-msn");
             act1.private_key = new private_key
@@ -79,26 +66,19 @@ namespace OffTheRecord.Tests
             privkeys.account.Add(act1);
             privkeys.account.Add(act2);
 
+            // Act
             string actual = ParseOtrPrivateKeyFile.Serialize(privkeys);
+            string expected = FileHandlingResource.otr_private_key;
 
-            string filename = Path.Combine(TestContext.DeploymentDirectory, @"Files\otr.private_key");
-            string expected = File.ReadAllText(filename);
-
-            // Convert Unix newline to Window newline.
-            ////expected = expected.Replace("\n", Environment.NewLine);
-
-            Assert.AreEqual(expected, actual);
+            // Assert
+            actual.Should().Be(expected);
         }
 
-        /// <summary>
-        ///     Tests the Otr Private Key File deserializer.
-        /// </summary>
         [TestMethod]
         [OtrTestCategory(OtrTestCategories.General)]
-        public void DeserializePrivateKeyFile()
+        public void FileHandling_deserialize_Pidgin_otr_private_key()
         {
-            string filename = Path.Combine(TestContext.DeploymentDirectory, @"Files\otr.private_key");
-            privkeys privkeys = ParseOtrPrivateKeyFile.Deserialize(filename);
+            privkeys privkeys = ParseOtrPrivateKeyFile.DeserializeFromString(FileHandlingResource.otr_private_key);
 
             Assert.AreEqual(privkeys.account.Count, 2);
             Assert.AreEqual(privkeys.account[0].name, "alice@domain.com");
@@ -123,21 +103,23 @@ namespace OffTheRecord.Tests
             Assert.AreEqual(privkeys.account[1].private_key.dsa.y,
                 "3D82B953839E7C9295D67B403655DB54247268004C830004DBF86F692A21407249249AFC5D40F999ED3E9D4F54895B8404FD59B12297D564D9E16CB24803B48760D236C2F41F9263CC76BF065878B50EC5789443DEE2EDF771765F6B105E2A32ACB8E3DA8E44D187C4B99AED1B348FE81A34CC00EF89D790EE8FC832E7C018A1");
             Assert.AreEqual(privkeys.account[1].private_key.dsa.x, "00C09DFA159A9B887A8E34BED3F9382463B4C4FB93");
+        }
 
+        [TestMethod]
+        [OtrTestCategory(OtrTestCategories.General)]
+        public void FileHandling_deserialize_private_keys_within_Pidgin_otr_private_key()
+        {
             /* validating the PrivateKey objects by validating the fingerprint. */
-            PrivateKeys result = ParseOtrPrivateKeyFile.GetPrivateKeys(filename);
+            PrivateKeys result = ParseOtrPrivateKeyFile.GetPrivateKeysFromString(FileHandlingResource.otr_private_key);
 
             Assert.AreEqual(2, result.Count);
             Assert.AreEqual("03E216F6 E65C5043 F819FFBC E1FA4FCF 7114F7D4", result[0].Fingerprint);
             Assert.AreEqual("80724D46 D9D906A2 8AF31D15 ADFD5108 22AC3FD9", result[1].Fingerprint);
         }
 
-        /// <summary>
-        ///     Tests the OTR Fingerprints File serializer.
-        /// </summary>
         [TestMethod]
         [OtrTestCategory(OtrTestCategories.General)]
-        public void SerializeFingerprintsFile()
+        public void FileHandling_compare_serialized_results_against_Pidgin_otr_fingerprints()
         {
             var fp1 = new fingerprint("marshal2", "marshal3@irc.freenode.net", "prpl-irc",
                 "80724d46d9d906a28af31d15adfd510822ac3fd9", Statuses.verified);
@@ -155,25 +137,17 @@ namespace OffTheRecord.Tests
             fingerprints.Add(fp4);
 
             string actual = ParseOtrFingerprintsFile.Serialize(fingerprints);
-
-            string filename = Path.Combine(TestContext.DeploymentDirectory, @"Files\otr.fingerprints");
-            string expected = File.ReadAllText(filename);
-
-            // Convert Unix newline to Window newline.
-            ////expected = expected.Replace("\n", Environment.NewLine);
+            string expected = FileHandlingResource.otr_fingerprints;
 
             Assert.AreEqual(expected, actual);
         }
 
-        /// <summary>
-        ///     Tests the Otr Fingerprints File deserializer.
-        /// </summary>
         [TestMethod]
         [OtrTestCategory(OtrTestCategories.General)]
-        public void DeserializeFingerprintFile()
+        public void FileHandling_deserialize_fingerprints_within_Pidgin_to_internal_object()
         {
-            string filename = Path.Combine(TestContext.DeploymentDirectory, @"Files\otr.fingerprints");
-            Collection<fingerprint> fingerprints = ParseOtrFingerprintsFile.Deserialize(filename);
+            Collection<fingerprint> fingerprints =
+                ParseOtrFingerprintsFile.DeserializeFromString(FileHandlingResource.otr_fingerprints);
 
             Assert.AreEqual(4, fingerprints.Count);
 
@@ -191,8 +165,14 @@ namespace OffTheRecord.Tests
             Assert.AreEqual("testuser2", last.Username);
             Assert.AreEqual("prpl-irc", last.Protocol);
             Assert.AreEqual(Statuses.smp, last.Status);
+        }
 
-            Fingerprints results = ParseOtrFingerprintsFile.GetFingerprints(filename);
+        [TestMethod]
+        [OtrTestCategory(OtrTestCategories.General)]
+        public void FileHandling_deserialize_fingerprints_within_Pidgin_to_external_object()
+        {
+            Fingerprints results =
+                ParseOtrFingerprintsFile.GetFingerprintsFromString(FileHandlingResource.otr_fingerprints);
 
             Assert.AreEqual(4, results.Count);
             Assert.AreEqual("marshal3@irc.freenode.net", results[0].AccountName);
@@ -207,7 +187,7 @@ namespace OffTheRecord.Tests
         /// </summary>
         [TestMethod]
         [OtrTestCategory(OtrTestCategories.General)]
-        public void SerializeInstanceTagsFile()
+        public void FileHandling_compare_serialized_results_against_Pidgin_otr_instance_tags()
         {
             var it1 = new instancetag("testuser2@irc.freenode.net", "prpl-irc", "299c2916");
             var it2 = new instancetag("test123_4@irc.freenode.net", "prpl-irc", "8cf547f1");
@@ -221,25 +201,17 @@ namespace OffTheRecord.Tests
             instancetags.Add(it4);
 
             string actual = ParseOtrInstanceTagsFile.Serialize(instancetags);
-
-            string filename = Path.Combine(TestContext.DeploymentDirectory, @"Files\otr.instance_tags");
-            string expected = File.ReadAllText(filename);
-
-            // Convert Unix newline to Window newline.
-            ////expected = expected.Replace("\n", Environment.NewLine);
+            string expected = FileHandlingResource.otr_instance_tags;
 
             Assert.AreEqual(expected, actual);
         }
 
-        /// <summary>
-        ///     Tests the Otr InstanceTags File deserializer.
-        /// </summary>
         [TestMethod]
         [OtrTestCategory(OtrTestCategories.General)]
-        public void DeserializeInstanceTagsFile()
+        public void FileHandling_deserialize_instancetags_within_Pidgin_to_internal_object()
         {
-            string filename = Path.Combine(TestContext.DeploymentDirectory, @"Files\otr.instance_tags");
-            Collection<instancetag> instancetags = ParseOtrInstanceTagsFile.Deserialize(filename);
+            Collection<instancetag> instancetags =
+                ParseOtrInstanceTagsFile.DeserializeFromString(FileHandlingResource.otr_instance_tags);
 
             Assert.AreEqual(4, instancetags.Count);
 
@@ -253,8 +225,14 @@ namespace OffTheRecord.Tests
             Assert.AreEqual("marshal2@irc.freenode.net", last.Account);
             Assert.AreEqual("prpl-irc", last.Protocol);
             Assert.AreEqual("f2e0ee97", last.InstanceTag);
+        }
 
-            InstanceTags results = ParseOtrInstanceTagsFile.GetInstanceTags(filename);
+        [TestMethod]
+        [OtrTestCategory(OtrTestCategories.General)]
+        public void FileHandling_deserialize_instancetags_within_Pidgin_to_external_object()
+        {
+            InstanceTags results =
+                ParseOtrInstanceTagsFile.GetInstanceTagsFromString(FileHandlingResource.otr_instance_tags);
 
             Assert.AreEqual(4, results.Count);
             Assert.AreEqual("testuser2@irc.freenode.net", results[0].AccountName);

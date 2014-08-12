@@ -90,6 +90,11 @@
   <ItemGroup>
     <Compile Include="DiffieHellmanTests.cs" />
     <Compile Include="EndianTests.cs" />
+    <Compile Include="FileHandlingResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FileHandlingResource.resx</DependentUpon>
+    </Compile>
     <Compile Include="Helper\OtrTestCategoryAttribute.cs" />
     <Compile Include="Helper\ToolkitRunner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -147,30 +152,26 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Files\otr.fingerprints">
+    <Content Include="FileHandlingFiles\otr.fingerprints.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Files\otr.instance_tags">
+    </Content>
+    <Content Include="FileHandlingFiles\otr.instance_tags.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Files\otr.private_key">
+    </Content>
+    <Content Include="FileHandlingFiles\otr.private_key.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Files\ProtocolTest\otr.fingerprints">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Files\ProtocolTest\otr.instance_tags">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Files\ProtocolTest\otr.private_key">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FileHandlingResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>FileHandlingResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Toolkit\ToolkitResultResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ToolkitResultResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

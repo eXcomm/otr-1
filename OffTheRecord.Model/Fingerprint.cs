@@ -51,7 +51,7 @@ namespace OffTheRecord.Model
 
             FingerprintStatus fingerprintStatus = FingerprintStatus.Empty;
 
-            if (Enum.TryParse(status, out fingerprintStatus))
+            if (Enum.TryParse(status, true, out fingerprintStatus))
             {
                 this.Status = fingerprintStatus;
             }

@@ -50,6 +50,8 @@ namespace OffTheRecord.Tests.Toolkit
             Tuple<int, string> result = ToolkitRunner.Run(location, filename, "-");
 
             // Assert
+            Assert.Inconclusive();
+
             result.Item1.Should().Be(0);
             result.Item2.Should().Be(ToolkitResultResource.otr_remac_exe);
         }

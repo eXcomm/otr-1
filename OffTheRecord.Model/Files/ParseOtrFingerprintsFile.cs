@@ -44,16 +44,13 @@ namespace OffTheRecord.Model.Files
         public static Fingerprints GetFingerprints(string filename)
         {
             Collection<fingerprint> fingerprints = Deserialize(filename);
+            return GetFingerprints(fingerprints);
+        }
 
-            Fingerprints results = new Fingerprints();
-
-            foreach (var fingerprint in fingerprints)
-            {
-                Fingerprint fp = new Fingerprint(fingerprint.Username, fingerprint.Account, fingerprint.Protocol, fingerprint.Fingerprint, fingerprint.Status.ToString());
-                results.Add(fp);
-            }
-
-            return results;
+        public static Fingerprints GetFingerprintsFromString(string data)
+        {
+            Collection<fingerprint> fingerprints = DeserializeFromString(data);
+            return GetFingerprints(fingerprints);
         }
         #endregion
 
@@ -70,11 +67,21 @@ namespace OffTheRecord.Model.Files
                 throw new FileNotFoundException(filename);
             }
 
-            string[] data = File.ReadAllLines(filename);
+            var data = File.ReadAllText(filename);
 
-            Collection<fingerprint> result = new Collection<fingerprint>();
+            return DeserializeFromString(data);
+        }
 
-            foreach (var line in data)
+        /// <summary>
+        /// Deserializes the content of the file into a collection of <see cref="fingerprint"/> objects.
+        /// </summary>
+        /// <param name="filename">Filename to parse.</param>
+        /// <returns>A collection of <see cref="fingerprint"/> objects.</returns>
+        internal static Collection<fingerprint> DeserializeFromString(string data)
+        {
+            var result = new Collection<fingerprint>();
+
+            foreach (var line in data.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
             {
                 result.Add(fingerprint.Deserialize(line));
             }
@@ -99,5 +106,18 @@ namespace OffTheRecord.Model.Files
             return result;
         }
         #endregion
+
+        public static Fingerprints GetFingerprints(Collection<fingerprint> fingerprints)
+        {
+            var results = new Fingerprints();
+
+            foreach (var fingerprint in fingerprints)
+            {
+                var fp = new Fingerprint(fingerprint.Username, fingerprint.Account, fingerprint.Protocol, fingerprint.Fingerprint, fingerprint.Status.ToString());
+                results.Add(fp);
+            }
+
+            return results;
+        }
     }
 }

@@ -48,18 +48,13 @@ namespace OffTheRecord.Model.Files
         public static InstanceTags GetInstanceTags(string filename)
         {
             Collection<instancetag> instancetags = Deserialize(filename);
+            return GetInstanceTags(instancetags);
+        }
 
-            InstanceTags results = new InstanceTags();
-
-            foreach (var instancetag in instancetags)
-            {
-                InstanceTag tag = new InstanceTag(instancetag.Account, instancetag.Protocol);
-                tag.SetInstanceTag(instancetag.InstanceTag);
-
-                results.Add(tag);
-            }
-
-            return results;
+        public static InstanceTags GetInstanceTagsFromString(string data)
+        {
+            Collection<instancetag> instancetags = DeserializeFromString(data);
+            return GetInstanceTags(instancetags);
         }
         #endregion
 
@@ -76,11 +71,16 @@ namespace OffTheRecord.Model.Files
                 throw new FileNotFoundException(filename);
             }
 
-            string[] data = File.ReadAllLines(filename);
+            var data = File.ReadAllText(filename);
 
-            Collection<instancetag> result = new Collection<instancetag>();
+            return DeserializeFromString(data);
+        }
 
-            foreach (var line in data)
+        internal static Collection<instancetag> DeserializeFromString(string data)
+        {
+            var result = new Collection<instancetag>();
+
+            foreach (var line in data.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
             {
                 // ignore comments.
                 if (line.StartsWith("#"))
@@ -114,5 +114,20 @@ namespace OffTheRecord.Model.Files
             return result;
         }
         #endregion
+
+        public static InstanceTags GetInstanceTags(Collection<instancetag> instancetags)
+        {
+            InstanceTags results = new InstanceTags();
+
+            foreach (var instancetag in instancetags)
+            {
+                InstanceTag tag = new InstanceTag(instancetag.Account, instancetag.Protocol);
+                tag.SetInstanceTag(instancetag.InstanceTag);
+
+                results.Add(tag);
+            }
+
+            return results;
+        }
     }
 }

@@ -25,7 +25,6 @@ using System.Globalization;
 using System.Numerics;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OffTheRecord.Tests.Helper;
 using OffTheRecord.Tools;
 
 namespace OffTheRecord.Tests
@@ -36,14 +35,12 @@ namespace OffTheRecord.Tests
         #region Test methods
 
         [TestMethod]
-        [OtrTestCategory(OtrTestCategories.Tools)]
         public void Endian_Validate_if_current_architecture_is_little_Endian()
         {
             Assert.IsTrue(Endian.IsLittleEndian, "Running on Windows (8), this is expected to be Little Endian.");
         }
 
         [TestMethod]
-        [OtrTestCategory(OtrTestCategories.Tools)]
         public void Endian_compare_results_from_BigEndian_architecture_with_current_architecture()
         {
             // Arrange
@@ -53,12 +50,13 @@ namespace OffTheRecord.Tests
             const string x = "48BFDA215C31A9F0B226B3DB11F862450A0F30DA";
 
             // Act
-            var actual = BigInteger.Parse(x, NumberStyles.HexNumber);
+            BigInteger actual = BigInteger.Parse(x, NumberStyles.HexNumber);
 
             // Assert
             actual.ToString().Should().Be(expected);
             actual.ToString("X").Should().Be(x);
         }
+
         #endregion
     }
 }

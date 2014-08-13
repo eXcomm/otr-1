@@ -37,7 +37,6 @@ namespace OffTheRecord.Tests.Toolkit
         #region Unit tests
 
         [TestMethod]
-        [OtrTestCategory(OtrTestCategories.ToolkitRemac)]
         public void TestToolkitRemac()
         {
             // Reference app to get it build and copied to output folder.

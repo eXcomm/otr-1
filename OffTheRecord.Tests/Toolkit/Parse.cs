@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using FluentAssertions;
-using log4net;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OffTheRecord.Tests.Helper;
 using OffTheRecord.Toolkit.Parse;
@@ -13,11 +11,7 @@ namespace OffTheRecord.Tests.Toolkit
     [TestClass]
     public class Parse
     {
-        /// <summary>
-        ///     Test the parsing of a DataMessage.
-        /// </summary>
         [TestMethod]
-        [OtrTestCategory(OtrTestCategories.ToolkitParse)]
         public void Parse_Toolkit_validate_with_default_example_set()
         {
             // Reference app to get it build and copied to output folder.
@@ -29,7 +23,7 @@ namespace OffTheRecord.Tests.Toolkit
 
             string location = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-            var result = ToolkitRunner.Run(location, filename, null, input);
+            Tuple<int, string> result = ToolkitRunner.Run(location, filename, null, input);
 
             // Assert
             result.Item1.Should().Be(0);

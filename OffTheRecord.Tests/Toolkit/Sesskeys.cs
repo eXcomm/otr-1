@@ -36,11 +36,7 @@ namespace OffTheRecord.Tests.Toolkit
     {
         #region Unit tests
 
-        /// <summary>
-        ///     Test the otr_sesskeys.exe application.
-        /// </summary>
         [TestMethod]
-        [OtrTestCategory(OtrTestCategories.ToolkitSesskey)]
         public void Sesskeys_Toolkit_validate_with_default_example_set()
         {
             // Reference app to get it build and copied to output folder.

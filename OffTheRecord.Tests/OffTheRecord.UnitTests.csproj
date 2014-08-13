@@ -95,7 +95,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FileHandlingResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Helper\OtrTestCategoryAttribute.cs" />
     <Compile Include="Helper\ToolkitRunner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FileHandlingTest.cs" />

@@ -29,7 +29,6 @@ using OffTheRecord.Model.Files;
 using OffTheRecord.Model.Files.OtrFingerprints;
 using OffTheRecord.Model.Files.OtrInstanceTags;
 using OffTheRecord.Model.Files.OtrPrivateKey;
-using OffTheRecord.Tests.Helper;
 
 namespace OffTheRecord.Tests
 {
@@ -37,7 +36,6 @@ namespace OffTheRecord.Tests
     public class FileHandlingTest
     {
         [TestMethod]
-        [OtrTestCategory(OtrTestCategories.General)]
         public void FileHandling_compare_serialized_results_against_Pidgin_otr_private_key()
         {
             // Arrange
@@ -75,7 +73,6 @@ namespace OffTheRecord.Tests
         }
 
         [TestMethod]
-        [OtrTestCategory(OtrTestCategories.General)]
         public void FileHandling_deserialize_Pidgin_otr_private_key()
         {
             privkeys privkeys = ParseOtrPrivateKeyFile.DeserializeFromString(FileHandlingResource.otr_private_key);
@@ -106,7 +103,6 @@ namespace OffTheRecord.Tests
         }
 
         [TestMethod]
-        [OtrTestCategory(OtrTestCategories.General)]
         public void FileHandling_deserialize_private_keys_within_Pidgin_otr_private_key()
         {
             /* validating the PrivateKey objects by validating the fingerprint. */
@@ -118,7 +114,6 @@ namespace OffTheRecord.Tests
         }
 
         [TestMethod]
-        [OtrTestCategory(OtrTestCategories.General)]
         public void FileHandling_compare_serialized_results_against_Pidgin_otr_fingerprints()
         {
             var fp1 = new fingerprint("marshal2", "marshal3@irc.freenode.net", "prpl-irc",
@@ -143,7 +138,6 @@ namespace OffTheRecord.Tests
         }
 
         [TestMethod]
-        [OtrTestCategory(OtrTestCategories.General)]
         public void FileHandling_deserialize_fingerprints_within_Pidgin_to_internal_object()
         {
             Collection<fingerprint> fingerprints =
@@ -168,7 +162,6 @@ namespace OffTheRecord.Tests
         }
 
         [TestMethod]
-        [OtrTestCategory(OtrTestCategories.General)]
         public void FileHandling_deserialize_fingerprints_within_Pidgin_to_external_object()
         {
             Fingerprints results =
@@ -182,11 +175,7 @@ namespace OffTheRecord.Tests
             Assert.AreEqual(Fingerprint.FingerprintStatus.Verified, results[0].Status);
         }
 
-        /// <summary>
-        ///     Tests the OTR InstanceTags File serializer.
-        /// </summary>
         [TestMethod]
-        [OtrTestCategory(OtrTestCategories.General)]
         public void FileHandling_compare_serialized_results_against_Pidgin_otr_instance_tags()
         {
             var it1 = new instancetag("testuser2@irc.freenode.net", "prpl-irc", "299c2916");
@@ -207,7 +196,6 @@ namespace OffTheRecord.Tests
         }
 
         [TestMethod]
-        [OtrTestCategory(OtrTestCategories.General)]
         public void FileHandling_deserialize_instancetags_within_Pidgin_to_internal_object()
         {
             Collection<instancetag> instancetags =
@@ -228,7 +216,6 @@ namespace OffTheRecord.Tests
         }
 
         [TestMethod]
-        [OtrTestCategory(OtrTestCategories.General)]
         public void FileHandling_deserialize_instancetags_within_Pidgin_to_external_object()
         {
             InstanceTags results =

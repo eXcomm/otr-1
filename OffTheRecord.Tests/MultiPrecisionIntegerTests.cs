@@ -23,7 +23,6 @@
 
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OffTheRecord.Tests.Helper;
 using OffTheRecord.Tools;
 
 namespace OffTheRecord.Tests
@@ -32,20 +31,20 @@ namespace OffTheRecord.Tests
     public class MultiPrecisionIntegerTests
     {
         [TestMethod]
-        [OtrTestCategory(OtrTestCategories.Core)]
         public void MultiPrecisionInteger_validate_implementation_matches_original_libgcrypt_implementation()
         {
             // Arrange
 
             /* p parameter DH */
-            const string expected = "0080E83BBEA78425E04F546D7168C5A55FF4A89DBD82E92344E774157F84EF604E4F65CB73B5F459EE7F5690B1FD75597B073347F4F33C06C531BE63ED145CB4079AABB6D9F7162ABFEC25C01D6098B032C2835F2EA7F0F025E88BCEFA6F2B95BF78617B00385A3149248C0005F84DBB3AE0B97CC5867C2480164EF3C5C472954B";
+            const string expected =
+                "0080E83BBEA78425E04F546D7168C5A55FF4A89DBD82E92344E774157F84EF604E4F65CB73B5F459EE7F5690B1FD75597B073347F4F33C06C531BE63ED145CB4079AABB6D9F7162ABFEC25C01D6098B032C2835F2EA7F0F025E88BCEFA6F2B95BF78617B00385A3149248C0005F84DBB3AE0B97CC5867C2480164EF3C5C472954B";
 
             // Act
-            var p = General.StringToByteArray(expected);
-            var mpiP = MPI.ByteArrayToMPI(p);
+            byte[] p = General.StringToByteArray(expected);
+            byte[] mpiP = MPI.ByteArrayToMPI(p);
 
-            var resultp = MPI.MPIToByteArray(mpiP);
-            var result = General.ByteArrayToString(resultp);
+            byte[] resultp = MPI.MPIToByteArray(mpiP);
+            string result = General.ByteArrayToString(resultp);
 
             // Assert
 

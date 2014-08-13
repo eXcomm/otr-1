@@ -23,7 +23,6 @@
 
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OffTheRecord.Tests.Helper;
 using OffTheRecord.Tools;
 
 namespace OffTheRecord.Tests
@@ -32,7 +31,6 @@ namespace OffTheRecord.Tests
     public class ToolsGeneralTests
     {
         [TestMethod]
-        [OtrTestCategory(OtrTestCategories.Tools)]
         public void Validate_converter_from_string_to_byte_array_back_to_string()
         {
             // Arrange

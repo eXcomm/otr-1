@@ -21,25 +21,20 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
+using System;
+using System.IO;
+using System.Reflection;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OffTheRecord.Tests.Helper;
 using OffTheRecord.Toolkit.Mackey;
-using System;
-using System.Diagnostics;
-using System.IO;
-using System.Reflection;
 
 namespace OffTheRecord.Tests.Toolkit
 {
     [TestClass]
     public class MackeyTests
     {
-        /// <summary>
-        ///     Test the otr_mackey.exe application.
-        /// </summary>
         [TestMethod]
-        [OtrTestCategory(OtrTestCategories.ToolkitMackey)]
         public void MacKey_Toolkit_validate_with_default_example_set()
         {
             // Arrange
@@ -52,8 +47,8 @@ namespace OffTheRecord.Tests.Toolkit
             string location = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
             // Act
-            var result = ToolkitRunner.Run(location, filename, arguments);
-            
+            Tuple<int, string> result = ToolkitRunner.Run(location, filename, arguments);
+
             // Assert
             result.Item1.Should().Be(0);
             result.Item2.Should().Be(ToolkitResultResource.otr_mackey_exe);

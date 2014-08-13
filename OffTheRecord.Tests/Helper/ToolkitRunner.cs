@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OffTheRecord.Tests.Helper
 {
     public static class ToolkitRunner
     {
-        public static Tuple<int, string> Run(string location, string filename, string arguments = null, string input = null)
+        public static Tuple<int, string> Run(string location, string filename, string arguments = null,
+            string input = null)
         {
             var p = new Process();
             p.StartInfo.UseShellExecute = false;
@@ -44,10 +41,10 @@ namespace OffTheRecord.Tests.Helper
                 }
             }
 
-            var result = p.StandardOutput.ReadToEnd();
+            string result = p.StandardOutput.ReadToEnd();
 
             p.WaitForExit();
-            var exitcode = p.ExitCode;
+            int exitcode = p.ExitCode;
             p.Close();
 
             return new Tuple<int, string>(exitcode, result);

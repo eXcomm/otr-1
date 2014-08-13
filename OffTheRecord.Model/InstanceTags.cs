@@ -21,41 +21,42 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
+using System;
+using System.Collections.Generic;
+
 namespace OffTheRecord.Model
 {
-    #region Namespaces
-    using System;
-    using System.Collections.ObjectModel;
-    #endregion
-
-    /// <summary>
-    /// InstanceTags class.
-    /// </summary>
-    public class InstanceTags : Collection<InstanceTag>, IDisposable
+    public class InstanceTags : List<InstanceTag>, IDisposable
     {
         #region Fields
-        private bool disposed = false;
+
+        private bool disposed;
+
         #endregion
 
         #region Constructor
+
         ~InstanceTags()
         {
-            if (!this.disposed)
+            if (!disposed)
             {
-                this.Dispose();
+                Dispose();
             }
         }
+
         #endregion
 
         #region Public methods
+
         public void Dispose()
         {
-            this.disposed = true;
+            disposed = true;
 
             // release resources;
             // XXX: call dispose on each object within collection, then clear.
-            this.Clear();
+            Clear();
         }
+
         #endregion
     }
 }

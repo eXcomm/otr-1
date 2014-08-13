@@ -21,37 +21,50 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
+using System;
+using System.Collections.ObjectModel;
+
 namespace OffTheRecord.Model
 {
     #region Namespaces
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Linq;
-    using System.Text;
+
+    
+
     #endregion
 
     public class ConnectionContexts : Collection<ConnectionContext>, IDisposable
     {
         #region Fields
-        private bool disposed = false;
+
+        private bool disposed;
+
         #endregion
 
         ~ConnectionContexts()
         {
-            if (!this.disposed)
+            if (!disposed)
             {
-                this.Dispose();
+                Dispose();
             }
         }
 
         #region Public methods
+
+        public void Dispose()
+        {
+            disposed = true;
+
+            // release resources;
+            // XXX: call dispose on each object within collection, then clear.
+            Clear();
+        }
+
         public ConnectionContext GetConnectionContext(Fingerprint fingerprint, bool addIfNotFound = true)
         {
             // XXX: ignoring instance tag for now.
-            ConnectionContext cc = new ConnectionContext(fingerprint.Username, fingerprint.AccountName, fingerprint.Protocol);
+            var cc = new ConnectionContext(fingerprint.Username, fingerprint.AccountName, fingerprint.Protocol);
 
-            foreach (var item in this)
+            foreach (ConnectionContext item in this)
             {
                 if (item.Equals(cc))
                 {
@@ -61,21 +74,13 @@ namespace OffTheRecord.Model
 
             if (addIfNotFound)
             {
-                this.Add(cc);
+                Add(cc);
                 return cc;
             }
 
             return null;
         }
 
-        public void Dispose()
-        {
-            this.disposed = true;
-
-            // release resources;
-            // XXX: call dispose on each object within collection, then clear.
-            this.Clear();
-        }
         #endregion
     }
 }

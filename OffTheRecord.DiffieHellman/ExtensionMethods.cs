@@ -38,7 +38,7 @@ namespace OffTheRecord.Protocol.DiffieHellman
         /// <returns>Session ID.</returns>
         public static string SessionId(this DH1536 dh)
         {
-            byte[] sharedSecretAsMPI = Tools.MPI.ByteArrayToMPI(dh.SharedSecret.ToByteArray(), true);
+            byte[] sharedSecretAsMPI = Tools.MultiPrecisionInteger.ByteArrayToMPI(dh.SharedSecret.ToByteArray(), true);
             byte[] hash = SHA1.Create().ComputeHash(new byte[] { 0x00 }.Concat(sharedSecretAsMPI).ToArray());
 
             return Tools.General.ByteArrayToString(hash);
@@ -56,7 +56,7 @@ namespace OffTheRecord.Protocol.DiffieHellman
             byte[] oneByte = new byte[] { 0x01 };
             byte[] twoByte = new byte[] { 0x02 };
 
-            byte[] sharedSecretAsMPI = Tools.MPI.ByteArrayToMPI(dh.SharedSecret.ToByteArray(), true);
+            byte[] sharedSecretAsMPI = Tools.MultiPrecisionInteger.ByteArrayToMPI(dh.SharedSecret.ToByteArray(), true);
 
             /* next - sendenc & rcvenv AES key */
             byte[] hash = SHA1.Create().ComputeHash((isHigh ? oneByte : twoByte).Concat(sharedSecretAsMPI).ToArray());

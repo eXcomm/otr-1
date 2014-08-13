@@ -22,52 +22,51 @@
 // <email>otr@kuiper.nu</email>
 
 using System;
+using System.IO;
+using OffTheRecord.Model.Files;
 
 namespace OffTheRecord.Model
 {
-    #region Namespaces
-    using OffTheRecord.Model.Files;
-    using System.IO;
-    #endregion
-
-    /// <summary>
-    /// Userstate class.
-    /// </summary>
     /// <remarks>
-    /// Most clients will only need one of these.
-    /// A OtrlUserState encapsulates the list of known fingerprints
-    /// and the list of private keys; if you have separate files for these
-    /// things for (say) different users, use different OtrlUserStates.  If
-    /// you've got only one user, with multiple accounts all stored together
-    /// in the same fingerprint store and privkey store files, use just one
-    /// OtrlUserState.
+    ///     Most clients will only need one of these.
+    ///     A OtrlUserState encapsulates the list of known fingerprints
+    ///     and the list of private keys; if you have separate files for these
+    ///     things for (say) different users, use different OtrlUserStates.  If
+    ///     you've got only one user, with multiple accounts all stored together
+    ///     in the same fingerprint store and privkey store files, use just one
+    ///     OtrlUserState.
     /// </remarks>
     public class UserState : IDisposable
     {
         #region Fields
-        private bool disposed = false;
+
+        private bool disposed;
+
         #endregion
 
         #region Constructor
+
         internal UserState()
         {
-            this.ConnectionContexts = new ConnectionContexts();
-            this.PrivateKeys = new PrivateKeys();
-            this.InstanceTags = new InstanceTags();
-            this.PendingPrivateKey = null;
-            this.TimerRunning = 0;
+            ConnectionContexts = new ConnectionContexts();
+            PrivateKeys = new PrivateKeys();
+            InstanceTags = new InstanceTags();
+            PendingPrivateKey = null;
+            TimerRunning = 0;
         }
 
         ~UserState()
         {
-            if (!this.disposed)
+            if (!disposed)
             {
-                this.Dispose();
+                Dispose();
             }
         }
+
         #endregion
 
         #region Public properties
+
         public ConnectionContexts ConnectionContexts { get; private set; }
 
         public PrivateKeys PrivateKeys { get; private set; }
@@ -77,9 +76,38 @@ namespace OffTheRecord.Model
         public object PendingPrivateKey { get; private set; }
 
         public int TimerRunning { get; private set; }
+
         #endregion
 
         #region Public methods
+
+        public void Dispose()
+        {
+            disposed = true;
+
+            if (ConnectionContexts != null)
+            {
+                ConnectionContexts.Dispose();
+                ConnectionContexts = null;
+            }
+
+            if (PrivateKeys != null)
+            {
+                PrivateKeys.Dispose();
+                PrivateKeys = null;
+            }
+
+            if (InstanceTags != null)
+            {
+                InstanceTags.Dispose();
+                InstanceTags = null;
+            }
+
+            PendingPrivateKey = null;
+
+            TimerRunning = 0;
+        }
+
         public void ReadPrivateKeys(string filename)
         {
             if (!File.Exists(filename))
@@ -87,7 +115,7 @@ namespace OffTheRecord.Model
                 throw new FileNotFoundException(filename);
             }
 
-            this.PrivateKeys = ParseOtrPrivateKeyFile.GetPrivateKeys(filename);
+            PrivateKeys = ParseOtrPrivateKeyFile.GetPrivateKeys(filename);
         }
 
         public void ReadInstanceTags(string filename)
@@ -97,7 +125,7 @@ namespace OffTheRecord.Model
                 throw new FileNotFoundException(filename);
             }
 
-            this.InstanceTags = ParseOtrInstanceTagsFile.GetInstanceTags(filename);
+            InstanceTags = ParseOtrInstanceTagsFile.GetInstanceTags(filename);
         }
 
         public void ReadFingerprints(string filename)
@@ -107,9 +135,9 @@ namespace OffTheRecord.Model
                 throw new FileNotFoundException(filename);
             }
 
-            var fingerprints = ParseOtrFingerprintsFile.GetFingerprints(filename);
+            Fingerprints fingerprints = ParseOtrFingerprintsFile.GetFingerprints(filename);
 
-            foreach (var fingerprint in fingerprints)
+            foreach (Fingerprint fingerprint in fingerprints)
             {
                 // find or create a connectioncontext;
 
@@ -119,12 +147,12 @@ namespace OffTheRecord.Model
 ////#define OTRL_INSTAG_RECENT 2
 ////#define OTRL_INSTAG_RECENT_RECEIVED 3
 ////#define OTRL_INSTAG_RECENT_SENT 4
-                
+
                 ////UserState, fingerprint.username, fingerprint.accountname, fingerprint.protocol
 
                 /////* Get the context for this user, adding if not yet present */
                 ////context = otrl_context_find(us, username, accountname, protocol, OTRL_INSTAG_MASTER, 1, NULL, add_app_data, data);
-                var cc = this.ConnectionContexts.GetConnectionContext(fingerprint);
+                ConnectionContext cc = ConnectionContexts.GetConnectionContext(fingerprint);
 
                 /////* Add the fingerprint if not already there */
                 ////fng = otrl_context_find_fingerprint(context, fingerprint, 1, NULL);
@@ -132,32 +160,6 @@ namespace OffTheRecord.Model
             }
         }
 
-        public void Dispose()
-        {
-            this.disposed = true;
-
-            if (this.ConnectionContexts != null)
-            {
-                this.ConnectionContexts.Dispose();
-                this.ConnectionContexts = null;
-            }
-
-            if (this.PrivateKeys != null)
-            {
-                this.PrivateKeys.Dispose();
-                this.PrivateKeys = null;
-            }
-
-            if (this.InstanceTags != null)
-            {
-                this.InstanceTags.Dispose();
-                this.InstanceTags = null;
-            }
-
-            this.PendingPrivateKey = null;
-
-            this.TimerRunning = 0;
-        }
         #endregion
     }
 }

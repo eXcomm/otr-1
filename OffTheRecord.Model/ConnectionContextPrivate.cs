@@ -21,15 +21,19 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
+using System;
+using System.Numerics;
+
 namespace OffTheRecord.Model
 {
     #region Namespaces
-    using System;
-    using System.Numerics;
+
+    
+
     #endregion
 
     /// <summary>
-    /// The ConnectionContextPrivate class.
+    ///     The ConnectionContextPrivate class.
     /// </summary>
     public class ConnectionContextPrivate
     {
@@ -37,18 +41,16 @@ namespace OffTheRecord.Model
         public string Fragment { get; set; }
 
         /* The length of fragment */
+
         public int FragementLength
         {
             get
             {
-                if (!string.IsNullOrEmpty(this.Fragment))
+                if (!string.IsNullOrEmpty(Fragment))
                 {
-                    return this.Fragment.Length;
+                    return Fragment.Length;
                 }
-                else
-                {
-                    return 0;
-                }
+                return 0;
             }
         }
 

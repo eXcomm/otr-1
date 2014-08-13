@@ -21,24 +21,29 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
+using System.IO;
+using OffTheRecord.Model.Files.OtrPrivateKey;
+
 namespace OffTheRecord.Model.Files
 {
     #region Namespaces
-    using System.IO;
-    using OffTheRecord.Model.Files.OtrPrivateKey;
+
+    
+
     #endregion
 
     /// <summary>
-    /// ParseUserSettingsFile class.
+    ///     ParseUserSettingsFile class.
     /// </summary>
     public static class ParseOtrPrivateKeyFile
     {
         #region Public methods
+
         /// <summary>
-        /// Gets <see cref="PrivateKeys"/> object from file.
+        ///     Gets <see cref="PrivateKeys" /> object from file.
         /// </summary>
-        /// <param name="filename">Filename to retrieve <see cref="PrivateKeys"/> collection from.</param>
-        /// <returns>A <see cref="PrivateKeys"/> object.</returns>
+        /// <param name="filename">Filename to retrieve <see cref="PrivateKeys" /> collection from.</param>
+        /// <returns>A <see cref="PrivateKeys" /> object.</returns>
         public static PrivateKeys GetPrivateKeys(string filename)
         {
             privkeys keys = Deserialize(filename);
@@ -50,14 +55,16 @@ namespace OffTheRecord.Model.Files
             privkeys keys = DeserializeFromString(data);
             return GetPrivateKeys(keys);
         }
+
         #endregion
 
         #region Internal methods
+
         /// <summary>
-        /// Deserializes the content of the file into a <see cref="privkeys"/> object structure.
+        ///     Deserializes the content of the file into a <see cref="privkeys" /> object structure.
         /// </summary>
         /// <param name="filename">Filename to parse.</param>
-        /// <returns>A <see cref="privkeys"/> object or null if failed.</returns>
+        /// <returns>A <see cref="privkeys" /> object or null if failed.</returns>
         internal static privkeys Deserialize(string filename)
         {
             if (!File.Exists(filename))
@@ -72,26 +79,28 @@ namespace OffTheRecord.Model.Files
 
         internal static privkeys DeserializeFromString(string data)
         {
-            return privkeys.Deserialize(ParseOtrPrivateKeyFile.BuildTree(data));
+            return privkeys.Deserialize(BuildTree(data));
         }
 
         /// <summary>
-        /// Serializes a <see cref="privkeys"/> object into a string.
+        ///     Serializes a <see cref="privkeys" /> object into a string.
         /// </summary>
-        /// <param name="privkeys">The <see cref="privkeys"/> object to serialize.</param>
+        /// <param name="privkeys">The <see cref="privkeys" /> object to serialize.</param>
         /// <returns>Serialized string.</returns>
         internal static string Serialize(privkeys privkeys)
         {
             return privkeys.Serialize();
         }
+
         #endregion
 
         #region Private methods
+
         private static PrivateKeys GetPrivateKeys(privkeys keys)
         {
             var privateKeys = new PrivateKeys();
 
-            foreach (var account in keys.account)
+            foreach (account account in keys.account)
             {
                 var privateKey = new PrivateKey(account.private_key.dsa.GetDSAParameters(true));
                 privateKey.AccountName = account.name;
@@ -105,7 +114,7 @@ namespace OffTheRecord.Model.Files
 
         private static Item BuildTree(string input)
         {
-            Item parent = new Item();
+            var parent = new Item();
 
             if (input.Length == 0)
             {
@@ -142,7 +151,7 @@ namespace OffTheRecord.Model.Files
                             string value = input.Substring(start, i - start);
                             string content = input.Substring(start + 1, i - start - 2);
 
-                            Item child = new Item();
+                            var child = new Item();
                             child.Value = value;
                             child.Parent = parent;
 
@@ -163,6 +172,7 @@ namespace OffTheRecord.Model.Files
 
             return parent;
         }
+
         #endregion
     }
 }

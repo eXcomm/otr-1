@@ -21,30 +21,38 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
+using System;
+using System.Security.Cryptography;
+
 namespace OffTheRecord.Model
 {
     #region Namespaces
-    using System;
-    using System.Security.Cryptography;
+
+    
+
     #endregion
 
     /// <summary>
-    /// BasePrivateKey class.
+    ///     BasePrivateKey class.
     /// </summary>
     public abstract class BasePrivateKey
     {
         #region Fields
+
         #endregion
 
         #region Public Properties
+
         public string AccountName { get; set; }
 
         public string Protocol { get; set; }
+
         #endregion
 
         #region Public methods
+
         /// <summary>
-        /// Convert a 20-byte hash value to a 45 chars human-readable value.
+        ///     Convert a 20-byte hash value to a 45 chars human-readable value.
         /// </summary>
         /// <param name="hash">SHA1 hash of private key.</param>
         /// <returns>A human readable fingerprint (45 chars).</returns>
@@ -62,21 +70,22 @@ namespace OffTheRecord.Model
                 throw new Exception("Fingerprint is of incorrect length.");
             }
 
-            return fingerprint.Substring(0, 8) + " " + fingerprint.Substring(8, 8) + " " + fingerprint.Substring(16, 8) + " " + fingerprint.Substring(24, 8) + " " + fingerprint.Substring(32);
+            return fingerprint.Substring(0, 8) + " " + fingerprint.Substring(8, 8) + " " + fingerprint.Substring(16, 8) +
+                   " " + fingerprint.Substring(24, 8) + " " + fingerprint.Substring(32);
         }
 
         /// <summary>
-        /// Calculate a human-readable hash of our DSA public key.  Return it in
-        /// the passed fingerprint buffer.  Return NULL on error, or a pointer to
-        /// the given buffer on success.
+        ///     Calculate a human-readable hash of our DSA public key.  Return it in
+        ///     the passed fingerprint buffer.  Return NULL on error, or a pointer to
+        ///     the given buffer on success.
         /// </summary>
-        /// <param name="userState">The current <see cref="UserState"/>.</param>
+        /// <param name="userState">The current <see cref="UserState" />.</param>
         /// <param name="accountName">The AccountName.</param>
         /// <param name="protocol">The Protocol.</param>
         /// <returns>A human readable fingerprint (45 chars).</returns>
         public static string otrl_privkey_fingerprint(UserState userState, string accountName, string protocol)
         {
-            PrivateKey privateKey = BasePrivateKey.otrl_privkey_find(userState, accountName, protocol);
+            PrivateKey privateKey = otrl_privkey_find(userState, accountName, protocol);
 
             if (privateKey != null)
             {
@@ -88,17 +97,17 @@ namespace OffTheRecord.Model
         }
 
         /// <summary>
-        /// Calculate a raw hash of our DSA public key.  Return it in the passed 
-        /// fingerprint buffer.  Return NULL on error, or a pointer to the given
-        /// buffer on success.
+        ///     Calculate a raw hash of our DSA public key.  Return it in the passed
+        ///     fingerprint buffer.  Return NULL on error, or a pointer to the given
+        ///     buffer on success.
         /// </summary>
-        /// <param name="userState">The current <see cref="UserState"/>.</param>
+        /// <param name="userState">The current <see cref="UserState" />.</param>
         /// <param name="accountName">The AccountName.</param>
         /// <param name="protocol">The Protocol.</param>
         /// <returns>A 20 byte hash.</returns>
         public static byte[] otrl_privkey_fingerprint_raw(UserState userState, string accountName, string protocol)
         {
-            PrivateKey privateKey = BasePrivateKey.otrl_privkey_find(userState, accountName, protocol);
+            PrivateKey privateKey = otrl_privkey_find(userState, accountName, protocol);
 
             if (privateKey != null)
             {
@@ -109,13 +118,13 @@ namespace OffTheRecord.Model
         }
 
         /// <summary>
-        /// Create a public key block from a private key.
+        ///     Create a public key block from a private key.
         /// </summary>
-        /// <param name="privateKey">The <see cref="DSA"/> PrivateKey.</param>
-        /// <returns>The <see cref="DSACryptoServiceProvider"/> PublicKey.</returns>
+        /// <param name="privateKey">The <see cref="DSA" /> PrivateKey.</param>
+        /// <returns>The <see cref="DSACryptoServiceProvider" /> PublicKey.</returns>
         public static DSACryptoServiceProvider make_pubkey(DSA privateKey)
         {
-            DSACryptoServiceProvider publicKey = new DSACryptoServiceProvider(1024);
+            var publicKey = new DSACryptoServiceProvider(1024);
             publicKey.ImportParameters(privateKey.ExportParameters(false));
 
             if (!publicKey.PublicOnly)
@@ -128,7 +137,7 @@ namespace OffTheRecord.Model
         }
 
         /// <summary>
-        /// Fetch the private key from the given OtrlUserState associated with the given account.
+        ///     Fetch the private key from the given OtrlUserState associated with the given account.
         /// </summary>
         /// <param name="us"></param>
         /// <param name="accountname"></param>
@@ -138,6 +147,7 @@ namespace OffTheRecord.Model
         {
             return null;
         }
+
         #endregion
     }
 }

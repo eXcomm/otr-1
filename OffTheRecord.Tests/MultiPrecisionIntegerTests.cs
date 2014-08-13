@@ -41,9 +41,9 @@ namespace OffTheRecord.Tests
 
             // Act
             byte[] p = General.StringToByteArray(expected);
-            byte[] mpiP = MPI.ByteArrayToMPI(p);
+            byte[] mpiP = MultiPrecisionInteger.ByteArrayToMPI(p);
 
-            byte[] resultp = MPI.MPIToByteArray(mpiP);
+            byte[] resultp = MultiPrecisionInteger.MPIToByteArray(mpiP);
             string result = General.ByteArrayToString(resultp);
 
             // Assert

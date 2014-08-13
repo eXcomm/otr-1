@@ -24,7 +24,7 @@
 namespace OffTheRecord.Model
 {
     /// <summary>
-    /// PendingPrivateKey class.
+    ///     PendingPrivateKey class.
     /// </summary>
     public class PendingPrivateKey : BasePrivateKey
     {

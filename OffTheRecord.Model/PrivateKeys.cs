@@ -21,40 +21,38 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
+using System;
+using System.Collections.Generic;
+
 namespace OffTheRecord.Model
 {
-    #region Namespaces
-    using System.Linq;
-    using System.Collections.ObjectModel;
-    using System;
-    #endregion
-
-    /// <summary>
-    /// PrivateKeys class.
-    /// </summary>
-    public class PrivateKeys : Collection<PrivateKey>, IDisposable
+    public class PrivateKeys : List<PrivateKey>, IDisposable
     {
         #region Fields
-        private bool disposed = false;
+
+        private bool disposed;
+
         #endregion
 
         ~PrivateKeys()
         {
-            if (!this.disposed)
+            if (!disposed)
             {
-                this.Dispose();
+                Dispose();
             }
         }
 
         #region Public methods
+
         public void Dispose()
         {
-            this.disposed = true;
+            disposed = true;
 
             // release resources;
             // XXX: call dispose on each object within collection, then clear.
-            this.Clear();
+            Clear();
         }
+
         #endregion
     }
 }

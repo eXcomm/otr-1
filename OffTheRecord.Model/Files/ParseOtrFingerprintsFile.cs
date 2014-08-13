@@ -21,26 +21,31 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
+using System;
+using System.Collections.ObjectModel;
+using System.IO;
+using OffTheRecord.Model.Files.OtrFingerprints;
+
 namespace OffTheRecord.Model.Files
 {
     #region Namespaces
-    using System;
-    using System.Collections.ObjectModel;
-    using System.IO;
-    using OffTheRecord.Model.Files.OtrFingerprints;
+
+    
+
     #endregion
 
     /// <summary>
-    /// ParseOtrFingerprintsFile class.
+    ///     ParseOtrFingerprintsFile class.
     /// </summary>
     public static class ParseOtrFingerprintsFile
     {
         #region Public methods
+
         /// <summary>
-        /// Gets <see cref="Fingerprints"/> object from file.
+        ///     Gets <see cref="Fingerprints" /> object from file.
         /// </summary>
-        /// <param name="filename">Filename to retrieve <see cref="Fingerprints"/> collection from.</param>
-        /// <returns>A <see cref="Fingerprints"/> object.</returns>
+        /// <param name="filename">Filename to retrieve <see cref="Fingerprints" /> collection from.</param>
+        /// <returns>A <see cref="Fingerprints" /> object.</returns>
         public static Fingerprints GetFingerprints(string filename)
         {
             Collection<fingerprint> fingerprints = Deserialize(filename);
@@ -52,14 +57,16 @@ namespace OffTheRecord.Model.Files
             Collection<fingerprint> fingerprints = DeserializeFromString(data);
             return GetFingerprints(fingerprints);
         }
+
         #endregion
 
         #region Internal methods
+
         /// <summary>
-        /// Deserializes the content of the file into a collection of <see cref="fingerprint"/> objects.
+        ///     Deserializes the content of the file into a collection of <see cref="fingerprint" /> objects.
         /// </summary>
         /// <param name="filename">Filename to parse.</param>
-        /// <returns>A collection of <see cref="fingerprint"/> objects.</returns>
+        /// <returns>A collection of <see cref="fingerprint" /> objects.</returns>
         internal static Collection<fingerprint> Deserialize(string filename)
         {
             if (!File.Exists(filename))
@@ -67,21 +74,21 @@ namespace OffTheRecord.Model.Files
                 throw new FileNotFoundException(filename);
             }
 
-            var data = File.ReadAllText(filename);
+            string data = File.ReadAllText(filename);
 
             return DeserializeFromString(data);
         }
 
         /// <summary>
-        /// Deserializes the content of the file into a collection of <see cref="fingerprint"/> objects.
+        ///     Deserializes the content of the file into a collection of <see cref="fingerprint" /> objects.
         /// </summary>
         /// <param name="filename">Filename to parse.</param>
-        /// <returns>A collection of <see cref="fingerprint"/> objects.</returns>
+        /// <returns>A collection of <see cref="fingerprint" /> objects.</returns>
         internal static Collection<fingerprint> DeserializeFromString(string data)
         {
             var result = new Collection<fingerprint>();
 
-            foreach (var line in data.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
+            foreach (string line in data.Split(new[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries))
             {
                 result.Add(fingerprint.Deserialize(line));
             }
@@ -90,30 +97,32 @@ namespace OffTheRecord.Model.Files
         }
 
         /// <summary>
-        /// Serializes a collection of <see cref="fingerprint"/> objects into a string.
+        ///     Serializes a collection of <see cref="fingerprint" /> objects into a string.
         /// </summary>
-        /// <param name="fingerprints">The collection of <see cref="fingerprint"/> objects to serialize.</param>
+        /// <param name="fingerprints">The collection of <see cref="fingerprint" /> objects to serialize.</param>
         /// <returns>Serialized string.</returns>
         internal static string Serialize(Collection<fingerprint> fingerprints)
         {
             string result = string.Empty;
 
-            foreach (var item in fingerprints)
+            foreach (fingerprint item in fingerprints)
             {
                 result += item.Serialize() + Environment.NewLine;
             }
 
             return result;
         }
+
         #endregion
 
         public static Fingerprints GetFingerprints(Collection<fingerprint> fingerprints)
         {
             var results = new Fingerprints();
 
-            foreach (var fingerprint in fingerprints)
+            foreach (fingerprint fingerprint in fingerprints)
             {
-                var fp = new Fingerprint(fingerprint.Username, fingerprint.Account, fingerprint.Protocol, fingerprint.Fingerprint, fingerprint.Status.ToString());
+                var fp = new Fingerprint(fingerprint.Username, fingerprint.Account, fingerprint.Protocol,
+                    fingerprint.Fingerprint, fingerprint.Status.ToString());
                 results.Add(fp);
             }
 

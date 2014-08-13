@@ -21,10 +21,16 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
+using System;
+using System.Reflection;
+using log4net;
+
 namespace OffTheRecord.Model.Files.OtrFingerprints
 {
     #region Namespaces
-    using System;
+
+    
+
     #endregion
 
     public enum Statuses
@@ -34,46 +40,53 @@ namespace OffTheRecord.Model.Files.OtrFingerprints
     }
 
     /// <summary>
-    /// fingerprint class.
+    ///     fingerprint class.
     /// </summary>
     public sealed class fingerprint
     {
         #region Fields
-        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         #endregion
 
         #region constructor
+
         public fingerprint(string username, string account, string protocol, string fingerprint, Statuses status)
         {
-            this.Username = username;
-            this.Account = account;
-            this.Protocol = protocol;
-            this.Fingerprint = fingerprint;
-            this.Status = status;
+            Username = username;
+            Account = account;
+            Protocol = protocol;
+            Fingerprint = fingerprint;
+            Status = status;
         }
 
         private fingerprint()
         {
         }
+
         #endregion
 
         #region Public properties
+
         public string Username { get; set; }
         public string Account { get; set; }
         public string Protocol { get; set; }
         public string Fingerprint { get; set; }
         public Statuses Status { get; set; }
+
         #endregion
 
         #region Internal methods
+
         /// <summary>
-        /// Deserialize string to <see cref="privkeys"/> object.
+        ///     Deserialize string to <see cref="privkeys" /> object.
         /// </summary>
         /// <param name="item">Serialized string.</param>
-        /// <returns>A <see cref="privkeys"/> object.</returns>
+        /// <returns>A <see cref="privkeys" /> object.</returns>
         internal static fingerprint Deserialize(string line)
         {
-            fingerprint fp = new fingerprint();
+            var fp = new fingerprint();
 
             string[] parts = line.Split('\t');
             fp.Username = parts[0];
@@ -86,7 +99,7 @@ namespace OffTheRecord.Model.Files.OtrFingerprints
                 Log.Error("Fingerprint is of incorrect size (!=40 characters)");
             }
 
-            Statuses status = Statuses.smp;
+            var status = Statuses.smp;
 
             Enum.TryParse(parts[4], out status);
 
@@ -96,13 +109,14 @@ namespace OffTheRecord.Model.Files.OtrFingerprints
         }
 
         /// <summary>
-        /// Serialize object.
+        ///     Serialize object.
         /// </summary>
         /// <returns>Serialized string.</returns>
         internal string Serialize()
         {
-            return string.Format("{0}{1}{2}{1}{3}{1}{4}{1}{5}", this.Username, '\t', this.Account, this.Protocol, this.Fingerprint, this.Status);
+            return string.Format("{0}{1}{2}{1}{3}{1}{4}{1}{5}", Username, '\t', Account, Protocol, Fingerprint, Status);
         }
+
         #endregion
     }
 }

@@ -21,48 +21,61 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
+using System.Diagnostics;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Threading.Tasks;
+using OffTheRecord.Resources;
+using OffTheRecord.Tools;
+
 namespace OffTheRecord.Model
 {
     #region Namespaces
-    using System.Linq;
-    using System.Security.Cryptography;
-    using OffTheRecord.Resources;
-    using OffTheRecord.Tools;
-    using System.Diagnostics;
+
+    
+
     #endregion
 
     /// <summary>
-    /// PrivateKey class.
+    ///     PrivateKey class.
     /// </summary>
     [DebuggerDisplay("PrivateKey Fingerprint: {Fingerprint}")]
     public class PrivateKey : BasePrivateKey
     {
         #region Fields
+
         private DSAParameters privateKey;
-        private string accountName = string.Empty;
-        private string protocol = string.Empty;
+
         #endregion
 
         #region Constructor
-        public PrivateKey(DSAParameters dsaParameters)
+
+        private PrivateKey()
         {
-            this.privateKey = dsaParameters;
-
-            DSACryptoServiceProvider dsa = new DSACryptoServiceProvider(1024);
-            dsa.ImportParameters(this.privateKey);
-            this.PublicKey = dsa.ExportParameters(false);
-
-            this.PublicKeyAsMPI = MPI.ByteArrayToMPI(this.PublicKey.P)
-                 .Concat(MPI.ByteArrayToMPI(this.PublicKey.Q))
-                 .Concat(MPI.ByteArrayToMPI(this.PublicKey.G))
-                 .Concat(MPI.ByteArrayToMPI(this.PublicKey.Y))
-                 .ToArray();
+            // do nothing
         }
+
+        internal PrivateKey(DSAParameters dsaParameters)
+        {
+            privateKey = dsaParameters;
+
+            var dsa = new DSACryptoServiceProvider(1024);
+            dsa.ImportParameters(privateKey);
+            PublicKey = dsa.ExportParameters(false);
+
+            PublicKeyAsMPI = MultiPrecisionInteger.ByteArrayToMPI(PublicKey.P)
+                .Concat(MultiPrecisionInteger.ByteArrayToMPI(PublicKey.Q))
+                .Concat(MultiPrecisionInteger.ByteArrayToMPI(PublicKey.G))
+                .Concat(MultiPrecisionInteger.ByteArrayToMPI(PublicKey.Y))
+                .ToArray();
+        }
+
         #endregion
 
         #region Public Properties
+
         /// <summary>
-        /// Gets the PublicKeyType.
+        ///     Gets the PublicKeyType.
         /// </summary>
         public uint PublicKeyType
         {
@@ -70,34 +83,33 @@ namespace OffTheRecord.Model
         }
 
         /// <summary>
-        /// Gets the PublicKey as <see cref="DSAParameters"/> object.
+        ///     Gets the PublicKey as <see cref="DSAParameters" /> object.
         /// </summary>
-        public DSAParameters PublicKey
-        {
-            get;
-            private set;
-        }
+        public DSAParameters PublicKey { get; private set; }
 
         /// <summary>
-        /// Gets the Fingerprint representation of the Public Key.
+        ///     Gets the Fingerprint representation of the Public Key.
         /// </summary>
         public string Fingerprint
         {
             get
             {
-                byte[] hash = SHA1.Create().ComputeHash(this.PublicKeyAsMPI);
-                return BasePrivateKey.otrl_privkey_hash_to_human(hash);
+                byte[] hash = SHA1.Create().ComputeHash(PublicKeyAsMPI);
+                return otrl_privkey_hash_to_human(hash);
             }
         }
 
-        /// <summary>
-        /// Gets the PublicKey as MPI.
-        /// </summary>
-        public byte[] PublicKeyAsMPI
+        public static async Task<PrivateKey> CreatePrivateKey()
         {
-            get;
-            private set;
+            // generate new private key for user.
+            return await Task.Run(() => { return new PrivateKey(); });
         }
+
+        /// <summary>
+        ///     Gets the PublicKey as MPI.
+        /// </summary>
+        public byte[] PublicKeyAsMPI { get; private set; }
+
         #endregion
     }
 }

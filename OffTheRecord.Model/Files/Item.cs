@@ -21,53 +21,58 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
+using System.Collections.ObjectModel;
+
 namespace OffTheRecord.Model.Files
 {
     #region Namespaces
-    using System.Collections.ObjectModel;
+
+    
+
     #endregion
 
     /// <summary>
-    /// Item class.
+    ///     Item class.
     /// </summary>
     internal class Item
     {
         #region Constructor
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="Item"/> class.
+        ///     Initializes a new instance of the <see cref="Item" /> class.
         /// </summary>
         public Item()
         {
-            this.Children = new Collection<Item>();
+            Children = new Collection<Item>();
         }
+
         #endregion
 
         #region Public properties
+
         /// <summary>
-        /// Gets or sets the parent <see cref="Item"/>.
+        ///     Gets or sets the parent <see cref="Item" />.
         /// </summary>
         public Item Parent { get; set; }
 
         /// <summary>
-        /// Gets or sets the collection of <see cref="Item"/> children.
+        ///     Gets or sets the collection of <see cref="Item" /> children.
         /// </summary>
         public Collection<Item> Children { get; set; }
 
         /// <summary>
-        /// Gets or sets the value.
+        ///     Gets or sets the value.
         /// </summary>
         public string Value { get; set; }
 
         /// <summary>
-        /// Gets a value indicating whether the current <see cref="Item"/> is the root item.
+        ///     Gets a value indicating whether the current <see cref="Item" /> is the root item.
         /// </summary>
         public bool IsRoot
         {
-            get
-            {
-                return this.Parent == null;
-            }
+            get { return Parent == null; }
         }
+
         #endregion
     }
 }

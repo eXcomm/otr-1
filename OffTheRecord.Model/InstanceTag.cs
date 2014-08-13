@@ -21,73 +21,87 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
+using System;
+using System.Diagnostics;
+using System.Globalization;
+using System.Reflection;
+using log4net;
+
 namespace OffTheRecord.Model
 {
     #region Namespaces
-    using System;
-    using System.Diagnostics;
+
+    
+
     #endregion
+
     /// <summary>
-    /// InstanceTag class.
+    ///     InstanceTag class.
     /// </summary>
     [DebuggerDisplay("AccountName: {AccountName}, Protocol: {Protocol}")]
     public class InstanceTag
     {
         #region Fields
-        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         /* Instag values below this are reserved for meta instags */
         public const uint OTRL_MIN_VALID_INSTAG = 0x100;
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         #endregion
 
         #region Constructor
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="Tag"/> class.
+        ///     Initializes a new instance of the <see cref="Tag" /> class.
         /// </summary>
         /// <param name="accountName">The account name.</param>
         /// <param name="protocol">The protocol.</param>
         public InstanceTag(string accountName, string protocol)
         {
-            this.AccountName = accountName;
-            this.Protocol = protocol;
+            AccountName = accountName;
+            Protocol = protocol;
         }
+
         #endregion
 
         #region Enum
+
 ////#define OTRL_INSTAG_MASTER 0
 ////#define OTRL_INSTAG_BEST 1 /* Most secure, based on: conv status, then fingerprint status, then most recent. */
 ////#define OTRL_INSTAG_RECENT 2
 ////#define OTRL_INSTAG_RECENT_RECEIVED 3
 ////#define OTRL_INSTAG_RECENT_SENT 4
+
         #endregion
 
         #region Public properties
+
         public string AccountName { get; private set; }
 
         public string Protocol { get; private set; }
 
         public uint Tag { get; private set; }
+
         #endregion
 
         #region Public methods
+
         /// <summary>
-        /// Set Instance Tag using Hex string as input.
+        ///     Set Instance Tag using Hex string as input.
         /// </summary>
         /// <param name="instanceTag">Instance tag as hex input.</param>
         public void SetInstanceTag(string instanceTag)
         {
-            uint value = uint.Parse(instanceTag, System.Globalization.NumberStyles.AllowHexSpecifier);
+            uint value = uint.Parse(instanceTag, NumberStyles.AllowHexSpecifier);
 
             if (value <= OTRL_MIN_VALID_INSTAG)
             {
                 throw new ArgumentException("use SetInstanceTagWithMetaTag");
             }
-            else
-            {
-                this.Tag = value;
-                Log.DebugFormat("Set InstanceTag to: {0}", this.Tag);
-            }
+            Tag = value;
+            Log.DebugFormat("Set InstanceTag to: {0}", Tag);
         }
+
         #endregion
     }
 }

@@ -21,18 +21,19 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
+using System;
+using OffTheRecord.Protocol.DiffieHellman;
+
 namespace OffTheRecord.Model
 {
     #region Namespaces
-    using OffTheRecord.Protocol.DiffieHellman;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
+
+    
+
     #endregion
 
     /// <summary>
-    /// AuthInfo class.
+    ///     AuthInfo class.
     /// </summary>
     public class AuthInfo
     {
@@ -43,12 +44,12 @@ namespace OffTheRecord.Model
         public string encgx { get; set; }
 
         /// <summary>
-        /// 16 chars
+        ///     16 chars
         /// </summary>
         public string r { get; set; }
 
         /// <summary>
-        /// 32 chars
+        ///     32 chars
         /// </summary>
         public string hashgx { get; set; }
 
@@ -65,7 +66,7 @@ namespace OffTheRecord.Model
         public object mac_m2p { get; set; }
 
         /// <summary>
-        /// 20 chars
+        ///     20 chars
         /// </summary>
         public string fingerprint { get; set; }
 
@@ -74,7 +75,7 @@ namespace OffTheRecord.Model
         public uint ProtocolVersion { get; set; }
 
         /// <summary>
-        /// 20 chars
+        ///     20 chars
         /// </summary>
         public string SecureSessionId { get; set; }
 

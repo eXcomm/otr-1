@@ -21,20 +21,25 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
+using System;
+
 namespace OffTheRecord.Model
 {
     #region Namespaces
-    using System;
+
+    
+
     #endregion
 
     /// <summary>
-    /// Fingerprint class.
+    ///     Fingerprint class.
     /// </summary>
     public class Fingerprint
     {
         #region Constructor
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="Fingerprint"/> class.
+        ///     Initializes a new instance of the <see cref="Fingerprint" /> class.
         /// </summary>
         /// <param name="username">The username.</param>
         /// <param name="accountName">The account name.</param>
@@ -43,24 +48,26 @@ namespace OffTheRecord.Model
         /// <param name="status">The status.</param>
         public Fingerprint(string username, string accountName, string protocol, string fingerprint, string status)
         {
-            this.Username = username;
-            this.AccountName = accountName;
-            this.Protocol = protocol;
+            Username = username;
+            AccountName = accountName;
+            Protocol = protocol;
 
-            this.SetFingerprint(fingerprint);
+            SetFingerprint(fingerprint);
 
-            FingerprintStatus fingerprintStatus = FingerprintStatus.Empty;
+            var fingerprintStatus = FingerprintStatus.Empty;
 
             if (Enum.TryParse(status, true, out fingerprintStatus))
             {
-                this.Status = fingerprintStatus;
+                Status = fingerprintStatus;
             }
         }
+
         #endregion
 
         #region Enums
+
         /// <summary>
-        /// Fingerprint status enum.
+        ///     Fingerprint status enum.
         /// </summary>
         public enum FingerprintStatus
         {
@@ -68,49 +75,55 @@ namespace OffTheRecord.Model
             Empty,
 
             /// <summary>
-            /// Verified fingerprint / user.
+            ///     Verified fingerprint / user.
             /// </summary>
             Verified,
 
             /// <summary>
-            /// Socialist Millionare Protocol (not executed?!).
+            ///     Socialist Millionare Protocol (not executed?!).
             /// </summary>
             SMP,
         }
+
         #endregion
 
         #region Public properties
+
         /// <summary>
-        /// Gets the username.
+        ///     Gets the username.
         /// </summary>
         public string Username { get; private set; }
 
         /// <summary>
-        /// Gets the accountname.
+        ///     Gets the accountname.
         /// </summary>
         public string AccountName { get; private set; }
 
         /// <summary>
-        /// Gets the protocol.
+        ///     Gets the protocol.
         /// </summary>
         public string Protocol { get; private set; }
 
         /// <summary>
-        /// Gets the fingerprint.
+        ///     Gets the fingerprint.
         /// </summary>
         public string Print { get; private set; }
 
         /// <summary>
-        /// Gets the status.
+        ///     Gets the status.
         /// </summary>
         public FingerprintStatus Status { get; private set; }
+
         #endregion
 
         #region Private methods
+
         private void SetFingerprint(string fingerprint)
         {
-            this.Print = fingerprint.Substring(0, 8) + " " + fingerprint.Substring(8, 8) + " " + fingerprint.Substring(16, 8) + " " + fingerprint.Substring(24, 8) + " " + fingerprint.Substring(32);
+            Print = fingerprint.Substring(0, 8) + " " + fingerprint.Substring(8, 8) + " " + fingerprint.Substring(16, 8) +
+                    " " + fingerprint.Substring(24, 8) + " " + fingerprint.Substring(32);
         }
+
         #endregion
     }
 }

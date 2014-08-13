@@ -21,39 +21,38 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
+using System;
+using System.Collections.Generic;
+
 namespace OffTheRecord.Model
 {
-    #region Namespaces
-    using System;
-    using System.Collections.ObjectModel;
-    #endregion
-
-    /// <summary>
-    /// Fingerprints class.
-    /// </summary>
-    public class Fingerprints : Collection<Fingerprint>, IDisposable
+    public class Fingerprints : List<Fingerprint>, IDisposable
     {
         #region Fields
-        private bool disposed = false;
+
+        private bool disposed;
+
         #endregion
 
         ~Fingerprints()
         {
-            if (!this.disposed)
+            if (!disposed)
             {
-                this.Dispose();
+                Dispose();
             }
         }
 
         #region Public methods
+
         public void Dispose()
         {
-            this.disposed = true;
+            disposed = true;
 
             // release resources;
             // XXX: call dispose on each object within collection, then clear.
-            this.Clear();
+            Clear();
         }
+
         #endregion
     }
 }

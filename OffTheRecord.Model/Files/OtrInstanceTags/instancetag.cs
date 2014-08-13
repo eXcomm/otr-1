@@ -1,5 +1,4 @@
-﻿
-// <copyright>
+﻿// <copyright>
 // Off The Record Messaging .NET, Copyright (c) 2013
 //  based upon the original Off-the-Record Messaging library by
 //    Ian Goldberg, Rob Smits, Chris Alexander,
@@ -23,41 +22,47 @@
 // <email>otr@kuiper.nu</email>
 
 using System;
+
 namespace OffTheRecord.Model.Files.OtrInstanceTags
 {
     /// <summary>
-    /// instancetags class.
+    ///     instancetags class.
     /// </summary>
     public sealed class instancetag
     {
         #region constructor
+
         public instancetag(string account, string protocol, string instanceTag)
         {
-            this.Account = account;
-            this.Protocol = protocol;
-            this.InstanceTag = instanceTag;
+            Account = account;
+            Protocol = protocol;
+            InstanceTag = instanceTag;
         }
 
         private instancetag()
         {
         }
+
         #endregion
 
         #region Public properties
+
         public string Account { get; set; }
         public string Protocol { get; set; }
         public string InstanceTag { get; set; }
+
         #endregion
 
         #region Internal methods
+
         /// <summary>
-        /// Deserialize string to <see cref="privkeys"/> object.
+        ///     Deserialize string to <see cref="privkeys" /> object.
         /// </summary>
         /// <param name="item">Serialized string.</param>
-        /// <returns>A <see cref="privkeys"/> object.</returns>
+        /// <returns>A <see cref="privkeys" /> object.</returns>
         internal static instancetag Deserialize(string line)
         {
-            instancetag it = new instancetag();
+            var it = new instancetag();
 
             string[] parts = line.Split('\t');
             it.Account = parts[0];
@@ -68,13 +73,14 @@ namespace OffTheRecord.Model.Files.OtrInstanceTags
         }
 
         /// <summary>
-        /// Serialize object.
+        ///     Serialize object.
         /// </summary>
         /// <returns>Serialized string.</returns>
         internal string Serialize()
         {
-            return string.Format("{0}{1}{2}{1}{3}{4}", this.Account, '\t', this.Protocol, this.InstanceTag, Environment.NewLine);
+            return string.Format("{0}{1}{2}{1}{3}{4}", Account, '\t', Protocol, InstanceTag, Environment.NewLine);
         }
+
         #endregion
     }
 }

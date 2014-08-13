@@ -21,25 +21,31 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
+using System;
+using OffTheRecord.Protocol.SocialistMillionaire;
+
 namespace OffTheRecord.Model
 {
     #region Namespaces
-    using OffTheRecord.Protocol.SocialistMillionaire;
-    using System;
-    using System.Collections.Generic;
+
+    
+
     #endregion
 
     /// <summary>
-    /// ConnectionContext class.
+    ///     ConnectionContext class.
     /// </summary>
     /// <remarks>The connection state between two users.</remarks>
     public class ConnectionContext : IDisposable, IEquatable<ConnectionContext>
     {
         #region Fields
-        private bool disposed = false;
+
+        private bool disposed;
+
         #endregion
 
         #region Constructor
+
         internal ConnectionContext(string username, string accountname, string protocol)
         {
             if (string.IsNullOrEmpty(username))
@@ -56,7 +62,7 @@ namespace OffTheRecord.Model
             {
                 throw new ArgumentNullException("protocol");
             }
-            
+
             this.username = username;
             this.accountname = accountname;
             this.protocol = protocol;
@@ -64,27 +70,27 @@ namespace OffTheRecord.Model
 
         ~ConnectionContext()
         {
-            if (!this.disposed)
+            if (!disposed)
             {
-                this.Dispose();
+                Dispose();
             }
         }
+
         #endregion
 
         //    struct context * next;             /* Linked list pointer */
         //    struct context ** tous;            /* A pointer to the pointer to us */
 
         /* Context information that is meant for internal use */
-        public ConnectionContextPrivate ContextPrivate { get; set; }
-
-        /* The user this context is for */
-        public string username;
 
         /* The username is relative to this account... */
         public string accountname;
 
         /* ... and this protocol */
         public string protocol;
+        public uint protocol_version;
+        public string username;
+        public ConnectionContextPrivate ContextPrivate { get; set; }
 
         /* If this is a child context, this field will point to the master context. Otherwise it will point to itself. */
         public ConnectionContext MasterContext { get; set; }
@@ -121,7 +127,6 @@ namespace OffTheRecord.Model
         //    OtrlSessionIdHalf sessionid_half;  /* connection was established. */
 
         /* The version of OTR in use */
-        public uint protocol_version;
 
         //    enum {
         //    OFFER_NOT,
@@ -141,20 +146,21 @@ namespace OffTheRecord.Model
         public SMState SMState { get; set; }
 
         #region Public methods
+
         public void Dispose()
         {
-            this.disposed = true;
+            disposed = true;
 
             // release resources;
         }
 
         public bool Equals(ConnectionContext other)
         {
-            if (string.Compare(this.username, other.username, true) == 0)
+            if (string.Compare(username, other.username, true) == 0)
             {
-                if (string.Compare(this.accountname, other.accountname, true) == 0)
+                if (string.Compare(accountname, other.accountname, true) == 0)
                 {
-                    if (string.Compare(this.protocol, other.protocol, true) == 0)
+                    if (string.Compare(protocol, other.protocol, true) == 0)
                     {
                         return true;
                     }
@@ -163,7 +169,7 @@ namespace OffTheRecord.Model
 
             return false;
         }
-        #endregion
 
+        #endregion
     }
 }

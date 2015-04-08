@@ -51,7 +51,7 @@ namespace OffTheRecord.Tests.Toolkit
 
             // Assert
             result.Item1.Should().Be(0);
-            result.Item2.Should().Be(ToolkitResultResource.otr_sesskeys_exe);
+            result.Item2.Should().Be(ToolkitResultResource.otr_sesskeys_exe.Replace("\r\n", Environment.NewLine));
         }
 
         #endregion

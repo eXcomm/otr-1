@@ -27,7 +27,7 @@ namespace OffTheRecord.Tests.Toolkit
 
             // Assert
             result.Item1.Should().Be(0);
-            result.Item2.Should().Be(ToolkitResultResource.otr_parse_exe);
+            result.Item2.Should().Be(ToolkitResultResource.otr_parse_exe.Replace("\r\n", Environment.NewLine));
         }
     }
 }

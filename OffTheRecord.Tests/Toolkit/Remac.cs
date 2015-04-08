@@ -52,7 +52,7 @@ namespace OffTheRecord.Tests.Toolkit
             Assert.Inconclusive();
 
             result.Item1.Should().Be(0);
-            result.Item2.Should().Be(ToolkitResultResource.otr_remac_exe.Replace("\r\n", Environment.NewLine));
+            result.Item2.Should().Be(ToolkitResultResource.otr_remac_exe);
         }
 
         #endregion

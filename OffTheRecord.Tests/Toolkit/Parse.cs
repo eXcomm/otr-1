@@ -11,6 +11,7 @@ namespace OffTheRecord.Tests.Toolkit
     [TestClass]
     public class Parse
     {
+        [Ignore]
         [TestMethod]
         public void Parse_Toolkit_validate_with_default_example_set()
         {

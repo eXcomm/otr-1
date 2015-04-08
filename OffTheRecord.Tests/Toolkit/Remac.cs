@@ -36,6 +36,7 @@ namespace OffTheRecord.Tests.Toolkit
     {
         #region Unit tests
 
+        [Ignore]
         [TestMethod]
         public void TestToolkitRemac()
         {

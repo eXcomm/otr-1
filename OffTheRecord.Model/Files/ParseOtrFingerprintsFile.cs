@@ -42,13 +42,13 @@ namespace OffTheRecord.Model.Files
         /// <returns>A <see cref="Fingerprints" /> object.</returns>
         public static Fingerprints GetFingerprints(string filename)
         {
-            Collection<fingerprint> fingerprints = Deserialize(filename);
+            var fingerprints = Deserialize(filename);
             return GetFingerprints(fingerprints);
         }
 
         public static Fingerprints GetFingerprintsFromString(string data)
         {
-            Collection<fingerprint> fingerprints = DeserializeFromString(data);
+            var fingerprints = DeserializeFromString(data);
             return GetFingerprints(fingerprints);
         }
 

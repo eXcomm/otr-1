@@ -21,6 +21,7 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
+using System;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OffTheRecord.Tests.Helper;
@@ -37,12 +38,15 @@ namespace OffTheRecord.Tests.Toolkit
             var consoleOutput = new ConsoleOutput();
 
             const string arguments = "8863A4479AE2857FB9BE657E3B7E37C4";
+            string expectedOutput =
+                "AES key: 8863A4479AE2857FB9BE657E3B7E37C4" + Environment.NewLine +
+                "MAC key: A43167D308BA9DE0127F3124A55BEA9A608C10C4" + Environment.NewLine;
 
             Program.Main(new string[] {arguments});
 
             var output = consoleOutput.GetOuput();
 
-            output.Should().Be(ToolkitResultResource.otr_mackey_exe);
+            output.Should().Be(expectedOutput);
         }
     }
 }

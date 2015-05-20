@@ -89,11 +89,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helper\ConsoleOutput.cs" />
-    <Compile Include="Model\Files\FileResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FileResource.resx</DependentUpon>
-    </Compile>
     <Compile Include="Model\Files\ParseOtrFingerprintsFileTest.cs" />
     <Compile Include="Model\Files\ParseOtrInstanceTagsFileTest.cs" />
     <Compile Include="Model\Files\ParseOtrPrivateKeyFileTest.cs" />
@@ -102,11 +97,6 @@
     <Compile Include="Protocol\Utils\ParseTests.cs" />
     <Compile Include="Tools\EndianTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Toolkit\ToolkitResultResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ToolkitResultResource.resx</DependentUpon>
-    </Compile>
     <Compile Include="Tools\GeneralTests.cs" />
     <Compile Include="Tools\MultiPrecisionIntegerTests.cs" />
     <Compile Include="DigitalSignatureAlgorithmTests.cs" />
@@ -159,41 +149,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Model\Files\Resources\otr.fingerprints.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Model\Files\Resources\otr.instance_tags.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Model\Files\Resources\otr.private_key.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Model\Files\FileResource.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>FileResource.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Toolkit\ToolkitResultResource.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ToolkitResultResource.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Toolkit\ToolkitResultFiles\otr_mackey.exe.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Toolkit\ToolkitResultFiles\otr_parse.exe.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Toolkit\ToolkitResultFiles\otr_remac.exe.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Toolkit\ToolkitResultFiles\otr_sesskeys.exe.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

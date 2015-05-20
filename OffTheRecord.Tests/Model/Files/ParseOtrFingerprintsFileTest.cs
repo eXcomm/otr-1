@@ -33,6 +33,17 @@ namespace OffTheRecord.Tests.Model.Files
     [TestClass]
     public class ParseOtrFingerprintsFileTest
     {
+        private readonly string _fingerprints =
+            "marshal2	marshal3@irc.freenode.net	prpl-irc	80724d46d9d906a28af31d15adfd510822ac3fd9	verified" +
+            Environment.NewLine +
+            "marshal3	marshal2@irc.freenode.net	prpl-irc	18dcd190ccaad02aed74e69d3b96355e61a82b3e	verified" +
+            Environment.NewLine +
+            "test123_4	testuser2@irc.freenode.net	prpl-irc	64bfb577c9591b3dbb6b697599f572ce7d1ffc9d	smp" +
+            Environment.NewLine +
+            "testuser2	test123_4@irc.freenode.net	prpl-irc	51f2e7db2a0c14facd568107aceaae73f362c869	smp" +
+            Environment.NewLine;
+
+
         [TestMethod]
         public void FileHandling_compare_serialized_results_against_Pidgin_otr_fingerprints()
         {
@@ -48,7 +59,7 @@ namespace OffTheRecord.Tests.Model.Files
             var fingerprints = new Collection<fingerprint> { fp1, fp2, fp3, fp4 };
 
             string actual = ParseOtrFingerprintsFile.Serialize(fingerprints);
-            string expected = FileResource.otr_fingerprints;
+            string expected = _fingerprints;
 
             Assert.AreEqual(expected, actual);
         }
@@ -57,7 +68,7 @@ namespace OffTheRecord.Tests.Model.Files
         public void FileHandling_deserialize_fingerprints_within_Pidgin_to_internal_object()
         {
             Collection<fingerprint> fingerprints =
-                ParseOtrFingerprintsFile.DeserializeFromString(FileResource.otr_fingerprints);
+                ParseOtrFingerprintsFile.DeserializeFromString(_fingerprints);
 
             Assert.AreEqual(4, fingerprints.Count);
 
@@ -81,9 +92,9 @@ namespace OffTheRecord.Tests.Model.Files
         public void FileHandling_deserialize_fingerprints_within_Pidgin_to_external_object()
         {
             Fingerprints results =
-                ParseOtrFingerprintsFile.GetFingerprintsFromString(FileResource.otr_fingerprints);
+                ParseOtrFingerprintsFile.GetFingerprintsFromString(_fingerprints);
 
-            Assert.AreEqual(4, results.Count);
+            Assert.AreEqual(4, results.Count, results[0].Print);
             Assert.AreEqual("marshal3@irc.freenode.net", results[0].AccountName);
             Assert.AreEqual("80724d46 d9d906a2 8af31d15 adfd5108 22ac3fd9", results[0].Print);
             Assert.AreEqual("marshal2", results[0].Username);

@@ -33,6 +33,15 @@ namespace OffTheRecord.Tests.Model.Files
     [TestClass]
     public class ParseOtrInstanceTagsFileTest
     {
+        private readonly string _instanceTags =
+            "# WARNING! You shouldn't copy this file to another computer. It is unnecessary and can cause problems." +
+            Environment.NewLine +
+            "testuser2@irc.freenode.net	prpl-irc	299c2916" + Environment.NewLine +
+            "test123_4@irc.freenode.net	prpl-irc	8cf547f1" + Environment.NewLine +
+            "marshal3@irc.freenode.net	prpl-irc	4b2bf242" + Environment.NewLine +
+            "marshal2@irc.freenode.net	prpl-irc	f2e0ee97" + Environment.NewLine;
+
+
         [TestMethod]
         public void FileHandling_compare_serialized_results_against_Pidgin_otr_instance_tags()
         {
@@ -44,7 +53,7 @@ namespace OffTheRecord.Tests.Model.Files
             var instancetags = new Collection<instancetag> { it1, it2, it3, it4 };
 
             string actual = ParseOtrInstanceTagsFile.Serialize(instancetags);
-            string expected = FileResource.otr_instance_tags;
+            string expected = _instanceTags;
 
             Assert.AreEqual(expected, actual);
         }
@@ -53,7 +62,7 @@ namespace OffTheRecord.Tests.Model.Files
         public void FileHandling_deserialize_instancetags_within_Pidgin_to_internal_object()
         {
             Collection<instancetag> instancetags =
-                ParseOtrInstanceTagsFile.DeserializeFromString(FileResource.otr_instance_tags);
+                ParseOtrInstanceTagsFile.DeserializeFromString(_instanceTags);
 
             Assert.AreEqual(4, instancetags.Count);
 
@@ -73,7 +82,7 @@ namespace OffTheRecord.Tests.Model.Files
         public void FileHandling_deserialize_instancetags_within_Pidgin_to_external_object()
         {
             InstanceTags results =
-                ParseOtrInstanceTagsFile.GetInstanceTagsFromString(FileResource.otr_instance_tags);
+                ParseOtrInstanceTagsFile.GetInstanceTagsFromString(_instanceTags);
 
             Assert.AreEqual(4, results.Count);
             Assert.AreEqual("testuser2@irc.freenode.net", results[0].AccountName);

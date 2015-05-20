@@ -29,8 +29,6 @@ namespace OffTheRecord.Tests.Toolkit
     [TestClass]
     public class RemacTests
     {
-        #region Unit tests
-
         [Ignore]
         [TestMethod]
         public void TestToolkitRemac()
@@ -48,7 +46,5 @@ namespace OffTheRecord.Tests.Toolkit
             ////result.Item1.Should().Be(0);
             ////result.Item2.Should().Be(ToolkitResultResource.otr_remac_exe);
         }
-
-        #endregion
     }
 }

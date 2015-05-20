@@ -182,10 +182,18 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Toolkit\ToolkitResultFiles\otr_mackey.exe.txt" />
-    <Content Include="Toolkit\ToolkitResultFiles\otr_parse.exe.txt" />
-    <Content Include="Toolkit\ToolkitResultFiles\otr_remac.exe.txt" />
-    <Content Include="Toolkit\ToolkitResultFiles\otr_sesskeys.exe.txt" />
+    <Content Include="Toolkit\ToolkitResultFiles\otr_mackey.exe.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Toolkit\ToolkitResultFiles\otr_parse.exe.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Toolkit\ToolkitResultFiles\otr_remac.exe.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Toolkit\ToolkitResultFiles\otr_sesskeys.exe.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

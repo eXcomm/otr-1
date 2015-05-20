@@ -1,6 +1,12 @@
 Off-the-Record Messaging (.NET)
 ==============
 
+Build status
+--------------
+[![Build status](https://ci.appveyor.com/api/projects/status/66rcfneg7mtogdal?svg=true)](https://ci.appveyor.com/project/southernsun/otr)
+
+https://ci.appveyor.com/project/southernsun/otr
+
 Project Description
 --------------
 

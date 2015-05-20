@@ -68,9 +68,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DH.cs" />
-    <Compile Include="DH1536.cs" />
+    <Compile Include="Dh.cs" />
+    <Compile Include="Dh1536.cs" />
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="Keys.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

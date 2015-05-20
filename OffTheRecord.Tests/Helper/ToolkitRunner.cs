@@ -6,7 +6,10 @@ namespace OffTheRecord.Tests.Helper
 {
     public static class ToolkitRunner
     {
-        public static Tuple<int, string> Run(string location, string filename, string arguments = null,
+        public static Tuple<int, string> Run(
+            string location, 
+            string filename, 
+            string arguments = null,
             string input = null)
         {
             var p = new Process();

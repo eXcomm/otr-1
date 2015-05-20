@@ -21,37 +21,40 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
-namespace OffTheRecord.Tools
+using System;
+using System.IO;
+using System.Reflection;
+using FluentAssertions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OffTheRecord.Tests.Helper;
+using OffTheRecord.Toolkit.Sesskeys;
+
+namespace OffTheRecord.Tests.Toolkit
 {
-    using System;
-    using System.Linq;
-
-    public static class MultiPrecisionInteger
+    [TestClass]
+    public class SesskeysTests
     {
-        public static byte[] ByteArrayToMpi(byte[] data, bool dataMatchEndian = false)
+        #region Unit tests
+
+        [Ignore]
+        [TestMethod]
+        public void Sesskeys_Toolkit_validate_with_default_example_set()
         {
-            // Truncate leading 0 bytes from input
-            data = data.SkipWhile(b => b == 0).ToArray();
+            // Reference app to get it build and copied to output folder.
+            var app = new Program();
 
-            // Create "Length" prefix - 32 bit big-endian integer
-            var lenBytes = BitConverter.GetBytes(data.Length);
+            const string filename = "otr_sesskeys.exe";
+            const string arguments = "48BFDA215C31A9F0B226B3DB11F862450A0F30DA 64bfb577c9591b3dbb6b697599f572ce7d1ffc9d";
 
-            if (Endian.ArchitectureIsLittleEndian)
-            {
-                lenBytes = Endian.ConvertToBigEndianBytes(lenBytes);
-                if (dataMatchEndian)
-                {
-                    data = Endian.ConvertToBigEndianBytes(data);
-                }
-            }
+            string location = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-            // return MPI with Length prefix and concatted data.
-            return lenBytes.Concat(data).ToArray();
+            Tuple<int, string> result = ToolkitRunner.Run(location, filename, arguments);
+
+            // Assert
+            result.Item1.Should().Be(0);
+            result.Item2.Should().Be(ToolkitResultResource.otr_sesskeys_exe);
         }
 
-        public static byte[] MpiToByteArray(byte[] data)
-        {
-            return data.Skip(4).ToArray();
-        }
+        #endregion
     }
 }

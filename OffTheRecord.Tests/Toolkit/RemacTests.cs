@@ -21,27 +21,41 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
+using System;
+using System.IO;
+using System.Reflection;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OffTheRecord.Tools;
+using OffTheRecord.Tests.Helper;
+using OffTheRecord.Toolkit.Remac;
 
-namespace OffTheRecord.Tests
+namespace OffTheRecord.Tests.Toolkit
 {
     [TestClass]
-    public class ToolsGeneralTests
+    public class RemacTests
     {
-        [TestMethod]
-        public void Validate_converter_from_string_to_byte_array_back_to_string()
-        {
-            // Arrange
-            const string expected = "48BFDA215C31A9F0B226B3DB11F862450A0F30DA"; /* private key */
+        #region Unit tests
 
-            // Act
-            byte[] privkey = General.StringToByteArray(expected);
-            string actual = General.ByteArrayToString(privkey);
+        [Ignore]
+        [TestMethod]
+        public void TestToolkitRemac()
+        {
+            // Reference app to get it build and copied to output folder.
+            var app = new Program();
+
+            const string filename = "otr_remac.exe";
+
+            string location = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+            Tuple<int, string> result = ToolkitRunner.Run(location, filename, "-");
 
             // Assert
-            actual.Should().Be(expected);
+            Assert.Inconclusive();
+
+            result.Item1.Should().Be(0);
+            result.Item2.Should().Be(ToolkitResultResource.otr_remac_exe);
         }
+
+        #endregion
     }
 }

@@ -27,7 +27,7 @@ using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OffTheRecord.Protocol.DiffieHellman;
 
-namespace OffTheRecord.Tests
+namespace OffTheRecord.Tests.Protocol.DiffieHellman
 {
     [TestClass]
     public class DiffieHellmanTests
@@ -43,9 +43,9 @@ namespace OffTheRecord.Tests
             var modulus = new BigInteger(23);
             var value = new BigInteger(5);
 
-            var alice = new DH(modulus, value);
+            var alice = new Dh(modulus, value);
             alice.GeneratePublicKey(6);
-            var bob = new DH(modulus, value);
+            var bob = new Dh(modulus, value);
             bob.GeneratePublicKey(15);
 
             // Act
@@ -66,10 +66,10 @@ namespace OffTheRecord.Tests
         public void DiffieHellman_1536bit_basic_test_of_shared_secret()
         {
             // Arrange
-            var alice = new DH1536();
+            var alice = new Dh1536();
             alice.GeneratePrivateAndPublicKey();
 
-            var bob = new DH1536();
+            var bob = new Dh1536();
             bob.GeneratePrivateAndPublicKey();
 
             // Act
@@ -103,7 +103,7 @@ namespace OffTheRecord.Tests
 
             BigInteger privateKeyAsInt = BigInteger.Parse(privatekey, NumberStyles.HexNumber);
 
-            var dh = new DH1536();
+            var dh = new Dh1536();
 
             // Act
             dh.GeneratePublicKey(privateKeyAsInt);
@@ -123,7 +123,7 @@ namespace OffTheRecord.Tests
             BigInteger privateKeyAsInt = BigInteger.Parse(privatekey, NumberStyles.HexNumber);
 
             // Act
-            var dh = new DH1536();
+            var dh = new Dh1536();
             dh.GeneratePublicKey(privateKeyAsInt);
             dh.GenerateSharedSecret(BigInteger.Parse(theirPublicKey, NumberStyles.HexNumber));
 
@@ -142,7 +142,7 @@ namespace OffTheRecord.Tests
             BigInteger privateKeyAsInt = BigInteger.Parse(privatekey, NumberStyles.HexNumber);
 
             // Act
-            var dh = new DH1536();
+            var dh = new Dh1536();
             dh.GeneratePublicKey(privateKeyAsInt);
             dh.GenerateSharedSecret(BigInteger.Parse(theirPublicKey, NumberStyles.HexNumber));
 
@@ -160,7 +160,7 @@ namespace OffTheRecord.Tests
             BigInteger privateKeyAsInt = BigInteger.Parse(privatekey, NumberStyles.HexNumber);
 
             // Act 
-            var dh = new DH1536();
+            var dh = new Dh1536();
             dh.GeneratePublicKey(privateKeyAsInt);
             dh.GenerateSharedSecret(BigInteger.Parse(theirPublicKey, NumberStyles.HexNumber));
             Keys keys = dh.Keys();

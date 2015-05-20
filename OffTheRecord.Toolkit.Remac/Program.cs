@@ -60,7 +60,7 @@ namespace OffTheRecord.Toolkit.Remac
             BigInteger our_privateKey = BigInteger.Parse(our_x, System.Globalization.NumberStyles.HexNumber);
             BigInteger their_publicKey = BigInteger.Parse(their_y, System.Globalization.NumberStyles.HexNumber);
 
-            DH1536 dh1536_us = new DH1536();
+            Dh1536 dh1536_us = new Dh1536();
             dh1536_us.GeneratePublicKey(our_privateKey);
             dh1536_us.GenerateSharedSecret(their_publicKey);
 

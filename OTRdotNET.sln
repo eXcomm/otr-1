@@ -12,8 +12,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Items", "Items", "{11737C02
 		Items\readme.txt = Items\readme.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OffTheRecord.DependencyInjection", "OffTheRecord.DependencyInjection\OffTheRecord.DependencyInjection.csproj", "{5E20FED3-8D70-47D1-84DD-C32F70E6294F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OffTheRecord.Tools", "OffTheRecord.Tools\OffTheRecord.Tools.csproj", "{84B79D3E-E9F3-4090-8578-20EDCC937CD4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OffTheRecord.UnitTests", "OffTheRecord.Tests\OffTheRecord.UnitTests.csproj", "{BBA1D40C-0562-4CBA-8561-66CB3D527C51}"
@@ -71,22 +69,6 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5E20FED3-8D70-47D1-84DD-C32F70E6294F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5E20FED3-8D70-47D1-84DD-C32F70E6294F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5E20FED3-8D70-47D1-84DD-C32F70E6294F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{5E20FED3-8D70-47D1-84DD-C32F70E6294F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{5E20FED3-8D70-47D1-84DD-C32F70E6294F}.Debug|Win32.ActiveCfg = Debug|x86
-		{5E20FED3-8D70-47D1-84DD-C32F70E6294F}.Debug|Win32.Build.0 = Debug|x86
-		{5E20FED3-8D70-47D1-84DD-C32F70E6294F}.Debug|x64.ActiveCfg = Debug|x64
-		{5E20FED3-8D70-47D1-84DD-C32F70E6294F}.Debug|x64.Build.0 = Debug|x64
-		{5E20FED3-8D70-47D1-84DD-C32F70E6294F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5E20FED3-8D70-47D1-84DD-C32F70E6294F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5E20FED3-8D70-47D1-84DD-C32F70E6294F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{5E20FED3-8D70-47D1-84DD-C32F70E6294F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{5E20FED3-8D70-47D1-84DD-C32F70E6294F}.Release|Win32.ActiveCfg = Release|x86
-		{5E20FED3-8D70-47D1-84DD-C32F70E6294F}.Release|Win32.Build.0 = Release|x86
-		{5E20FED3-8D70-47D1-84DD-C32F70E6294F}.Release|x64.ActiveCfg = Release|x64
-		{5E20FED3-8D70-47D1-84DD-C32F70E6294F}.Release|x64.Build.0 = Release|x64
 		{84B79D3E-E9F3-4090-8578-20EDCC937CD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{84B79D3E-E9F3-4090-8578-20EDCC937CD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84B79D3E-E9F3-4090-8578-20EDCC937CD4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

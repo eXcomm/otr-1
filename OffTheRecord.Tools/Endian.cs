@@ -23,21 +23,12 @@
 
 namespace OffTheRecord.Tools
 {
-    #region Namespaces
     using System;
-    using System.Numerics;
-    #endregion
 
-    /// <summary>
-    /// Endian class.
-    /// </summary>
     public static class Endian
     {
         #region Properties
-        /// <summary>
-        /// Gets a value indicating whether the architecture is Little Endian.
-        /// </summary>
-        public static bool IsLittleEndian
+        public static bool ArchitectureIsLittleEndian
         {
             get
             {
@@ -46,47 +37,15 @@ namespace OffTheRecord.Tools
         }
         #endregion
 
-        #region Public methods
-        /// <summary>
-        /// Swap endian for a short.
-        /// </summary>
-        /// <param name="inValue">input value.</param>
-        /// <returns>swapped value.</returns>
-        public static ushort SwapUInt16(ushort inValue)
+        public static byte[] ConvertToBigEndianBytes(byte[] data)
         {
-            // http://www.lastrayofhope.com/2010/01/03/csharp-endian-swap/
-            return (ushort)(((inValue & 0xff00) >> 8) | ((inValue & 0x00ff) << 8));
-        }
-
-        /// <summary>
-        /// Swap endian for a uint.
-        /// </summary>
-        /// <param name="inValue">input value.</param>
-        /// <returns>swapped value.</returns>
-        public static uint SwapUInt32(uint inValue)
-        {
-            // http://www.lastrayofhope.com/2010/01/03/csharp-endian-swap/
-            return (uint)
-                     (((inValue & 0xff000000) >> 24) |
-                     ((inValue & 0x00ff0000) >> 8) |
-                     ((inValue & 0x0000ff00) << 8) |
-                     ((inValue & 0x000000ff) << 24));
-        }
-
-        /// <summary>
-        /// Swap endian for an byte array.
-        /// </summary>
-        /// <param name="data">input data.</param>
-        /// <returns>swapped data.</returns>
-        public static byte[] SwapArray(byte[] data)
-        {
-            if (Tools.Endian.IsLittleEndian)
+            if (ArchitectureIsLittleEndian)
             {
                 int length = data.Length;
 
                 int leftOver = data.Length & 0x3;
 
-                byte[] result = new byte[length];
+                var result = new byte[length];
 
                 for (int i = length - 1, j = 0; i >= 3; i -= 4, j += 4)
                 {
@@ -114,33 +73,8 @@ namespace OffTheRecord.Tools
 
                 return result;
             }
-            else
-            {
-                return data;
-            }
+            
+            return data;
         }
-
-        /// <summary>
-        /// Converts a byte[], created by libgcrypt, to a BigInteger, making sure the endian is matched.
-        /// </summary>
-        /// <param name="data">input byte array.</param>
-        /// <returns>a <see cref="BigInteger"/>.</returns>
-        ////[Obsolete("Use BigInteger.Parse(x, NumberStyles.HexNumber)")]
-        ////public static BigInteger ToBigInteger(byte[] data)
-        ////{
-        ////    return new BigInteger(SwapArray(data));
-        ////}
-
-        /// <summary>
-        /// Converts a BigInteger to a byte[], created by libgcrypt, making sure the endian is matched.
-        /// </summary>
-        /// <param name="bigInteger">a <see cref="BigInteger"/>.</param>
-        /// <returns>a byte array.</returns>
-        ////[Obsolete("Use bigInteger.ToString('X')")]
-        ////public static byte[] FromBigInteger(BigInteger bigInteger)
-        ////{
-        ////    return SwapArray(bigInteger.ToByteArray());
-        ////}
-        #endregion
     }
 }

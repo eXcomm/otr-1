@@ -30,12 +30,6 @@ using OffTheRecord.Model.Files.OtrInstanceTags;
 
 namespace OffTheRecord.Model.Files
 {
-    #region Namespaces
-
-    
-
-    #endregion
-
     /// <summary>
     ///     ParseOtrInstanceTagsFile class.
     /// </summary>

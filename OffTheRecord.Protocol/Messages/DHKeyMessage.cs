@@ -44,7 +44,7 @@ namespace OffTheRecord.Protocol.Messages
     /// 4
     /// .
     /// </example>
-    public sealed class DHKeyMessage : BaseOTRMessage
+    public sealed class DhKeyMessage : BaseOTRMessage
     {
         #region Fields
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -52,9 +52,9 @@ namespace OffTheRecord.Protocol.Messages
 
         #region Constructor
         /// <summary>
-        /// Prevents a default instance of the <see cref="DHKeyMessage"/> class from being created.
+        /// Prevents a default instance of the <see cref="DhKeyMessage"/> class from being created.
         /// </summary>
-        private DHKeyMessage()
+        private DhKeyMessage()
         {
         }
         #endregion
@@ -83,28 +83,28 @@ namespace OffTheRecord.Protocol.Messages
         /// <summary>
         /// Gets the Multi-precision integer.
         /// </summary>
-        public string MPI { get; private set; }
+        public string Mpi { get; private set; }
 
         /// <summary>
-        /// Gets the Off-the-Record <see cref="OTRMessageType" />.
+        /// Gets the Off-the-Record <see cref="OtrMessageType" />.
         /// </summary>
-        public override OTRMessageType MessageType
+        public override OtrMessageType MessageType
         {
-            get { return OTRMessageType.DHKeyMessage; }
+            get { return OtrMessageType.DhKeyMessage; }
         }
         #endregion
 
         #region Public methods
         /// <summary>
-        /// Parses the input string and returns a <see cref="DHKeyMessage"/> object.
+        /// Parses the input string and returns a <see cref="DhKeyMessage"/> object.
         /// </summary>
         /// <param name="msg">Input string.</param>
-        /// <returns>a <see cref="DHKeyMessage"/> object.</returns>
-        public static DHKeyMessage Parse(string msg)
+        /// <returns>a <see cref="DhKeyMessage"/> object.</returns>
+        public static DhKeyMessage Parse(string msg)
         {
             try
             {
-                DHKeyMessage dhkm = new DHKeyMessage();
+                DhKeyMessage dhkm = new DhKeyMessage();
 
                 int start;
 
@@ -134,7 +134,7 @@ namespace OffTheRecord.Protocol.Messages
                     throw new ArgumentException("msg is not a D-H Key Message (2)");
                 }
 
-                dhkm.MPI = Utils.Parse.ReadMPI(dhkm.RawData, ref offset);
+                dhkm.Mpi = Utils.Parse.ReadMpi(dhkm.RawData, ref offset);
 
                 Log.Debug(dhkm.Details());
 
@@ -168,7 +168,7 @@ namespace OffTheRecord.Protocol.Messages
                 this.Version,
                 this.SenderInstance,
                 this.ReceiverInstance,
-                this.MPI);
+                this.Mpi);
         }
         #endregion
     }

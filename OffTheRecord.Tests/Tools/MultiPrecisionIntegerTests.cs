@@ -25,7 +25,7 @@ using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OffTheRecord.Tools;
 
-namespace OffTheRecord.Tests
+namespace OffTheRecord.Tests.Tools
 {
     [TestClass]
     public class MultiPrecisionIntegerTests
@@ -41,9 +41,9 @@ namespace OffTheRecord.Tests
 
             // Act
             byte[] p = General.StringToByteArray(expected);
-            byte[] mpiP = MultiPrecisionInteger.ByteArrayToMPI(p);
+            byte[] mpiP = MultiPrecisionInteger.ByteArrayToMpi(p);
 
-            byte[] resultp = MultiPrecisionInteger.MPIToByteArray(mpiP);
+            byte[] resultp = MultiPrecisionInteger.MpiToByteArray(mpiP);
             string result = General.ByteArrayToString(resultp);
 
             // Assert

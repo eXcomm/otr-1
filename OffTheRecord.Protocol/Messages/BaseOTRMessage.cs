@@ -45,18 +45,18 @@ namespace OffTheRecord.Protocol.Messages
 
         #region Public properties
         /// <summary>
-        /// Gets the Off-the-Record <see cref="OTRMessageType" />.
+        /// Gets the Off-the-Record <see cref="OtrMessageType" />.
         /// </summary>
-        public abstract OTRMessageType MessageType { get; }
+        public abstract OtrMessageType MessageType { get; }
         #endregion
 
         #region Public Methods
         /// <summary>
-        /// Get the Off-the-Record <see cref="OTRMessageType" /> based on the input message.
+        /// Get the Off-the-Record <see cref="OtrMessageType" /> based on the input message.
         /// </summary>
         /// <param name="msg">The message to determine the type on.</param>
-        /// <returns>The <see cref="OTRMessageType" />.</returns>
-        public static OTRMessageType GetType(string msg)
+        /// <returns>The <see cref="OtrMessageType" />.</returns>
+        public static OtrMessageType GetType(string msg)
         {
             int index = msg.IndexOf(otrPrefix);
 
@@ -65,11 +65,11 @@ namespace OffTheRecord.Protocol.Messages
                 // otr_prefix not found
                 if (msg.Contains(PlaintextWithTheWhitespaceTag.OtrMessageTagBase))
                 {
-                    return OTRMessageType.PlaintextWithTheWhitespaceTag;
+                    return OtrMessageType.PlaintextWithTheWhitespaceTag;
                 }
                 else
                 {
-                    return OTRMessageType.PlaintextWithoutTheWhitespaceTag;
+                    return OtrMessageType.PlaintextWithoutTheWhitespaceTag;
                 }
             }
             else
@@ -88,42 +88,42 @@ namespace OffTheRecord.Protocol.Messages
                     switch (type)
                     {
                         case 'C':
-                            return OTRMessageType.DHCommitMessage;
+                            return OtrMessageType.DhCommitMessage;
                         case 'K':
-                            return OTRMessageType.DHKeyMessage;
+                            return OtrMessageType.DhKeyMessage;
                         case 'R':
-                            return OTRMessageType.RevealSignatureMessage;
+                            return OtrMessageType.RevealSignatureMessage;
                         case 'S':
-                            return OTRMessageType.SignatureMessage;
+                            return OtrMessageType.SignatureMessage;
                         case 'D':
-                            return OTRMessageType.DataMessage;
+                            return OtrMessageType.DataMessage;
                     }
                 }
                 else
                 {
                     if (string.Compare(msg.Substring(index, 5), otrQueryMessage1) == 0 || string.Compare(msg.Substring(index, 5), otrQueryMessage2) == 0)
                     {
-                        return OTRMessageType.QueryMessage;
+                        return OtrMessageType.QueryMessage;
                     }
 
                     if (string.Compare(msg.Substring(index, 9), otrKeyExchangeV1Message) == 0)
                     {
-                        return OTRMessageType.V1KeyExchangeMessage;
+                        return OtrMessageType.V1KeyExchangeMessage;
                     }
 
                     if (string.Compare(msg.Substring(index, 9), otrDataMessage) == 0)
                     {
-                        return OTRMessageType.DataMessage;
+                        return OtrMessageType.DataMessage;
                     }
 
                     if (string.Compare(msg.Substring(index, 11), otrErrorMessage) == 0)
                     {
-                        return OTRMessageType.ErrorMessage;
+                        return OtrMessageType.ErrorMessage;
                     }
                 }
             }
 
-            return OTRMessageType.UnknownMessage;
+            return OtrMessageType.UnknownMessage;
         }
 
         /// <summary>

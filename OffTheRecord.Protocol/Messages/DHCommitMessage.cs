@@ -46,7 +46,7 @@ namespace OffTheRecord.Protocol.Messages
     /// Hashed Key: bd160248b50c70467242158046623a1f2e1667b5fcf16c74eeb2e57fe49ad3da
     /// .
     /// </example>
-    public sealed class DHCommitMessage : BaseOTRMessage
+    public sealed class DhCommitMessage : BaseOTRMessage
     {
         #region Fields
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -54,9 +54,9 @@ namespace OffTheRecord.Protocol.Messages
 
         #region Constructor
         /// <summary>
-        /// Prevents a default instance of the <see cref="DHCommitMessage"/> class from being created.
+        /// Prevents a default instance of the <see cref="DhCommitMessage"/> class from being created.
         /// </summary>
-        private DHCommitMessage()
+        private DhCommitMessage()
         {
         }
         #endregion
@@ -93,25 +93,25 @@ namespace OffTheRecord.Protocol.Messages
         public string HashKey { get; private set; }
 
         /// <summary>
-        /// Gets the Off-the-Record <see cref="OTRMessageType" />.
+        /// Gets the Off-the-Record <see cref="OtrMessageType" />.
         /// </summary>
-        public override OTRMessageType MessageType
+        public override OtrMessageType MessageType
         {
-            get { return OTRMessageType.DHCommitMessage; }
+            get { return OtrMessageType.DhCommitMessage; }
         }
         #endregion
 
         #region Public methods
         /// <summary>
-        /// Parses the input string and returns a <see cref="DHCommitMessage"/> object.
+        /// Parses the input string and returns a <see cref="DhCommitMessage"/> object.
         /// </summary>
         /// <param name="msg">Input string.</param>
-        /// <returns>a <see cref="DHCommitMessage"/> object.</returns>
-        public static DHCommitMessage Parse(string msg)
+        /// <returns>a <see cref="DhCommitMessage"/> object.</returns>
+        public static DhCommitMessage Parse(string msg)
         {
             try
             {
-                DHCommitMessage dhcm = new DHCommitMessage();
+                DhCommitMessage dhcm = new DhCommitMessage();
 
                 int start;
 

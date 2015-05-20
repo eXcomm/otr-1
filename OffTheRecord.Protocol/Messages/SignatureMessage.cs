@@ -99,11 +99,11 @@ namespace OffTheRecord.Protocol.Messages
         public string MAC { get; private set; }
 
         /// <summary>
-        /// Gets the Off-the-Record <see cref="OTRMessageType" />.
+        /// Gets the Off-the-Record <see cref="OtrMessageType" />.
         /// </summary>
-        public override OTRMessageType MessageType
+        public override OtrMessageType MessageType
         {
-            get { return OTRMessageType.SignatureMessage; }
+            get { return OtrMessageType.SignatureMessage; }
         }
         #endregion
 

@@ -26,12 +26,6 @@ using OffTheRecord.Model.Files.OtrPrivateKey;
 
 namespace OffTheRecord.Model.Files
 {
-    #region Namespaces
-
-    
-
-    #endregion
-
     /// <summary>
     ///     ParseUserSettingsFile class.
     /// </summary>

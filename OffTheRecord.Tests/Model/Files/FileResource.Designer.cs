@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OffTheRecord.Tests {
+namespace OffTheRecord.Tests.Model.Files {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace OffTheRecord.Tests {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class FileHandlingResource {
+    internal class FileResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal FileHandlingResource() {
+        internal FileResource() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace OffTheRecord.Tests {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("OffTheRecord.Tests.FileHandlingResource", typeof(FileHandlingResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("OffTheRecord.Tests.Model.Files.FileResource", typeof(FileResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

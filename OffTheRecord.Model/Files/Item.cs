@@ -25,12 +25,6 @@ using System.Collections.ObjectModel;
 
 namespace OffTheRecord.Model.Files
 {
-    #region Namespaces
-
-    
-
-    #endregion
-
     /// <summary>
     ///     Item class.
     /// </summary>

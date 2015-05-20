@@ -21,6 +21,8 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
+using OffTheRecord.Resources;
+
 namespace OffTheRecord.Protocol.Utils
 {
     #region Namespaces
@@ -44,7 +46,7 @@ namespace OffTheRecord.Protocol.Utils
         {
             start = -1;
 
-            int header = msg.IndexOf("?OTR:");
+            int header = msg.IndexOf(OtrStrings.OtrHeader, StringComparison.Ordinal);
 
             if (header == -1)
             {
@@ -91,9 +93,8 @@ namespace OffTheRecord.Protocol.Utils
         /// <returns>the ulong value.</returns>
         public static ulong ReadInt64(byte[] rawData, ref int startIndex)
         {
-            ulong result = (ulong)(long)
-                (rawData[startIndex] << 56 | rawData[startIndex + 1] << 48 | rawData[startIndex + 2] << 40 | rawData[startIndex + 3] << 32 |
-                rawData[startIndex + 4] << 24 | rawData[startIndex + 5] << 16 | rawData[startIndex + 6] << 8) | rawData[startIndex + 7];
+            ulong result = (ulong)(rawData[startIndex] << 56 | rawData[startIndex + 1] << 48 | rawData[startIndex + 2] << 40 | rawData[startIndex + 3] << 32 |
+                                   rawData[startIndex + 4] << 24 | rawData[startIndex + 5] << 16 | rawData[startIndex + 6] << 8) | rawData[startIndex + 7];
             startIndex += 8;
 
             return result;
@@ -119,7 +120,7 @@ namespace OffTheRecord.Protocol.Utils
         /// <param name="rawData">The raw data stream.</param>
         /// <param name="startIndex">The offset.</param>
         /// <returns>the multi-precision integer as a string.</returns>
-        public static string ReadMPI(byte[] rawData, ref int startIndex)
+        public static string ReadMpi(byte[] rawData, ref int startIndex)
         {
             uint length = ReadInt32(rawData, ref startIndex);
             byte[] temp = rawData.Skip(startIndex).Take((int)length).ToArray();

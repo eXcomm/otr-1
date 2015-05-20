@@ -21,6 +21,8 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
+using System;
+
 namespace OffTheRecord.Protocol.DiffieHellman
 {
     #region Namespaces
@@ -35,83 +37,56 @@ namespace OffTheRecord.Protocol.DiffieHellman
     /// <remarks>
     /// BigInteger - MSDN - http://msdn.microsoft.com/en-us/library/system.numerics.biginteger(v=vs.100).aspx .
     /// </remarks>
-    public class DH
+    public class Dh
     {
         #region Fields
-        private readonly BigInteger modulus;
-        private readonly BigInteger value;
+        private readonly BigInteger _modulus;
+        private readonly BigInteger _value;
         #endregion
 
         #region Constructor
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DH"/> class.
-        /// </summary>
-        /// <param name="modulus">The modulus.</param>
-        /// <param name="value">The value.</param>
-        public DH(BigInteger modulus, BigInteger value)
+        public Dh(BigInteger modulus, BigInteger value)
         {
-            this.modulus = modulus;
-            this.value = value;
+            _modulus = modulus;
+            _value = value;
         }
         #endregion
 
         #region Public properties
-        /// <summary>
-        /// Gets the private key.
-        /// </summary>
         public BigInteger PrivateKey { get; private set; }
-
-        /// <summary>
-        /// Gets the public key.
-        /// </summary>
         public BigInteger PublicKey { get; private set; }
-
-        /// <summary>
-        /// Gets the shared secret.
-        /// </summary>
         public BigInteger SharedSecret { get; private set; }
-
-        /// <summary>
-        /// Their Public Key, used to calculate the shared secret.
-        /// </summary>
         public BigInteger TheirPublicKey { get; private set; }
         #endregion
 
         #region Public methods
-        /// <summary>
-        /// Generate private and public key for specific bit size.
-        /// </summary>
-        /// <param name="bitSize">The bit size to use.</param>
         public void GeneratePrivateAndPublicKey(int bitSize)
         {
-            this.GeneratePublicKey(this.GeneratePrivateKey(bitSize));
+            GeneratePublicKey(GeneratePrivateKey(bitSize));
         }
 
-        /// <summary>
-        /// Generate public key based on private key.
-        /// </summary>
-        /// <param name="privateKey">The private key.</param>
         public void GeneratePublicKey(BigInteger privateKey)
         {
-            this.PrivateKey = privateKey;
-            this.PublicKey = BigInteger.ModPow(this.value, this.PrivateKey, this.modulus);
+            PrivateKey = privateKey;
+            PublicKey = BigInteger.ModPow(_value, PrivateKey, _modulus);
         }
 
-        /// <summary>
-        /// Generate shared secret based on Public Key from other <see cref="DH"/> class.
-        /// </summary>
-        /// <param name="publicKey">Public key to create shared secret with.</param>
-        public void GenerateSharedSecret(BigInteger publicKey)
+        public void GenerateSharedSecret(BigInteger theirPublicKey)
         {
-            this.TheirPublicKey = publicKey;
-            this.SharedSecret = BigInteger.ModPow(publicKey, this.PrivateKey, this.modulus);
+            if (PrivateKey == null)
+            {
+                throw new Exception("PrivateKey is not set.");
+            }
+
+            TheirPublicKey = theirPublicKey;
+            SharedSecret = BigInteger.ModPow(theirPublicKey, PrivateKey, _modulus);
         }
         #endregion
 
         #region Private methods
         private BigInteger GeneratePrivateKey(int bitSize)
         {
-            byte[] bytes = new byte[bitSize / 8];
+            var bytes = new byte[bitSize / 8];
             new RNGCryptoServiceProvider().GetBytes(bytes);
             return BigInteger.Abs(new BigInteger(bytes));
         }

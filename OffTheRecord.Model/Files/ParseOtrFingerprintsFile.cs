@@ -28,12 +28,6 @@ using OffTheRecord.Model.Files.OtrFingerprints;
 
 namespace OffTheRecord.Model.Files
 {
-    #region Namespaces
-
-    
-
-    #endregion
-
     /// <summary>
     ///     ParseOtrFingerprintsFile class.
     /// </summary>

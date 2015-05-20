@@ -67,13 +67,13 @@ namespace OffTheRecord.Toolkit.Parse
 
             try
             {
-                OTRMessageType type = BaseOTRMessage.GetType(otr);
+                OtrMessageType type = BaseOTRMessage.GetType(otr);
 
                 Log.DebugFormat("Off-the-Record MessageType: {0}", type);
 
                 switch (type)
                 {
-                    case OTRMessageType.DataMessage:
+                    case OtrMessageType.DataMessage:
                         BaseOTRMessage msg = DataMessage.Parse(otr);
                         if (msg == null)
                         {
@@ -85,8 +85,8 @@ namespace OffTheRecord.Toolkit.Parse
                         }
 
                         break;
-                    case OTRMessageType.DHCommitMessage:
-                        msg = DHCommitMessage.Parse(otr);
+                    case OtrMessageType.DhCommitMessage:
+                        msg = DhCommitMessage.Parse(otr);
                         if (msg == null)
                         {
                             Console.WriteLine("Invalid D-H Commit Message");
@@ -97,8 +97,8 @@ namespace OffTheRecord.Toolkit.Parse
                         }
 
                         break;
-                    case OTRMessageType.DHKeyMessage:
-                        msg = DHKeyMessage.Parse(otr);
+                    case OtrMessageType.DhKeyMessage:
+                        msg = DhKeyMessage.Parse(otr);
                         if (msg == null)
                         {
                             Console.WriteLine("Invalid D-H Key Message");
@@ -109,7 +109,7 @@ namespace OffTheRecord.Toolkit.Parse
                         }
 
                         break;
-                    case OTRMessageType.ErrorMessage:
+                    case OtrMessageType.ErrorMessage:
                         msg = ErrorMessage.Parse(otr);
                         if (msg != null)
                         {
@@ -117,7 +117,7 @@ namespace OffTheRecord.Toolkit.Parse
                         }
 
                         break;
-                    case OTRMessageType.PlaintextWithoutTheWhitespaceTag:
+                    case OtrMessageType.PlaintextWithoutTheWhitespaceTag:
                         msg = PlaintextWithoutTheWhitespaceTag.Parse(otr);
                         if (msg != null)
                         {
@@ -125,7 +125,7 @@ namespace OffTheRecord.Toolkit.Parse
                         }
 
                         break;
-                    case OTRMessageType.PlaintextWithTheWhitespaceTag:
+                    case OtrMessageType.PlaintextWithTheWhitespaceTag:
                         msg = PlaintextWithTheWhitespaceTag.Parse(otr);
                         if (msg != null)
                         {
@@ -133,7 +133,7 @@ namespace OffTheRecord.Toolkit.Parse
                         }
 
                         break;
-                    case OTRMessageType.QueryMessage:
+                    case OtrMessageType.QueryMessage:
                         msg = QueryMessage.Parse(otr);
                         if (msg != null)
                         {
@@ -141,7 +141,7 @@ namespace OffTheRecord.Toolkit.Parse
                         }
 
                         break;
-                    case OTRMessageType.RevealSignatureMessage:
+                    case OtrMessageType.RevealSignatureMessage:
                         msg = RevealSignatureMessage.Parse(otr);
                         if (msg == null)
                         {
@@ -153,7 +153,7 @@ namespace OffTheRecord.Toolkit.Parse
                         }
 
                         break;
-                    case OTRMessageType.SignatureMessage:
+                    case OtrMessageType.SignatureMessage:
                         msg = SignatureMessage.Parse(otr);
                         if (msg == null)
                         {
@@ -165,7 +165,7 @@ namespace OffTheRecord.Toolkit.Parse
                         }
 
                         break;
-                    case OTRMessageType.V1KeyExchangeMessage:
+                    case OtrMessageType.V1KeyExchangeMessage:
                         throw new NotSupportedException();
                 }
             }

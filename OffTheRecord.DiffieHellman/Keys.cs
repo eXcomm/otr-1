@@ -21,37 +21,18 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
-namespace OffTheRecord.Tools
+namespace OffTheRecord.Protocol.DiffieHellman
 {
-    using System;
-    using System.Linq;
-
-    public static class MultiPrecisionInteger
+    public class Keys
     {
-        public static byte[] ByteArrayToMpi(byte[] data, bool dataMatchEndian = false)
+        internal Keys()
         {
-            // Truncate leading 0 bytes from input
-            data = data.SkipWhile(b => b == 0).ToArray();
-
-            // Create "Length" prefix - 32 bit big-endian integer
-            var lenBytes = BitConverter.GetBytes(data.Length);
-
-            if (Endian.ArchitectureIsLittleEndian)
-            {
-                lenBytes = Endian.ConvertToBigEndianBytes(lenBytes);
-                if (dataMatchEndian)
-                {
-                    data = Endian.ConvertToBigEndianBytes(data);
-                }
-            }
-
-            // return MPI with Length prefix and concatted data.
-            return lenBytes.Concat(data).ToArray();
         }
 
-        public static byte[] MpiToByteArray(byte[] data)
-        {
-            return data.Skip(4).ToArray();
-        }
+        public string SendAes { get; internal set; }
+        public string SendMac { get; internal set; }
+        public string ReceiveAes { get; internal set; }
+        public string ReceiveMac { get; internal set; }
+        public bool IsHigh { get; internal set; }
     }
 }

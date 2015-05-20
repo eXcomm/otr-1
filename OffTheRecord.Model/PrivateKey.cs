@@ -30,12 +30,6 @@ using OffTheRecord.Tools;
 
 namespace OffTheRecord.Model
 {
-    #region Namespaces
-
-    
-
-    #endregion
-
     /// <summary>
     ///     PrivateKey class.
     /// </summary>
@@ -63,10 +57,10 @@ namespace OffTheRecord.Model
             dsa.ImportParameters(privateKey);
             PublicKey = dsa.ExportParameters(false);
 
-            PublicKeyAsMPI = MultiPrecisionInteger.ByteArrayToMPI(PublicKey.P)
-                .Concat(MultiPrecisionInteger.ByteArrayToMPI(PublicKey.Q))
-                .Concat(MultiPrecisionInteger.ByteArrayToMPI(PublicKey.G))
-                .Concat(MultiPrecisionInteger.ByteArrayToMPI(PublicKey.Y))
+            PublicKeyAsMPI = MultiPrecisionInteger.ByteArrayToMpi(PublicKey.P)
+                .Concat(MultiPrecisionInteger.ByteArrayToMpi(PublicKey.Q))
+                .Concat(MultiPrecisionInteger.ByteArrayToMpi(PublicKey.G))
+                .Concat(MultiPrecisionInteger.ByteArrayToMpi(PublicKey.Y))
                 .ToArray();
         }
 

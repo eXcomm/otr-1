@@ -76,8 +76,8 @@
     <Compile Include="Enums.cs" />
     <Compile Include="Messages\BaseOTRMessage.cs" />
     <Compile Include="Messages\DataMessage.cs" />
-    <Compile Include="Messages\DHCommitMessage.cs" />
-    <Compile Include="Messages\DHKeyMessage.cs" />
+    <Compile Include="Messages\DhCommitMessage.cs" />
+    <Compile Include="Messages\DhKeyMessage.cs" />
     <Compile Include="Messages\ErrorMessage.cs" />
     <Compile Include="Messages\PlaintextWithoutTheWhitespaceTag.cs" />
     <Compile Include="Messages\PlaintextWithTheWhitespaceTag.cs" />
@@ -91,6 +91,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OffTheRecord.Resources\OffTheRecord.Resources.csproj">
+      <Project>{8F1FFCA4-AC34-4C17-A6FC-37AC28C6415A}</Project>
+      <Name>OffTheRecord.Resources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OffTheRecord.Tools\OffTheRecord.Tools.csproj">
       <Project>{84b79d3e-e9f3-4090-8578-20edcc937cd4}</Project>
       <Name>OffTheRecord.Tools</Name>

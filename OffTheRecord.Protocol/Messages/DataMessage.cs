@@ -23,10 +23,7 @@
 
 namespace OffTheRecord.Protocol.Messages
 {
-    #region Namespaces
     using System;
-
-    #endregion
 
     /// <summary>
     /// Handles OTR DataMessages.
@@ -119,19 +116,19 @@ namespace OffTheRecord.Protocol.Messages
         /// <summary>
         /// Gets the MAC of the EncryptedMessage.
         /// </summary>
-        public string MAC { get; private set; }
+        public string Mac { get; private set; }
 
         /// <summary>
         /// Gets the previous MAC keys.
         /// </summary>
-        public string MACKeys { get; private set; }
+        public string MacKeys { get; private set; }
 
         /// <summary>
-        /// Gets the Off-the-Record <see cref="OTRMessageType" />.
+        /// Gets the Off-the-Record <see cref="OtrMessageType" />.
         /// </summary>
-        public override OTRMessageType MessageType
+        public override OtrMessageType MessageType
         {
-            get { return OTRMessageType.DataMessage; }
+            get { return OtrMessageType.DataMessage; }
         }
         #endregion
 
@@ -145,7 +142,7 @@ namespace OffTheRecord.Protocol.Messages
         {
             try
             {
-                DataMessage dm = new DataMessage();
+                var dm = new DataMessage();
 
                 int start;
 
@@ -196,13 +193,13 @@ namespace OffTheRecord.Protocol.Messages
                 uint lengthOfEncryptedMessage = Utils.Parse.ReadInt32(dm.RawData, ref offset);
                 dm.EncryptedMessage = Utils.Parse.ReadRaw(dm.RawData, ref offset, (int)lengthOfEncryptedMessage);
 
-                dm.MAC = Utils.Parse.ReadRaw(dm.RawData, ref offset, 20);
+                dm.Mac = Utils.Parse.ReadRaw(dm.RawData, ref offset, 20);
 
                 uint mackeyslen = Utils.Parse.ReadInt32(dm.RawData, ref offset);
 
                 if (mackeyslen != 0)
                 {
-                    dm.MACKeys = Utils.Parse.ReadRaw(dm.RawData, ref offset, (int)mackeyslen);
+                    dm.MacKeys = Utils.Parse.ReadRaw(dm.RawData, ref offset, (int)mackeyslen);
                 }
 
                 Log.Debug(dm.Details());
@@ -221,7 +218,7 @@ namespace OffTheRecord.Protocol.Messages
         /// </summary>
         public override void Print()
         {
-            Console.WriteLine(this.Details());
+            Console.WriteLine(Details());
         }
         #endregion
 
@@ -240,16 +237,16 @@ namespace OffTheRecord.Protocol.Messages
                 "\tCounter: {7}" + Environment.NewLine +
                 "\tEncrypted Message: {8}" + Environment.NewLine +
                 "\tMAC: {9}",
-                this.Version,
-                this.Flags,
-                this.SenderInstance,
-                this.ReceiverInstance,
-                this.SenderKeyId,
-                this.ReceiverKeyId,
-                this.Y,
-                this.Counter,
-                this.EncryptedMessage,
-                this.MAC);
+                Version,
+                Flags,
+                SenderInstance,
+                ReceiverInstance,
+                SenderKeyId,
+                ReceiverKeyId,
+                Y,
+                Counter,
+                EncryptedMessage,
+                Mac);
         }
         #endregion
     }

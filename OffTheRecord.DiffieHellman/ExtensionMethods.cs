@@ -21,53 +21,53 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
+using System;
+using System.Linq;
+using System.Security.Cryptography;
+
 namespace OffTheRecord.Protocol.DiffieHellman
 {
-    #region Namespaces
-    using System.Linq;
-    using System.Security.Cryptography;
-    #endregion
-
     public static class ExtensionMethods
     {
-        #region Extension methods
-        /// <summary>
-        /// Generates session ID based on Shared Secret.
-        /// </summary>
-        /// <param name="dh">the <see cref="DH1536"/> object.</param>
-        /// <returns>Session ID.</returns>
-        public static string SessionId(this DH1536 dh)
+        public static string SessionId(this Dh1536 dh)
         {
-            byte[] sharedSecretAsMPI = Tools.MultiPrecisionInteger.ByteArrayToMPI(dh.SharedSecret.ToByteArray(), true);
-            byte[] hash = SHA1.Create().ComputeHash(new byte[] { 0x00 }.Concat(sharedSecretAsMPI).ToArray());
+            if (dh.SharedSecret == null)
+            {
+                throw new ArgumentNullException("dh");
+            }
+
+            byte[] sharedSecretAsMpi = Tools.MultiPrecisionInteger.ByteArrayToMpi(dh.SharedSecret.ToByteArray(), true);
+            byte[] hash = SHA1.Create().ComputeHash(new byte[] { 0x00 }.Concat(sharedSecretAsMpi).ToArray());
 
             return Tools.General.ByteArrayToString(hash);
         }
 
-        /// <summary>
-        /// Gets the MAC and AES keys based on the shared secret.
-        /// </summary>
-        /// <param name="dh">the <see cref="DH1536"/> object.</param>
-        /// <returns>a <see cref="Keys"/> object with the keys.</returns>
-        public static Keys Keys(this DH1536 dh)
+        public static Keys Keys(this Dh1536 dh)
         {
+            if (dh.PublicKey == null || dh.TheirPublicKey == null || dh.SharedSecret == null)
+            {
+                throw new ArgumentNullException("dh");
+            }
+
             bool isHigh = dh.PublicKey > dh.TheirPublicKey;
 
-            byte[] oneByte = new byte[] { 0x01 };
-            byte[] twoByte = new byte[] { 0x02 };
+            var oneByte = new byte[] { 0x01 };
+            var twoByte = new byte[] { 0x02 };
 
-            byte[] sharedSecretAsMPI = Tools.MultiPrecisionInteger.ByteArrayToMPI(dh.SharedSecret.ToByteArray(), true);
+            byte[] sharedSecretAsMpi = Tools.MultiPrecisionInteger.ByteArrayToMpi(dh.SharedSecret.ToByteArray(), true);
 
             /* next - sendenc & rcvenv AES key */
-            byte[] hash = SHA1.Create().ComputeHash((isHigh ? oneByte : twoByte).Concat(sharedSecretAsMPI).ToArray());
+            byte[] hash = SHA1.Create().ComputeHash((isHigh ? oneByte : twoByte).Concat(sharedSecretAsMpi).ToArray());
 
-            Keys keys = new Keys();
-            keys.IsHigh = isHigh;
+            var keys = new Keys
+            {
+                IsHigh = isHigh, 
+                SendAes = Tools.General.ByteArrayToString(hash).Substring(0, 32)
+            };
 
-            keys.SendAes = Tools.General.ByteArrayToString(hash).Substring(0, 32);
             keys.SendMac = keys.SendAes.MacKey();
 
-            hash = SHA1.Create().ComputeHash((!isHigh ? oneByte : twoByte).Concat(sharedSecretAsMPI).ToArray());
+            hash = SHA1.Create().ComputeHash((!isHigh ? oneByte : twoByte).Concat(sharedSecretAsMpi).ToArray());
 
             keys.ReceiveAes = Tools.General.ByteArrayToString(hash).Substring(0, 32);
             keys.ReceiveMac = keys.ReceiveAes.MacKey();
@@ -75,36 +75,14 @@ namespace OffTheRecord.Protocol.DiffieHellman
             return keys;
         }
 
-        /// <summary>
-        /// Generates MAC key from AES key.
-        /// </summary>
-        /// <param name="aeskey">The AES key.</param>
-        /// <returns>The MAC key.</returns>
         public static string MacKey(this string aeskey)
         {
             if (!string.IsNullOrEmpty(aeskey) && aeskey.Length == 32)
             {
                 return Tools.General.ByteArrayToString(SHA1.Create().ComputeHash(Tools.General.StringToByteArray(aeskey)));
             }
-            else
-            {
-                return string.Empty;
-            }
+            
+            return string.Empty;
         }
-        #endregion
-    }
-
-    /// <summary>
-    /// MAC and AES Keys.
-    /// </summary>
-    public class Keys
-    {
-        #region Properties
-        public string SendAes { get; set; }
-        public string SendMac { get; set; }
-        public string ReceiveAes { get; set; }
-        public string ReceiveMac { get; set; }
-        public bool IsHigh { get; set; }
-        #endregion
     }
 }

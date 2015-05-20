@@ -30,7 +30,7 @@ namespace OffTheRecord.Protocol
     /// <summary>
     /// Off the Record Message Type.
     /// </summary>
-    public enum OTRMessageType
+    public enum OtrMessageType
     {
         /// <summary>
         /// Data Message.
@@ -40,12 +40,12 @@ namespace OffTheRecord.Protocol
         /// <summary>
         /// D-H Commit Message.
         /// </summary>
-        DHCommitMessage,
+        DhCommitMessage,
 
         /// <summary>
         /// D-H Key Message.
         /// </summary>
-        DHKeyMessage,
+        DhKeyMessage,
 
         /// <summary>
         /// Error Message.

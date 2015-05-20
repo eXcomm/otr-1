@@ -52,11 +52,11 @@ namespace OffTheRecord.Protocol.Messages
         public string Text { get; private set; }
 
         /// <summary>
-        /// Gets the Off-the-Record <see cref="OTRMessageType" />.
+        /// Gets the Off-the-Record <see cref="OtrMessageType" />.
         /// </summary>
-        public override OTRMessageType MessageType
+        public override OtrMessageType MessageType
         {
-            get { return OTRMessageType.PlaintextWithoutTheWhitespaceTag; }
+            get { return OtrMessageType.PlaintextWithoutTheWhitespaceTag; }
         }
         #endregion
 

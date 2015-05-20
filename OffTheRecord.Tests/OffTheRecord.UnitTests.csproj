@@ -88,29 +88,33 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DiffieHellmanTests.cs" />
-    <Compile Include="EndianTests.cs" />
-    <Compile Include="FileHandlingResource.Designer.cs">
+    <Compile Include="Model\Files\FileResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FileHandlingResource.resx</DependentUpon>
+      <DependentUpon>FileResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Model\Files\ParseOtrFingerprintsFileTest.cs" />
+    <Compile Include="Model\Files\ParseOtrInstanceTagsFileTest.cs" />
+    <Compile Include="Model\Files\ParseOtrPrivateKeyFileTest.cs" />
+    <Compile Include="Protocol\DiffieHellman\DiffieHellmanTests.cs" />
+    <Compile Include="Protocol\Messages\DataMessageTests.cs" />
+    <Compile Include="Protocol\Utils\ParseTests.cs" />
+    <Compile Include="Tools\EndianTests.cs" />
     <Compile Include="Helper\ToolkitRunner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FileHandlingTest.cs" />
     <Compile Include="Toolkit\ToolkitResultResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ToolkitResultResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="ToolsGeneralTests.cs" />
-    <Compile Include="MultiPrecisionIntegerTests.cs" />
+    <Compile Include="Tools\GeneralTests.cs" />
+    <Compile Include="Tools\MultiPrecisionIntegerTests.cs" />
     <Compile Include="DigitalSignatureAlgorithmTests.cs" />
-    <Compile Include="Toolkit\ProtocolTests.cs" />
-    <Compile Include="Toolkit\Parse.cs" />
-    <Compile Include="Toolkit\Sesskeys.cs" />
+    <Compile Include="Protocol\Messages\MessagesTests.cs" />
+    <Compile Include="Toolkit\ParseTests.cs" />
+    <Compile Include="Toolkit\SesskeysTests.cs" />
     <Compile Include="Toolkit\MackeyTests.cs" />
-    <Compile Include="Toolkit\Remac.cs" />
+    <Compile Include="Toolkit\RemacTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OffTheRecord.DiffieHellman\OffTheRecord.Protocol.DiffieHellman.csproj">
@@ -124,6 +128,10 @@
     <ProjectReference Include="..\OffTheRecord.Protocol\OffTheRecord.Protocol.csproj">
       <Project>{141be5a1-9e5a-4431-8ef8-85afcdc32038}</Project>
       <Name>OffTheRecord.Protocol</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OffTheRecord.Resources\OffTheRecord.Resources.csproj">
+      <Project>{8F1FFCA4-AC34-4C17-A6FC-37AC28C6415A}</Project>
+      <Name>OffTheRecord.Resources</Name>
     </ProjectReference>
     <ProjectReference Include="..\OffTheRecord.Toolkit.Mackey\OffTheRecord.Toolkit.Mackey.csproj">
       <Project>{ee4ead73-3b2a-48fa-b8f6-c4f80bc808b0}</Project>
@@ -151,21 +159,21 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FileHandlingFiles\otr.fingerprints.txt">
+    <Content Include="Model\Files\Resources\otr.fingerprints.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="FileHandlingFiles\otr.instance_tags.txt">
+    <Content Include="Model\Files\Resources\otr.instance_tags.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="FileHandlingFiles\otr.private_key.txt">
+    <Content Include="Model\Files\Resources\otr.private_key.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FileHandlingResource.resx">
+    <EmbeddedResource Include="Model\Files\FileResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>FileHandlingResource.Designer.cs</LastGenOutput>
+      <LastGenOutput>FileResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Toolkit\ToolkitResultResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>

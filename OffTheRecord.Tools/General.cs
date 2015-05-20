@@ -23,26 +23,16 @@
 
 namespace OffTheRecord.Tools
 {
-    #region Namespaces
     using System;
     using System.IO;
     using System.Linq;
-    using OffTheRecord.Resources;
-    #endregion
+    using Resources;
 
-    /// <summary>
-    /// General class.
-    /// </summary>
     public static class General
     {
-        /// <summary>
-        /// String to Byte array.
-        /// </summary>
-        /// <param name="hex">string to convert.</param>
-        /// <returns>byte array.</returns>
         public static byte[] StringToByteArray(string hex)
         {
-            // XXX: remove leading '00'.
+            // remove leading '00'.
             if (hex.StartsWith("00"))
             {
                 hex = hex.Substring(2);
@@ -54,24 +44,17 @@ namespace OffTheRecord.Tools
                              .ToArray();
         }
 
-        /// <summary>
-        /// Byte array to String.
-        /// </summary>
-        /// <param name="array">array to convert.</param>
-        /// <returns>a String.</returns>
         public static string ByteArrayToString(byte[] array)
         {
             return BitConverter.ToString(array).Replace("-", string.Empty);
         }
 
-        /// <summary>
+        /// <remarks>
         /// Read from the given stream until we see a complete OTR Key Exchange
         /// or OTR Data message.  Return a newly-allocated pointer to a copy of
         /// this message, which the caller should free().  Returns NULL if no
         /// such message could be found.
-        /// </summary>
-        /// <param name="stream">The input stream.</param>
-        /// <returns>A Off-the-Record message or null if not found.</returns>
+        /// </remarks>
         public static string ReadOtr(Stream stream)
         {
             int seen = 0;
@@ -85,7 +68,8 @@ namespace OffTheRecord.Tools
                 {
                     return null;
                 }
-                else if (c == OtrStrings.OtrHeader[seen])
+                
+                if (c == OtrStrings.OtrHeader[seen])
                 {
                     seen++;
                 }
@@ -106,10 +90,8 @@ namespace OffTheRecord.Tools
                 {
                     return result;
                 }
-                else
-                {
-                    result += char.ConvertFromUtf32(c);
-                }
+                
+                result += char.ConvertFromUtf32(c);
 
                 if (result[result.Length - 1] == '.')
                 {

@@ -26,12 +26,6 @@ using OffTheRecord.Protocol.DiffieHellman;
 
 namespace OffTheRecord.Model
 {
-    #region Namespaces
-
-    
-
-    #endregion
-
     /// <summary>
     ///     AuthInfo class.
     /// </summary>
@@ -39,7 +33,7 @@ namespace OffTheRecord.Model
     {
         public object CurrentState { get; set; }
         public ConnectionContext Context { get; set; }
-        public DH1536 OurDH { get; set; }
+        public Dh1536 OurDH { get; set; }
         public uint OurKeyId { get; set; }
         public string encgx { get; set; }
 
@@ -53,7 +47,7 @@ namespace OffTheRecord.Model
         /// </summary>
         public string hashgx { get; set; }
 
-        public DH1536 TheirPub { get; set; }
+        public Dh1536 TheirPub { get; set; }
         public uint TheirKeyId { get; set; }
 
         public object enc_c { get; set; }

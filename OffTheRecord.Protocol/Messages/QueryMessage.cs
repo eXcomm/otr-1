@@ -53,11 +53,11 @@ namespace OffTheRecord.Protocol.Messages
 
         #region Properties
         /// <summary>
-        /// Gets the Off-the-Record <see cref="OTRMessageType" />.
+        /// Gets the Off-the-Record <see cref="OtrMessageType" />.
         /// </summary>
-        public override OTRMessageType MessageType
+        public override OtrMessageType MessageType
         {
-            get { return OTRMessageType.QueryMessage; }
+            get { return OtrMessageType.QueryMessage; }
         }
         #endregion
 

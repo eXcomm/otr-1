@@ -21,12 +21,7 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
-using System;
-using System.IO;
-using System.Reflection;
-using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OffTheRecord.Tests.Helper;
 using OffTheRecord.Toolkit.Remac;
 
 namespace OffTheRecord.Tests.Toolkit
@@ -43,17 +38,15 @@ namespace OffTheRecord.Tests.Toolkit
             // Reference app to get it build and copied to output folder.
             var app = new Program();
 
-            const string filename = "otr_remac.exe";
-
-            string location = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
-            Tuple<int, string> result = ToolkitRunner.Run(location, filename, "-");
+            ////const string filename = "otr_remac.exe";
+            ////string location = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            ////Tuple<int, string> result = ToolkitRunner.Run(location, filename, "-");
 
             // Assert
             Assert.Inconclusive();
 
-            result.Item1.Should().Be(0);
-            result.Item2.Should().Be(ToolkitResultResource.otr_remac_exe);
+            ////result.Item1.Should().Be(0);
+            ////result.Item2.Should().Be(ToolkitResultResource.otr_remac_exe);
         }
 
         #endregion

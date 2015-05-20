@@ -88,6 +88,7 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helper\ConsoleOutput.cs" />
     <Compile Include="Model\Files\FileResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -100,7 +101,6 @@
     <Compile Include="Protocol\Messages\DataMessageTests.cs" />
     <Compile Include="Protocol\Utils\ParseTests.cs" />
     <Compile Include="Tools\EndianTests.cs" />
-    <Compile Include="Helper\ToolkitRunner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Toolkit\ToolkitResultResource.Designer.cs">
       <AutoGen>True</AutoGen>

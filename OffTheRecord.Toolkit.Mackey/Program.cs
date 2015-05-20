@@ -23,10 +23,8 @@
 
 namespace OffTheRecord.Toolkit.Mackey
 {
-    #region Namespaces
     using System;
     using OffTheRecord.Protocol.DiffieHellman;
-    #endregion
 
     /// <summary>
     /// Off-the-Record Mac Key Program (otr_mackey.exe).
@@ -75,12 +73,12 @@ namespace OffTheRecord.Toolkit.Mackey
         #region Private methods
         private static void Usage(string[] args)
         {
-            string error_msg = string.Format(
+            string errorMsg = string.Format(
                 "Usage: {0} aeskey{1}" +
                 "Calculate and display the MAC key derived from a given AES key.{1}",
                 args[0],
                 Environment.NewLine);
-            Console.WriteLine(error_msg);
+            Console.WriteLine(errorMsg);
             return;
         }
         #endregion

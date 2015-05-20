@@ -21,6 +21,8 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
+using OffTheRecord.Resources;
+
 namespace OffTheRecord.Protocol.Messages
 {
     /// <summary>
@@ -31,16 +33,6 @@ namespace OffTheRecord.Protocol.Messages
         #region Fields
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private static string otrPrefix = "?OTR";
-        private static string otrMessagePrefixAAM = "?OTR:AAM";
-        private static string otrMessagePrefixAAI = "?OTR:AAI";
-
-        private static string otrQueryMessage1 = "?OTR?";
-        private static string otrQueryMessage2 = "?OTRv";
-
-        private static string otrKeyExchangeV1Message = "?OTR:AAEK";
-        private static string otrDataMessage = "?OTR:AAED";
-        private static string otrErrorMessage = "?OTR Error:";
         #endregion
 
         #region Public properties
@@ -58,7 +50,7 @@ namespace OffTheRecord.Protocol.Messages
         /// <returns>The <see cref="OtrMessageType" />.</returns>
         public static OtrMessageType GetType(string msg)
         {
-            int index = msg.IndexOf(otrPrefix);
+            int index = msg.IndexOf(OtrStrings.OtrPrefix);
 
             if (index == -1)
             {
@@ -79,7 +71,7 @@ namespace OffTheRecord.Protocol.Messages
 
                 Log.DebugFormat("Tag: {0}", tag);
 
-                if (string.Compare(tag, otrMessagePrefixAAM) == 0 || string.Compare(tag, otrMessagePrefixAAI) == 0)
+                if (string.Compare(tag, OtrStrings.OtrMessagePrefixAam) == 0 || string.Compare(tag, OtrStrings.OtrMessagePrefixAai) == 0)
                 {
                     char type = msg[index + 8];
 
@@ -101,22 +93,22 @@ namespace OffTheRecord.Protocol.Messages
                 }
                 else
                 {
-                    if (string.Compare(msg.Substring(index, 5), otrQueryMessage1) == 0 || string.Compare(msg.Substring(index, 5), otrQueryMessage2) == 0)
+                    if (string.Compare(msg.Substring(index, 5), OtrStrings.OtrQueryMessage1) == 0 || string.Compare(msg.Substring(index, 5), OtrStrings.OtrQueryMessage2) == 0)
                     {
                         return OtrMessageType.QueryMessage;
                     }
 
-                    if (string.Compare(msg.Substring(index, 9), otrKeyExchangeV1Message) == 0)
+                    if (string.Compare(msg.Substring(index, 9), OtrStrings.OtrKeyExchangeV1Message) == 0)
                     {
                         return OtrMessageType.V1KeyExchangeMessage;
                     }
 
-                    if (string.Compare(msg.Substring(index, 9), otrDataMessage) == 0)
+                    if (string.Compare(msg.Substring(index, 9), OtrStrings.OtrDataMessage) == 0)
                     {
                         return OtrMessageType.DataMessage;
                     }
 
-                    if (string.Compare(msg.Substring(index, 11), otrErrorMessage) == 0)
+                    if (string.Compare(msg.Substring(index, 11), OtrStrings.OtrErrorMessage) == 0)
                     {
                         return OtrMessageType.ErrorMessage;
                     }

@@ -23,14 +23,16 @@
 
 namespace OffTheRecord.Resources
 {
-    /// <summary>
-    /// StaticStrings class.
-    /// </summary>
     public static class OtrStrings
     {
-        /// <summary>
-        /// The Off-the-Record header.
-        /// </summary>
         public const string OtrHeader = "?OTR:";
+        public const string OtrPrefix = "?OTR";
+        public const string OtrMessagePrefixAam = "?OTR:AAM";
+        public const string OtrMessagePrefixAai = "?OTR:AAI";
+        public const string OtrQueryMessage1 = "?OTR?";
+        public const string OtrQueryMessage2 = "?OTRv";
+        public const string OtrKeyExchangeV1Message = "?OTR:AAEK";
+        public const string OtrDataMessage = "?OTR:AAED";
+        public const string OtrErrorMessage = "?OTR Error:";
     }
 }

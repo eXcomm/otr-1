@@ -21,26 +21,32 @@
 // <author>Bjorn Kuiper</author>
 // <email>otr@kuiper.nu</email>
 
-using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OffTheRecord.Tests.Helper;
-using OffTheRecord.Toolkit.Sesskeys;
+using System;
+using System.IO;
 
-namespace OffTheRecord.Tests.Toolkit
+namespace OffTheRecord.Tests.Helper
 {
-    [TestClass]
-    public class SesskeysTests
+    public class ConsoleOutput : IDisposable
     {
-        [TestMethod]
-        public void Sesskeys_Toolkit_validate_with_default_example_set()
+        private readonly StringWriter _stringWriter;
+        private readonly TextWriter _originalOutput;
+
+        public ConsoleOutput()
         {
-            var consoleOutput = new ConsoleOutput();
+            _stringWriter = new StringWriter();
+            _originalOutput = Console.Out;
+            Console.SetOut(_stringWriter);
+        }
 
-            string[] arguments = {"48BFDA215C31A9F0B226B3DB11F862450A0F30DA", "64bfb577c9591b3dbb6b697599f572ce7d1ffc9d"};
+        public string GetOuput()
+        {
+            return _stringWriter.ToString();
+        }
 
-            Program.Main(arguments);
-
-            consoleOutput.GetOuput().Should().Be(ToolkitResultResource.otr_sesskeys_exe);
+        public void Dispose()
+        {
+            Console.SetOut(_originalOutput);
+            _stringWriter.Dispose();
         }
     }
 }
